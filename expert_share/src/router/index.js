@@ -25,7 +25,7 @@ export default new Router({
       component: register
     },
     {
-      path: 'searchPaperResult',
+      path: '/searchPaperResult',
       name: 'searchPaperResult',
       component: searchPaperResult
     }
