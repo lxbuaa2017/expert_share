@@ -4,6 +4,7 @@ import index from '@/components/views/index'
 import login from "../components/views/login"
 import searchPaperResult from "../components/views/searchPaperResult"
 import register from "../components/views/register";
+import test from "../components/views/test";
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
       path: '/searchPaperResult',
       name: 'searchPaperResult',
       component: searchPaperResult
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test
     }
   ]
 })

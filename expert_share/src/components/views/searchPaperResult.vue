@@ -1,51 +1,57 @@
+<style scoped xmlns:vertical-align="http://www.w3.org/1999/xhtml" xmlns:vertical-align="http://www.w3.org/1999/xhtml"
+       xmlns:vertical-align="http://www.w3.org/1999/xhtml">
+  .layout{
+    border: 1px solid #d7dde4;
+    background: #f5f7f9;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .layout-logo{
+    width: 100px;
+    height: 30px;
+    background: #5b6270;
+    border-radius: 3px;
+    float: left;
+    position: relative;
+    top: 15px;
+    left: 20px;
+  }
+  .layout-nav{
+    width: 420px;
+    margin: 0 auto;
+    margin-right: 20px;
+  }
+  .layout-footer-center{
+    text-align: center;
+  }
+</style>
 <template>
-  <List item-layout="vertical">
-    <ListItem v-for="item in data" :key="item.title">
-      <ListItemMeta :avatar="item.avatar" :title="item.title" :description="item.description" />
-      {{ item.content }}
-      <template slot="action">
-        <li>
-          <Icon type="ios-star-outline" /> 123
-        </li>
-        <li>
-          <Icon type="ios-thumbs-up-outline" /> 234
-        </li>
-        <li>
-          <Icon type="ios-chatbubbles-outline" /> 345
-        </li>
-      </template>
-      <template slot="extra">
-        <img src="https://dev-file.iviewui.com/5wxHCQMUyrauMCGSVEYVxHR5JmvS7DpH/large" style="width: 280px">
-      </template>
-    </ListItem>
-  </List>
+  <div>
+    <div class="layout">
+      <Layout>
+        <Header :style="{background: '#f5f7f9',paddingTop:'15px'}">
+            <Input search enter-button="Search" placeholder="Enter something..." size="large"/>
+        </Header>
+        <Layout :style="{padding: '0 50px'}">
+          <Sider hide-trigger :style="{background: '#fff'}">
+            <classification></classification>
+          </Sider>
+          <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+            <paper-result></paper-result>
+          </Content>
+        </Layout>
+        <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
+      </Layout>
+    </div>
+  </div>
+
 </template>
 <script>
+    import classification from "../searchPaperResult/classification";
+    import PaperResult from "../searchPaperResult/paper-result";
     export default {
-        name:'searchPaperResult',
-        data () {
-            return {
-                data: [
-                    {
-                        title: 'This is title 1',
-                        description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                        content: 'This is the content, this is the content, this is the content, this is the content.'
-                    },
-                    {
-                        title: 'This is title 2',
-                        description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                        content: 'This is the content, this is the content, this is the content, this is the content.'
-                    },
-                    {
-                        title: 'This is title 3',
-                        description: 'This is description, this is description, this is description.',
-                        avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                        content: 'This is the content, this is the content, this is the content, this is the content.'
-                    }
-                ]
-            }
-        }
+      name:'searchPaperResult',
+        components: {PaperResult, classification}
     }
 </script>
