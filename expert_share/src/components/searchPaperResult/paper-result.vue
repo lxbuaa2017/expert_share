@@ -5,8 +5,12 @@
         <el-col :span="2">
           <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{i++}}.</h3>
         </el-col>
-        <el-col span="22">
+        <el-col span="21">
           <h3 style="color: #2b81af;text-align: left">{{ item.c_title }}</h3>
+        </el-col>
+        <el-col span="1">
+          <el-button v-if="star===true" icon="el-icon-star-on" circle></el-button>
+          <el-button v-else icon="el-icon-star-off" circle></el-button>
         </el-col>
       </el-row>
       <el-row><p style="line-height: 10px">&nbsp;</p></el-row>
@@ -62,9 +66,9 @@
         data () {
             return {
                 i:1,
+                star:false,
                 papers:[
                     {
-
                         "c_abstract" : "定位是机器人导航的关键问题,在缺乏结构信息的室外非结构化环境下,精确的三维定位面临更大挑战.本文提出一种基于相机与摇摆激光雷达融合的定位算法,重点解决在光照,地面起伏等因素影响下的机器人定位问题.本文结合激光雷达的深度信息和图像的颜色纹理信息,构建在时序帧间的特征点匹配关系;引入一种置信度评价方法,结合系统误差、数据关联、物体遮挡、特征跟踪等因素对特征点及其匹配关系进行评估,减少低质量特征的影响;最终将定位问题转化为特征点对的加权重投影误差优化问题予以解决.本文利用小型轮式移动机器人在越野和公园等典型非结构化环境下进行数据采集和实验验证.实验结果表明,与前沿的视觉定位算法相比,本文算法可有效提高在非结构化环境中的定位精度.",
 
                         "c_author" : "俞毓锋,赵卉菁",
