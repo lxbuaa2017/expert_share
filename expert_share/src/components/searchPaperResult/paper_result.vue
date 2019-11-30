@@ -6,14 +6,14 @@
           <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{i++}}.</h3>
         </el-col>
         <el-col :span=21>
-          <h3 style="color: #2b81af;text-align: left">{{ item.c_title }}</h3>
+          <h3 style="color: #2b81af;text-align: left" ><span v-html="height_light(item.c_title)"></span></h3>
         </el-col>
         <el-col :span=1>
           <el-button v-if="star===true" icon="el-icon-star-on" circle></el-button>
           <el-button v-else icon="el-icon-star-off" circle></el-button>
         </el-col>
       </el-row>
-      <el-row><p style="line-height: 10px">&nbsp;</p></el-row>
+      <el-row><p style="line-height: 5px">&nbsp;</p></el-row>
       <el-row style="color: #2D8cF0">
         <el-col :span=2><p>&nbsp;&nbsp;</p></el-col>
         <el-col :span=22>
@@ -34,7 +34,7 @@
         <el-col  style="font-family: 微软雅黑;font-size: 12px" :span=2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关键词：</p></el-col>
         <el-col :span=22 style="text-align: left">
           <template v-for="keyword in split_keywords(item.c_keywords)">
-            <Tag>{{keyword}}</Tag>
+            <Tag><span v-html="height_light(keyword)"></span></Tag>
           </template>
         </el-col>
       </el-row>

@@ -1,18 +1,12 @@
 <template>
   <div>
   <Menu active-name="1-2" :open-names="['1']">
-    <Submenu name="1">
+    <Submenu name="1" v-for="i in year" :key="i">
       <template slot="title">
         <Icon type="ios-filing" />
         年份
       </template>
-      <MenuItem name="1-1">Option 5</MenuItem>
-      <MenuItem name="1-2">Option 6</MenuItem>
-      <Submenu name="2">
-        <template slot="title">Submenu</template>
-        <MenuItem name="2-1">Option 7</MenuItem>
-        <MenuItem name="2-2">Option 8</MenuItem>
-      </Submenu>
+      <MenuItem name=i>i</MenuItem>
     </Submenu>
     <Submenu name="3">
       <template slot="title">
@@ -30,7 +24,14 @@
 
 <script>
     export default {
-        name: "classification"
+        name: "classification",
+        // props:['year','author']
+        data(){
+            return{
+                'year':[2019,2018],
+                'author':['王小可','张大拿']
+            }
+        }
     }
 </script>
 
