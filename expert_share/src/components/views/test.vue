@@ -101,6 +101,11 @@
 </template>
 <script>
     export default {
-      name:'test'
+      name:'test',
+      methods:{
+          test(){
+              alert('success!')
+          }
+      }
     }
 </script>
