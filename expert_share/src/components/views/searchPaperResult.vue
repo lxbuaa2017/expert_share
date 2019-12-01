@@ -88,6 +88,9 @@
             this.input_keyword=window.localStorage.getItem("input_keyword")
             //this.paper...
             //在刷新前保存信息，刷新后取出
+            this.$axios.get('/api/get_papers').then((res)=>{
+                this.papers=res.data
+            })
             window.localStorage.removeItem("input_keyword")
         },
         methods:{

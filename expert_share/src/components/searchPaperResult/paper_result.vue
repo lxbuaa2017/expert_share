@@ -1,9 +1,9 @@
 <template>
   <ul style="list-style-type: none">
-    <li v-for="item in papers" :key="item.c_title">
+    <li v-for="(item,index) in papers" :key="item.c_title">
       <el-row>
         <el-col :span=2>
-          <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{i++}}.</h3>
+          <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{index+1}}.</h3>
         </el-col>
         <el-col :span=21>
           <h3 style="color: #2b81af;text-align: left" ><span v-html="height_light(item.c_title)"></span></h3>
@@ -67,17 +67,14 @@
             },
             split_keywords(str){
                 return str.split(',')
-            },
-            reload(){
-                this.reload()
             }
         },
         created(){
             document.title='论文搜索结果'
+
         },
         data () {
             return {
-                i:1,
                 star:false
             }
         }
