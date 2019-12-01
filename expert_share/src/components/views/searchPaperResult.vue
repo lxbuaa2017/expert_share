@@ -68,7 +68,8 @@
                      @on-search="handleQuery($event)" size="large"/>
               <br/>
             </div>
-            <paper_result ref="paper_result" :keyword="input_keyword" :papers="papers"></paper_result>
+            <paper_result v-if="paper_result_flag==true" ref="paper_result" :page="page_id" :keyword="input_keyword" :papers="papers"></paper_result>
+            <Page :total="100" :page-size="10" :current="page_id" show-elevator show-total @on-change="page_change"/>
           </Content>
         </Layout>
         <Footer class="layout-footer-center">2019 &copy; kunkun.inc</Footer>
@@ -88,21 +89,39 @@
             this.input_keyword=window.localStorage.getItem("input_keyword")
             //this.paper...
             //在刷新前保存信息，刷新后取出
-            this.$axios.get('/api/get_papers').then((res)=>{
-                this.papers=res.data
-            })
+            // this.$axios.get('/api/get_papers').then((res)=>{
+            //     this.papers=res.data
+            // })
+            // get_papers
             window.localStorage.removeItem("input_keyword")
         },
         methods:{
+          page_change($event){
+            this.page_id=$event
+            this.paper_result_flag=false
+            this.$nextTick(()=>{
+                this.input_keyword='基于'
+                let self=this
+                ///api/get_paper_by_page?page='+self.page_id+'&keyword='+self.input_keyword
+                this.$axios.get('/api/get_papers').then((res)=>{
+                    console.log(res.data)
+                    this.papers=res.data
+                })
+                this.paper_result_flag=true
+            })
+          },
           handleQuery($event){
               self.input_keyword=$event
               window.localStorage.setItem("input_keyword",self.input_keyword)
               //this.aixos...得到后端返回的论文，存到localStorage中，然后刷新（在index的刷新机制中也是这样，把input_keyword和papers存到localStorage，然后路由跳过来）
-              location.reload()
+              // location.reload()
+              this.$refs.paper_result.reload()
           }
         },
         data(){
           return {
+              paper_result_flag:true,
+              page_id:1,
               login:true,
               username:'lx',
               year:[2019,2018,2017],

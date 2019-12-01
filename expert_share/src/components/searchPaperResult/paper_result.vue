@@ -3,7 +3,7 @@
     <li v-for="(item,index) in papers" :key="item.c_title">
       <el-row>
         <el-col :span=2>
-          <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{index+1}}.</h3>
+          <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{(page-1)*10+index+1}}.</h3>
         </el-col>
         <el-col :span=21>
           <h3 style="color: #2b81af;text-align: left" ><span v-html="height_light(item.c_title)"></span></h3>
@@ -54,8 +54,11 @@
 <script>
     export default {
         name:'paper_result',
-        props:['keyword','papers'],
+        props:['keyword','papers','page'],
         methods:{
+            reload(){
+                location.reload()
+            },
             height_light(str){
                let p = this.keyword
                 return str.replace(p,'<span style="color: #880000">'+p+'</span>')
