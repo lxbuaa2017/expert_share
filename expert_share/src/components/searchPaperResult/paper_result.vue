@@ -6,7 +6,12 @@
           <h3 style="color: #2b81af;text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{(page-1)*10+index+1}}.</h3>
         </el-col>
         <el-col :span=21>
-          <h3 style="color: #2b81af;text-align: left" ><span v-html="height_light(item.c_title)"></span></h3>
+          <h3 style="color: #2b81af;text-align: left" >
+            <router-link :to="{path:'paper/',
+           query:{paper_id:item._id.$oid}}"
+             target="_blank" v-html="height_light(item.c_title)">
+            </router-link>
+          </h3>
         </el-col>
         <el-col :span=1>
           <el-button v-if="star===true" icon="el-icon-star-on" circle></el-button>
@@ -56,8 +61,12 @@
         name:'paper_result',
         props:['keyword','papers','page'],
         methods:{
-            reload(){
-                location.reload()
+            // reload(){
+            //     location.reload()
+            // },
+            open_paper(o){
+                console.log(o)
+                return ''
             },
             height_light(str){
                let p = this.keyword
