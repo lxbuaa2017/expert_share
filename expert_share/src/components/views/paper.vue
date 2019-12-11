@@ -80,7 +80,7 @@
                 <br/>
                 <el-row type="flex" justify="left">
                   <el-col :span=3>
-                    <Button :size="buttonSize" icon="ios-cloudy-outline" type="default">链接</Button>
+                    <Button :size="buttonSize" icon="ios-cloudy-outline" type="default"><a target="_blank" :href="paper.url">链接</a></Button>
                   </el-col>
                   <el-col :span=3>
                     <Button :size="buttonSize" icon="md-bookmark" type="default">收藏</Button>
@@ -89,7 +89,7 @@
                 <br/>
                 <el-row class="abstract">
                   <Card style="width:640px;height: 120px">
-                    <div style="text-align:center">
+                    <div style="text-align:left">
                       <span style="font-family: 微软雅黑;font-size: 14px;color:RGB(137,137,137);font-weight: 700">摘要:</span>
                       {{paper.c_abstract}}
                     </div>
@@ -136,6 +136,17 @@
                     <Table :columns="columns1" :data="recommend_papers"></Table>
                   </template>
                 </el-row>
+                <br/><br/><br/><br/>
+                <el-row type="flex" justify="left">
+                  <p style="font-family: 微软雅黑;line-height: 35px;font-size: 24px;font-weight: 400;color: rgb(66, 125, 201)">推荐专家</p>
+                  <br/>
+                </el-row>
+                <el-row>
+                  <br/><br/>
+                  <template class="abstract">
+                    <Table :columns="columns2" :data="recommend_experts"></Table>
+                  </template>
+                </el-row>
               </el-col>
             </el-row>
           </Content>
@@ -162,6 +173,16 @@
                         key: 'c_author'
                     }
                 ],
+                columns2:[
+                    {
+                        title:'姓名',
+                        key:'name'
+                    },
+                    {
+                        title:'单位',
+                        key:'unit'
+                    }
+                ],
                 login:true,
                 username:'lx',
                 paper:
@@ -170,6 +191,9 @@
                         { "_id" : { "$oid" : "5de33f200031bb949dbd682d" }, "c_abstract" : "本文介绍了一种基于凌阳十六位单片机SPCE061 A,能识别不同节奏舞曲的智能机器人.凌阳SPCE061A单片机内部集成了专门处理语音信号的ADO、DAC、AGO等电路,能非常方便地实现对麦克风音乐信号的放大和采集.在数据处理时,对采集的数据进行FFT变换,并由此来识别不同舞曲的节奏,并利用变址法和离散傅立叶变换系数WN程序化等方法进一步提高FFT变换的计算的速度.利用这种方法,通过多次试验能实现对慢三和慢四舞曲的识别.", "c_author" : "何毅,梅雪,黄超,安飞,余阳,林锦国", "c_keywords" : "单片机(SPCE061A),舞曲节奏,信号处理,机器人", "c_periodical" : "制造业自动化", "c_title" : "能识别舞曲节奏的智能机器人", "e_periodical" : "MANUFACTURING AUTOMATION", "e_title" : "The Intelligent Robot which can identify the different dance music rhythms", "fund" : "", "indexID" : "2010, 32(1)", "time" : "2010年3月30日", "units" : "南京工业大学,自动化与电气工程学院,南京,211800", "url" : "http://d.old.wanfangdata.com.cn/Periodical/zzyzdh201001051" },
                         { "_id" : { "$oid" : "5de33f200031bb949dbd682e" }, "c_abstract" : "本文主要介绍了在高电压功率测量和近场显微技术等领域中,通过分析计算坡印亭矢量来解决科技生活中一些实际问题的方法.", "c_author" : "谢小乐", "c_keywords" : "坡印亭矢量,计算,应用", "c_periodical" : "制造业自动化", "c_title" : "分析坡印亭矢量在实际问题中的应用", "e_periodical" : "MANUFACTURING AUTOMATION", "e_title" : "The application on the analysis about the poynting vector in modern scientific life", "fund" : "", "indexID" : "2010, 32(1)", "time" : "2010年3月30日", "units" : "江西电力职业技术学院,南昌,330032", "url" : "http://d.old.wanfangdata.com.cn/Periodical/zzyzdh201001050" },
                         { "_id" : { "$oid" : "5de33f210031bb949dbd6832" }, "c_abstract" : "阐述了ControlLosix冗余PLC系统在九华街污水处理系统中的应用.", "c_author" : "石磊", "c_keywords" : "ControlLogix冗余PLC,污水处理", "c_periodical" : "制造业自动化", "c_title" : "PLC系统在九华街污水处理系统的应用", "e_periodical" : "MANUFACTURING AUTOMATION", "e_title" : "The application of PLC system on Jiuhuajie wastewater treatment system", "fund" : "", "indexID" : "2010, 32(1)", "time" : "2010年3月30日", "units" : "北京机械工业自动化研究所,北京,100120", "url" : "http://d.old.wanfangdata.com.cn/Periodical/zzyzdh201001046" }
+                ],
+                recommend_experts:[
+                    {"name":"金茂忠","unit":"北京航空航天大学"}
                 ]
             }
         },
