@@ -7,6 +7,7 @@ import expertMainPage from "../components/views/expertMainPage"
 import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
+import userMainpage from "../components/views/userMainpage";
 Vue.use(Router)
 
 export default new Router({
@@ -40,7 +41,12 @@ export default new Router({
     {
       path: '/paper',
       name: 'paper',
-      component: paper,
+      component: paper
+    },
+    {
+      path: '/userMainpage',
+      name: 'userMainpage',
+      component: userMainpage
     },
     {
       path: '/test',
