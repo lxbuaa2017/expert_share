@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import index from '@/components/views/index'
 import login from "../components/views/login"
 import searchPaperResult from "../components/views/searchPaperResult"
+import expertMainPage from "../components/views/expertMainPage"
 import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
@@ -20,6 +21,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/expertMainPage',
+      name: 'expertMainPage',
+      component: expertMainPage
     },
     {
       path: '/register',

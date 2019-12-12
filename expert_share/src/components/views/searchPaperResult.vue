@@ -99,15 +99,15 @@
           page_change($event){
             this.page_id=$event
             this.paper_result_flag=false
-            this.$nextTick(()=>{
-                this.input_keyword='基于'
-                let self=this
-                ///api/get_paper_by_page?page='+self.page_id+'&keyword='+self.input_keyword
-                this.$axios.get('/api/get_papers').then((res)=>{
+                this.$nextTick(()=>{
+                  this.input_keyword='基于'
+                  let self=this
+                  ///api/get_paper_by_page?page='+self.page_id+'&keyword='+self.input_keyword
+                  this.$axios.get('/api/get_papers').then((res)=>{
                     console.log(res.data)
                     this.papers=res.data
-                })
-                this.paper_result_flag=true
+                  })
+                  this.paper_result_flag=true
             })
           },
           handleQuery($event){
