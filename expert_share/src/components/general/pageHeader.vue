@@ -7,13 +7,13 @@
         <Col :span=1><a style="font-size: 17px">首页</a></Col>
         <Col :span=7>&nbsp;</Col>
         <Col :span=5>
-          <div style="text-align: right">
+          <div v-if="login===true" style="text-align: right">
             <Dropdown style="text-align: center">
               <Button type="primary">
                 {{username}}
                 <Icon type="ios-arrow-down"></Icon>
               </Button>
-              <DropdownMenu v-if="login===true" slot="list">
+              <DropdownMenu slot="list">
                 <DropdownItem>个人信息</DropdownItem>
                 <DropdownItem>收藏</DropdownItem>
                 <DropdownItem>关注</DropdownItem>
@@ -22,11 +22,12 @@
                   <div @click="logout()">退出账户</div>
                 </DropdownItem>
               </DropdownMenu>
-              <DropdownMenu v-else slot="list">
-                <DropdownItem>登录</DropdownItem>
-                <DropdownItem>注册</DropdownItem>
-              </DropdownMenu>
             </Dropdown>
+          </div>
+          <div v-else style="text-align: right">
+            <Button type="primary">
+              登录/注册
+            </Button>
           </div>
         </Col>
         <Col :span=4>&nbsp;</Col>
