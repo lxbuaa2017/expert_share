@@ -1,5 +1,7 @@
 <template>
-  myFollows
+  <Layout>
+    myFollows
+  </Layout>
 </template>
 
 <script>

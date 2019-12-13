@@ -1,5 +1,7 @@
 <template>
-  myFavorites
+  <Layout>
+    myFavorites
+  </Layout>
 </template>
 
 <script>
