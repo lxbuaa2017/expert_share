@@ -30,18 +30,35 @@
             </el-col>
           </el-row>
         </Header>
-        <row>
+        <Content :style="{padding: '24px',background: '#f5f7f9'}">
+          <div style="padding-left: 22px;padding-right: 22px;padding-top: 0px">
+            <Input search enter-button="Search"  type="text" placeholder="Enter something..."
+                   @on-search="handleQuery($event)" size="large"/>
+          </div>
+        </Content>
+        <Layout>
           <Sider hide-trigger :style="{background: '#fff'}">
-            <classification></classification>
+            <row>
+              <div style="padding-left: 22px;padding-top: 0px">
+                <Input search enter-button="Search"  type="text" placeholder="Enter something..."
+                       @on-search="handleQuery($event)" size="large"/>
+                <br/>
+              </div>
+            </row>
           </Sider>
-          <el-col :span="4">
-            <div class="demo-avatar" >
-              <Avatar icon="ios-person" size="large" />
-            </div>
-          </el-col>
-          <el-col :span="4" align="left"><h1>{{username}}</h1></el-col>
-          <el-col :span="16"></el-col>
-        </row>
+          <Content :style="{background: '#fff'}">
+            <row>
+              <Col span="2">
+              <div class="demo-avatar" >
+                <Avatar icon="ios-person" size=100  />
+              </div>
+              </Col>
+                <Col span="15" >
+                  <div style="padding-top: 30px"><h1 align="left" >{{username}}</h1></div>
+                </Col>
+            </row>
+          </Content>
+        </Layout>
         <Footer class="layout-footer-center">2019 &copy; kunkun.inc</Footer>
       </Layout>
     </div>
