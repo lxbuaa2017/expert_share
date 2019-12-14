@@ -14,8 +14,16 @@
                 <Icon type="ios-arrow-down"></Icon>
               </Button>
               <DropdownMenu slot="list">
-                <DropdownItem>个人信息</DropdownItem>
-                <DropdownItem>收藏</DropdownItem>
+                <DropdownItem>
+                  <router-link :to="{path: '/userMainpage'}">
+                    个人信息
+                  </router-link>
+                </DropdownItem>
+                <DropdownItem>
+                  <router-link :to="{path: '/userFavorites'}">
+                    收藏
+                  </router-link>
+                </DropdownItem>
                 <DropdownItem>关注</DropdownItem>
                 <DropdownItem>粉丝</DropdownItem>
                 <DropdownItem>
