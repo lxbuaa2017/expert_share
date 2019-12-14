@@ -40,6 +40,11 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: test
+    },
+    {
+      path: '/highsearch',
+      name: 'highsearch',
+      component: test
     }
   ]
 })
