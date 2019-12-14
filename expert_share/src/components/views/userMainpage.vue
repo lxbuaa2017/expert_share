@@ -20,40 +20,16 @@
             </Row>
             <Row>
               <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
-                  <Menu theme="light" width="auto" :open-names="['1']">
-                    <Submenu name="1">
-                      <template slot="title">
-                        个人中心
-                      </template>
-                      <MenuItem name="1-1">个人中心</MenuItem>
-                      <MenuItem name="1-2">我的收藏</MenuItem>
-                      <MenuItem name="1-3">我的关注</MenuItem>
-                    </Submenu>
-                    <Submenu name="2">
-                      <template slot="title">
-                        管理平台
-                      </template>
-                      <MenuItem name="2-1" v-if="userType ==='user'">
-                        <div @click="apply">申请成为专家</div>
-                      </MenuItem>
-                      <MenuItem name="2-2" v-if="userType ==='expert'">我的论文</MenuItem>
-                      <MenuItem name="2-3" v-if="userType ==='expert'">我的项目</MenuItem>
-                      <MenuItem name="2-4" v-if="userType ==='expert'">我的专利</MenuItem>
-                    </Submenu>
-                    <Submenu name="3">
-                      <template slot="title">
-                        其他
-                      </template>
-                      <MenuItem name="3-1">联系我们</MenuItem>
-                    </Submenu>
-                  </Menu>
-                </Sider>
-                <Layout :style="{padding: '0 24px 24px'}">
-                  <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                    <personalCenter></personalCenter>
-                  </Content>
-                </Layout>
+                <Row>
+                  <Col span=4>
+                    <userMainpageSider></userMainpageSider>
+                  </Col>
+                  <Col span=20>
+                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+                      <personalCenter></personalCenter>
+                    </Content>
+                  </Col>
+                </Row>
               </Layout>
             </Row>
           </Col>
@@ -67,22 +43,11 @@
 
 <script>
   import pageHeader from "../general/pageHeader";
-  import personalCenter from "../userMainpage/personalCenter";
   import searchBox from "../general/searchBox";
+  import userMainpageSider from "../general/userMainpageSider";
+  import personalCenter from "../userMainpage/personalCenter";
   export default {
     name: "userMainPage",
-    data() {
-      return {
-        login: true,
-        username: 'cxm',
-        userType: 'user'
-      }
-    },
-    methods: {
-      apply: function () {
-        this.userType = 'expert';
-      }
-    },
-    components: {pageHeader, searchBox, personalCenter}
+    components: {pageHeader, searchBox, userMainpageSider, personalCenter}
   }
 </script>
