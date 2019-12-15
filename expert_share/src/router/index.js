@@ -8,6 +8,8 @@ import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
 import userMainpage from "../components/views/userMainpage";
+import userFavorites from "../components/views/userFavorites";
+import userFollows from "../components/views/userFollows";
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +49,16 @@ export default new Router({
       path: '/userMainpage',
       name: 'userMainpage',
       component: userMainpage
+    },
+    {
+      path: '/userFavorites',
+      name: 'userFavorites',
+      component: userFavorites
+    },
+    {
+      path: '/userFollows',
+      name: 'userFollows',
+      component: userFollows
     },
     {
       path: '/test',

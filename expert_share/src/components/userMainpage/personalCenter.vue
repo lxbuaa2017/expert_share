@@ -36,11 +36,10 @@
         </Content>
       </Col>
       <Col span=8>
-        <Content align="left" style="padding-left: 30px; border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
+        <Content align="left" style="border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
           <Row class="row">
             <h2 align="center">账户余额</h2>
           </Row>
-          <br>
           <Row class="row">
             <div align="center">
               <span style="text-align: center; font-size: 40px; font-family: 'Microsoft YaHei'; color: darkorange">{{money.toFixed(2)}}</span>元
@@ -56,16 +55,17 @@
         </Content>
       </Col>
     </Row>
+    <br>
     <Row>
       <Col span=8>
-        <Content align="left" style="padding-left: 30px; border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
+        <Content align="left" style="border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
           <div align="center">
             <Button>修改资料</Button>
           </div>
         </Content>
       </Col>
       <Col span=8>
-        <Content align="left" style="padding-left: 30px; border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
+        <Content align="left" style="border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
           <div align="center">
             <Button>点此充值</Button>
           </div>
