@@ -8,7 +8,7 @@
         <el-col :span=21>
           <h3 style="color: #2b81af;text-align: left" >
             <router-link :to="{path:'paper/',
-           query:{paper_id:item._id.$oid}}"
+           query:{paper_id:item.id}}"
              target="_blank" v-html="height_light(item.c_title)">
             </router-link>
           </h3>
@@ -23,7 +23,7 @@
         <el-col :span=2><p>&nbsp;&nbsp;</p></el-col>
         <el-col :span=22>
           <p style="text-align: left">{{item.c_author}} &nbsp;&nbsp;-&nbsp;&nbsp;《{{item.c_periodical}}》&nbsp;&nbsp;&nbsp;-
-            {{item.indexID.substring(0,4)}}年{{month_regex(item.indexID)}}期</p>
+            {{item.indexid.substring(0,4)}}年{{month_regex(item.indexid)}}期</p>
         </el-col>
       </el-row>
       <el-row><p style="line-height: 10px">&nbsp;</p></el-row>
@@ -59,11 +59,12 @@
 <script>
     export default {
         name:'paper_result',
+        inject:['reload'],
         props:['keyword','papers','page'],
         methods:{
-            // reload(){
-            //     location.reload()
-            // },
+            reload(){
+                location.reload()
+            },
             open_paper(o){
                 console.log(o)
                 return ''
