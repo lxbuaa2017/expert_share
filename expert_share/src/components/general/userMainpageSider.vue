@@ -5,20 +5,14 @@
         <template slot="title">
           个人中心
         </template>
-        <MenuItem name="1-1">
-          <router-link :to="{path: '/userMainpage'}">
-            个人中心
-          </router-link>
+        <MenuItem name="1-1" :to="{path: '/userMainpage'}">
+          个人中心
         </MenuItem>
-        <MenuItem name="1-2">
-          <router-link :to="{path: '/userFavorites'}">
-            我的收藏
-          </router-link>
+        <MenuItem name="1-2" :to="{path: '/userFavorites'}">
+          我的收藏
         </MenuItem>
-        <MenuItem name="1-3">
-          <div>
-            我的关注
-          </div>
+        <MenuItem name="1-3" :to="{path: '/userFollows'}">
+          我的关注
         </MenuItem>
       </Submenu>
       <Submenu name="2">

@@ -27,7 +27,7 @@
                   <Col span=1>&nbsp;</Col>
                   <Col span=19>
                     <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                      <personalCenter></personalCenter>
+                      <showFollows :experts="experts"></showFollows>
                     </Content>
                   </Col>
                 </Row>
@@ -46,9 +46,35 @@
   import pageHeader from "../general/pageHeader";
   import searchBox from "../general/searchBox";
   import userMainpageSider from "../general/userMainpageSider";
-  import personalCenter from "../userMainpage/personalCenter";
+  import showFollows from "../userMainpage/showFollows";
   export default {
-    name: "userMainPage",
-    components: {pageHeader, searchBox, userMainpageSider, personalCenter}
-  }
+    name: "userFollows",
+    data() {
+      return {
+        page_id: 1,
+        username: 'cxm',
+        experts: [
+          {
+            "name": "王乾伟0",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+          {
+            "name": "王乾伟1",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+          {
+            "name": "王乾伟2",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+        ]
+      }
+    },
+    components: {pageHeader, searchBox, userMainpageSider, showFollows}
+    }
 </script>

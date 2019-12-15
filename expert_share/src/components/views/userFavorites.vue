@@ -24,7 +24,8 @@
                   <Col span=4>
                     <userMainpageSider></userMainpageSider>
                   </Col>
-                  <Col span=20>
+                  <Col span=1>&nbsp;</Col>
+                  <Col span=19>
                     <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
                       <paper_result v-if="paper_result_flag==true" ref="paper_result" :page="page_id" :keyword="input_keyword" :papers="papers"></paper_result>
                       <Page :total="100" :page-size="10" :current="page_id" show-elevator show-total @on-change="page_change"/>
@@ -52,12 +53,6 @@
     inject: ['reload'],
     created(){
       this.input_keyword=window.localStorage.getItem("input_keyword")
-      //this.paper...
-      //在刷新前保存信息，刷新后取出
-      // this.$axios.get('/api/get_papers').then((res)=>{
-      //     this.papers=res.data
-      // })
-      // get_papers
       window.localStorage.removeItem("input_keyword")
       this.page_change(1)
     },
@@ -76,9 +71,7 @@
         this.page_id=$event
         this.paper_result_flag=false
         this.$nextTick(()=>{
-          // this.input_keyword='基于'
           let self=this
-          ///api/get_paper_by_page?page='+self.page_id+'&keyword='+self.input_keyword
           this.$axios.get('api/get_papers/?page='+self.page_id+'&keyword='+self.input_keyword).then((res)=>{
             console.log(res.data)
             this.papers=res.data

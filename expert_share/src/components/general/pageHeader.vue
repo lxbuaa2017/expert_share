@@ -24,8 +24,11 @@
                     收藏
                   </router-link>
                 </DropdownItem>
-                <DropdownItem>关注</DropdownItem>
-                <DropdownItem>粉丝</DropdownItem>
+                <DropdownItem>
+                  <router-link :to="{path: '/userFollows'}">
+                    关注
+                  </router-link>
+                </DropdownItem>
                 <DropdownItem>
                   <div @click="logout()">退出账户</div>
                 </DropdownItem>
