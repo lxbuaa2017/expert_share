@@ -49,6 +49,8 @@
   import showFollows from "../userMainpage/showFollows";
   export default {
     name: "userFollows",
+    created() {
+    },
     data() {
       return {
         page_id: 1,
