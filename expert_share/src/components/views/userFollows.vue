@@ -49,7 +49,13 @@
   import showFollows from "../userMainpage/showFollows";
   export default {
     name: "userFollows",
-    created() {
+    created(){
+      this.$nextTick(()=> {
+        this.$axios.get('api/get_follows/?name='+this.username).then((res) => {
+          console.log(res.data);
+          this.experts = res.data;
+        })
+      });
     },
     data() {
       return {
@@ -57,23 +63,23 @@
         username: 'cxm',
         experts: [
           {
-            "name": "王乾伟0",
-            "location": "北京航空航天大学",
+            "name": "王乾伟3",
+            "location": "laji",
             "avatar": "",
             "isFollowed": true,
           },
           {
-            "name": "王乾伟1",
-            "location": "北京航空航天大学",
+            "name": "王乾伟4",
+            "location": "laji",
             "avatar": "",
             "isFollowed": true,
           },
           {
-            "name": "王乾伟2",
-            "location": "北京航空航天大学",
+            "name": "王乾伟5",
+            "location": "laji",
             "avatar": "",
             "isFollowed": true,
-          },
+          }
         ]
       }
     },

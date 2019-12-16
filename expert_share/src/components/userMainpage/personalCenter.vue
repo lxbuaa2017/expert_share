@@ -23,12 +23,12 @@
             <h4>用&nbsp;&nbsp;户&nbsp;&nbsp;名： {{username}}</h4>
           </Row>
           <Row class="row">
-            <h4>注册手机： {{nowUser.phoneNumber}}</h4>
+            <h4>注册手机： {{phoneNumber}}</h4>
           </Row>
           <Row class="row">
-            <h4 v-if="nowUser.userType==='user'">用户类型： 普通用户</h4>
-            <h4 v-if="nowUser.userType==='expert'">用户类型： 科技专家</h4>
-            <h4 v-if="nowUser.userType==='admin'">用户类型： 管理员</h4>
+            <h4 v-if="userType==='user'">用户类型： 普通用户</h4>
+            <h4 v-if="userType==='expert'">用户类型： 科技专家</h4>
+            <h4 v-if="userType==='admin'">用户类型： 管理员</h4>
           </Row>
         </Content>
       </Col>
@@ -39,7 +39,7 @@
           </Row>
           <Row class="row">
             <div align="center">
-              <span style="text-align: center; font-size: 40px; font-family: 'Microsoft YaHei'; color: darkorange">{{nowUser.money}}</span>元
+              <span style="text-align: center; font-size: 40px; font-family: 'Microsoft YaHei'; color: darkorange">{{money}}</span>元
             </div>
           </Row>
         </Content>
@@ -75,26 +75,23 @@
 <script>
   export default {
     name: "personalCenter",
-    mounted(){
-
-      let self = this
+    created(){
       this.$nextTick(()=> {
-        this.$axios.get('api/get_user/').then((res) => {
-          alert('hhhhh')
+        this.$axios.get('api/get_user/?name='+this.username).then((res) => {
           console.log(res.data)
-          self.nowUser = res.data
+          this.userType = res.data.userType;
+          this.phoneNumber = res.data.phoneNumber;
+          this.money = res.data.money;
         })
-      })
+      });
     },
     data() {
       return {
         login: true,
         username: 'cxm',
-        nowUser: {
-          'userType': 'user',
-          'phoneNumber': '13522222222',
-          'money': '0.00'
-        }
+        userType: 'user',
+        phoneNumber: '13522222222',
+        money: '0.00',
       }
     }
   }
