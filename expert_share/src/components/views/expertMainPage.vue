@@ -52,6 +52,7 @@
           <Sider hide-trigger :style="{paddingTop: '130px',background: '#fff'}">
             <Row>
               <div class="title" style="padding-left: 10px;" align="left">相关学者</div>
+              <ex-show-follows :experts="experts"></ex-show-follows>
               <Divider type="horizontal" />
             </Row>
           </Sider>
@@ -88,15 +89,45 @@
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
                     <Col span="5" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
-                    <Col span="12"><div style="padding-top: 0px" ><h1 align="left">总文献量</h1></div></Col>
+                    <Col span="12"><div style="padding-top: 0px" ><h2 align="left">总文献量</h2></div></Col>
                   </Row>
                 </Col>
-                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">dad</Col>
-                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">dad</Col>
-                <Col span=6 :style="{minHeight:'100px'}">dad</Col>
+                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
+                  <Row style="padding-top: 32px">
+                    <Col span="5" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="12"><div style="padding-top: 0px" ><h2 align="left">核心发文量</h2></div></Col>
+                  </Row>
+                </Col>
+                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
+                  <Row style="padding-top: 32px">
+                    <Col span="5" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="12"><div style="padding-top: 0px" ><h2 align="left">总被引量</h2></div></Col>
+                  </Row>
+                </Col>
+                <Col span=6 :style="{minHeight:'100px'}">
+                  <Row style="padding-top: 32px">
+                    <Col span="5" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="12"><div style="padding-top: 0px" ><h2 align="left">篇均被引量</h2></div></Col>
+                  </Row>
+                </Col>
               </Col>
               <Col span="4"></Col>
             </Row>
+            <Row>
+              <Col span="12">
+                <div><h1>个人成果数</h1></div>
+                <div id="myChart1" :style="{paddingTop: '0px',width: '600px', height: '600px'}">
+                  <Echarts></Echarts>
+                </div>
+              </Col>
+              <Col span="12">
+                <div><h1>成果引用数</h1></div>
+                <div id="myChart2" :style="{paddingTop: '0px',width: '600px', height: '600px'}">
+                  <Echarts></Echarts>
+                </div>
+              </Col>
+            </Row>
+
           </Content>
         </Layout>
         <Footer class="layout-footer-center">2019 &copy; kunkun.inc</Footer>
@@ -109,16 +140,49 @@
   import classification from "../searchPaperResult/classification";
   import paper_result from "../searchPaperResult/paper_result";
   import pageHeader from "../general/pageHeader";
+  import exShowFollows from "../expertMainPage/exShowFollows";
+  import Echarts from "../expertMainPage/Echarts";
   export default {
     data () {
       return {
         username: 'thh',
         expertname:'雷晓辉',
         expertadd:'广东省广州市天河区教育局',
-        theme1: 'light'
-
+        theme1: 'light',
+        experts: [
+          {
+            "name": "褚兮铭0",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+          {
+            "name": "褚兮铭1",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+          {
+            "name": "褚兮铭2",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+          {
+            "name": "褚兮铭3",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+          {
+            "name": "褚兮铭4",
+            "location": "北京航空航天大学",
+            "avatar": "",
+            "isFollowed": true,
+          },
+        ]
       }
     },
-    components: {paper_result, classification,pageHeader}
+    components: {paper_result, classification,pageHeader,exShowFollows,Echarts}
   }
 </script>

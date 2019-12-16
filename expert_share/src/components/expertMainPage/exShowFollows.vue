@@ -1,16 +1,13 @@
 <template>
   <Layout>
     <Card padding=20 style="height: 150px" v-for="expert in experts" :key="experts">
-      <Col span=6>
-        <Avatar icon="ios-person" size=100 />
-      </Col>
-      <Col align="left" span=12>
-        <h1>{{expert.name}}</h1>
+        <Avatar icon="ios-person" size=30 />
+        {{expert.name}}
         <br>
-        <h2>{{expert.location}}</h2>
-      </Col>
+        {{expert.location}}
+      <br/>
       <Col v-if="expert.isFollowed==true" span=6>
-        <Button icon="md-heart" @click="disFollow(expert)">已关注&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+        <Button icon="md-heart"  @click="disFollow(expert)" size="small">已关注&nbsp;&nbsp;&nbsp;&nbsp;</Button>
       </Col>
       <Col v-else span=6>
         <Button icon="md-heart-outline" @click="follow(expert)">关注专家</Button>
