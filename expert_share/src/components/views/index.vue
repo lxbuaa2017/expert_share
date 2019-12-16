@@ -52,11 +52,13 @@
       </Header>
 
     </Layout>
-    <div style="padding-left: 22px;padding-top: 0px">
-      <Input search enter-button="Search"  type="text" placeholder="请输入搜索内容"
-             @on-search="handleQuery($event)" size="large"/>
-      <el-button type="text" @click="dialogVisible = true"> 高级搜索</el-button>
-
+    <div style="padding: 22px;display: inline-block;width: 100%">
+      <!--Input search enter-button="搜索"  type="text" placeholder="请输入搜索内容"
+             @on-search="handleQuery($event)" size="large" style="width: 70%; float: left"/-->
+      <el-input type="text" placeholder="请输入搜索内容" style="width: 30%;padding-right: 20px"/>
+      <el-button type="primary" @click="handleQuery">搜索</el-button>
+      <el-button type="primary" @click="dialogVisible = true">高级搜索</el-button>
+    </div>
       <el-dialog
         title="高级检索"
         :visible.sync="dialogVisible"
@@ -92,7 +94,7 @@
         <span slot="footer" class="dialog-footer">
   </span>
       </el-dialog>
-    </div>
+
     <!--router-link :to="{path:'paper/',
            query:{paper_id:item._id.$oid}}"
                  target="_blank" v-html="height_light(item.c_title)"-->
