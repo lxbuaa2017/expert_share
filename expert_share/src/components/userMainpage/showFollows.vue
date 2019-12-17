@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Card style="height: 150px" v-for="(expert, index) in experts" :key="index">
+    <Card style="height: 150px" v-for=" (expert, index) in experts" :key="index">
       <Col span=6>
         <Avatar icon="ios-person" size=100 />
       </Col>

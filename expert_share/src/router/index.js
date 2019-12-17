@@ -9,6 +9,7 @@ import paper from "../components/views/paper";
 import userMainpage from "../components/views/userMainpage";
 import userFavorites from "../components/views/userFavorites";
 import userFollows from "../components/views/userFollows";
+import userMessageBox from "../components/views/userMessageBox";
 Vue.use(Router)
 
 export default new Router({
@@ -55,9 +56,9 @@ export default new Router({
       component: userFollows
     },
     {
-      path: '/test',
-      name: 'test',
-      component: test
+      path: '/userMessageBox',
+      name: 'userMessageBox',
+      component: userMessageBox
     }
   ]
 })

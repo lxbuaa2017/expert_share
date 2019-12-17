@@ -19,19 +19,8 @@
         <template slot="title">
           管理平台
         </template>
-        <MenuItem name="2-1" v-if="userType ==='user'">
-          <div>
-            申请成为专家
-          </div>
-        </MenuItem>
-        <MenuItem name="2-2" v-if="userType ==='expert'">
-          我的论文
-        </MenuItem>
-        <MenuItem name="2-3" v-if="userType ==='expert'">
-          我的项目
-        </MenuItem>
-        <MenuItem name="2-4" v-if="userType ==='expert'">
-          我的专利
+        <MenuItem name="2-1" :to="{path: '/userMessageBox'}">
+          私聊
         </MenuItem>
       </Submenu>
       <Submenu name="3">
@@ -51,7 +40,6 @@
       name: "userMainpageSider",
       data() {
         return {
-          userType: 'user',
         }
       },
     }

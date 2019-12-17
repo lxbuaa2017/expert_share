@@ -52,13 +52,12 @@
     name: "userFavorites",
     inject: ['reload'],
     created(){
-      this.input_keyword=window.localStorage.getItem("input_keyword")
-      window.localStorage.removeItem("input_keyword")
       this.page_change(1)
     },
     data() {
       return {
         paper_result_flag: true,
+        username: 'cxm',
         page_id: 1,
         input_keyword:'',
         papers:[
@@ -72,7 +71,7 @@
         this.paper_result_flag=false
         this.$nextTick(()=>{
           let self=this
-          this.$axios.get('api/get_papers/?page='+self.page_id+'&keyword='+self.input_keyword).then((res)=>{
+          this.$axios.get('api/get_favorites?name='+this.username).then((res)=>{
             console.log(res.data)
             this.papers=res.data
           })
