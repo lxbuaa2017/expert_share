@@ -212,7 +212,7 @@
         } else {
           this.showTishi = false
           let data = {'phone': this.phone}
-          this.$axios.post('/api/sendSms', data, {withCredentials: true}).then((res) => {
+          this.$axios.post('/api/sendSms', data).then((res) => {
             this.btnText = '正在发送...'
             this.isDisabled = true
             console.log(res)
@@ -259,8 +259,8 @@
           this.tishi = '手机号无效'
           this.showTishi = true
         } else {
-          let verify = {'code': this.authentication}
-          this.$axios.post('/api/verify', verify, {withCredentials: true}).then((res) => {
+          let verify = {'phone': this.phone, 'code': this.authentication}
+          this.$axios.post('/api/verify', verify).then((res) => {
             console.log(res)
             if (res.data !== 0) {
               this.tishi = '验证码错误'
