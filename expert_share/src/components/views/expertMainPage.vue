@@ -184,7 +184,6 @@
     created() {
       this.$nextTick(()=> {
         this.$axios.get('api/get_user/').then((res) => {
-          console.log(res.data);
           this.username=res.data.username;
         });
       this.$axios.get('api/get_nowexpert/?user='+this.username).then((res) => {
@@ -193,6 +192,7 @@
         this.followed=res.data.isFollowed;
       });
       this.$axios.get('api/get_relation/?name='+this.expertname+'&user='+this.username).then((res) => {
+        console.log(res);
         this.experts=res.data;
       });
       this.$axios.get('api/get_field/?name='+this.expertname).then((res) => {

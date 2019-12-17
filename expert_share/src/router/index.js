@@ -10,6 +10,8 @@ import paper from "../components/views/paper";
 import userMainpage from "../components/views/userMainpage";
 import userFavorites from "../components/views/userFavorites";
 import userFollows from "../components/views/userFollows";
+import applicationForExpert from "../components/views/applicationForExpert";
+import Echarts from "../components/expertMainPage/Echarts";
 Vue.use(Router)
 
 export default new Router({
@@ -69,6 +71,11 @@ export default new Router({
       path: '/highsearch',
       name: 'highsearch',
       component: test
+    },
+    {
+      path: '/Echarts',
+      name: 'Echarts',
+      component:Echarts
     }
   ]
 })
