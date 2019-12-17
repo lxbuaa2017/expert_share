@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <Card padding=20 style="height: 150px" v-for="expert in experts" :key="experts">
+    <Card style="height: 150px" v-for="(expert, index) in experts" :key="index">
       <Col span=6>
         <Avatar icon="ios-person" size=100 />
       </Col>
@@ -15,6 +16,7 @@
       <Col v-else span=6>
         <Button icon="md-heart-outline" @click="follow(expert)">关注专家</Button>
       </Col>
+    </Card>
     </Card>
   </Layout>
 </template>

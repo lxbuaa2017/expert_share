@@ -54,11 +54,6 @@
           userType: 'user',
         }
       },
-      methods: {
-        apply: function () {
-          this.userType = 'expert';
-        },
-      },
     }
 </script>
 

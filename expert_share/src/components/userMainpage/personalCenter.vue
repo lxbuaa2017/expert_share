@@ -23,9 +23,6 @@
             <h4>用&nbsp;&nbsp;户&nbsp;&nbsp;名： {{username}}</h4>
           </Row>
           <Row class="row">
-            <h4>注册邮箱： {{email}}</h4>
-          </Row>
-          <Row class="row">
             <h4>注册手机： {{phoneNumber}}</h4>
           </Row>
           <Row class="row">
@@ -42,7 +39,7 @@
           </Row>
           <Row class="row">
             <div align="center">
-              <span style="text-align: center; font-size: 40px; font-family: 'Microsoft YaHei'; color: darkorange">{{money.toFixed(2)}}</span>元
+              <span style="text-align: center; font-size: 40px; font-family: 'Microsoft YaHei'; color: darkorange">{{money}}</span>元
             </div>
           </Row>
         </Content>
@@ -78,14 +75,23 @@
 <script>
   export default {
     name: "personalCenter",
+    created(){
+      this.$nextTick(()=> {
+        this.$axios.get('api/get_user/?name='+this.username).then((res) => {
+          console.log(res.data)
+          this.userType = res.data.userType;
+          this.phoneNumber = res.data.phoneNumber;
+          this.money = res.data.money;
+        })
+      });
+    },
     data() {
       return {
         login: true,
         username: 'cxm',
         userType: 'user',
-        email: 'chuximing@qq.com',
         phoneNumber: '13522222222',
-        money: 0.00
+        money: '0.00',
       }
     }
   }
