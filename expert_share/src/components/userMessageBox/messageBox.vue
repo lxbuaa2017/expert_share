@@ -120,7 +120,7 @@
         else {
           this.message.content = this.value;
           this.$nextTick(()=>{
-            this.$axios.post('api/post_message', this.message).then((res)=>{
+            this.$axios.post('api/post_message/', this.message).then((res)=>{
               console.log(res.data)
               if(res.data.success === true) {
                 this.value = null;
