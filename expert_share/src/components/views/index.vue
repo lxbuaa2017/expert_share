@@ -172,10 +172,10 @@
         value: '',
         dialogVisible: false,
         login_flag: false,
-        imagesbox: [{id1: 0, idView: require("../../assets/pp1.jpg")},
+        imagesbox: [{id1: 0, idView: require("../../assets/pp5.jpg")},
           {id1: 1, idView: require("../../assets/pp2.jpg")},
           {id1: 2, idView: require("../../assets/pp3.jpg")},
-          {id1: 2, idView: require("../../assets/detail1.jpg")}],
+          {id1: 2, idView: require("../../assets/pp4.jpg")}],
         newest: []
       }
     },
@@ -205,34 +205,6 @@
           key: Date.now()
         });
       },
-      /*ok () {
-        this.$Message.info('Clicked ok');
-      },
-      cancel () {
-        this.$Message.info('Clicked cancel');
-      },*/
-      /*get () {
-        //username = getCookie('username');
-        this.username = getCookie('username');
-      },*/
-      /*open() {
-        this.$prompt('请输入关键词（以逗号分隔）', '高级搜索', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          //inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-          //inputErrorMessage: '邮箱格式不正确'
-        }).then(({ value }) => {
-          this.$message({
-            type: 'success',
-            message: '你的邮箱是: ' + value
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });
-        });
-      },*/
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
