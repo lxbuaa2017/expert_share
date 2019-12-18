@@ -1,13 +1,14 @@
 <style scoped xmlns:vertical-align="http://www.w3.org/1999/xhtml" xmlns:vertical-align="http://www.w3.org/1999/xhtml"
        xmlns:vertical-align="http://www.w3.org/1999/xhtml">
-  .layout{
+  .layout {
     border: 1px solid #d7dde4;
     background: #fff;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
   }
-  .layout-logo{
+
+  .layout-logo {
     width: 100px;
     height: 30px;
     background: #fff;
@@ -17,18 +18,20 @@
     top: 15px;
     left: 20px;
   }
-  .layout-nav{
+
+  .layout-nav {
     width: 420px;
     margin: 0 auto;
     margin-right: 20px;
   }
-  .layout-footer-center{
+
+  .layout-footer-center {
     text-align: center;
   }
 </style>
 <template>
   <div class="layout">
-    <img style="width: 100%; height: 1%;" src="../../assets/background4.png" >
+    <img style="width: 100%; height: 1%;" src="../../assets/background4.png">
     <Layout>
       <Header :style="{background: '#f5f7f9',paddingTop:'0px'}">
 
@@ -37,16 +40,20 @@
           <el-col :span=4>&nbsp;</el-col>
           <el-col :span=12>
             <el-row style="text-align: center">
-              <el-col :span="3"><a ><router-link :to="{path:'/'}">首页</router-link></a></el-col>
-              <el-col :span="3"><a ><router-link :to="{path:'searchPaperResult'}">搜索文章</router-link></a></el-col>
-              <el-col :span="3"><a >搜索专家</a></el-col>
-              <el-col :span="3"><a >个人主页</a></el-col>
+              <el-col :span="3"><a>
+                <router-link :to="{path:'/'}">首页</router-link>
+              </a></el-col>
+              <el-col :span="3"><a>
+                <router-link :to="{path:'searchPaperResult'}">搜索文章</router-link>
+              </a></el-col>
+              <el-col :span="3"><a>搜索专家</a></el-col>
+              <el-col :span="3"><a>个人主页</a></el-col>
               <!--el-col :span="2"><el-link type="primary">登录/注册</el-link></el-col-->
             </el-row>
           </el-col>
           <el-col :span="3">
             <router-link v-if="login_flag==false" :to="{path:'login'}">登录/注册</router-link>
-            <span v-else >{{username}}</span>
+            <span v-else>{{username}}</span>
           </el-col>
         </el-row>
       </Header>
@@ -59,54 +66,64 @@
       <el-button type="primary" @click="handleQuery">搜索</el-button>
       <el-button type="primary" @click="dialogVisible = true">高级搜索</el-button>
     </div>
-      <el-dialog
-        title="高级检索"
-        :visible.sync="dialogVisible"
-        width="30%"
-        :before-close="handleClose">
-        <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
-          <el-form-item
-            prop="email"
-            label="主题"
-            :rules="{
+    <el-dialog
+      title="高级检索"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
+        <el-form-item
+          prop="email"
+          label="主题"
+          :rules="{
       required: true, message: '主题不能为空', trigger: 'blur'
     }"
-          >
-            <el-input v-model="dynamicValidateForm.email"></el-input>
-          </el-form-item>
-          <el-form-item
-            v-for="(domain, index) in dynamicValidateForm.domains"
-            :label="'关键词' + index"
-            :key="domain.key"
-            :prop="'domains.' + index + '.value'"
-            :rules="{
+        >
+          <el-input v-model="dynamicValidateForm.email"></el-input>
+        </el-form-item>
+        <el-form-item
+          v-for="(domain, index) in dynamicValidateForm.domains"
+          :label="'关键词' + index"
+          :key="domain.key"
+          :prop="'domains.' + index + '.value'"
+          :rules="{
       required: true, message: '关键词不能为空', trigger: 'blur'
     }"
-          >
-            <el-input v-model="domain.value"></el-input><el-button @click.prevent="removeDomain(domain)">删除</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('dynamicValidateForm')">搜索</el-button>
-            <el-button @click="addDomain">新增关键词</el-button>
-            <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
+        >
+          <el-input v-model="domain.value"></el-input>
+          <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('dynamicValidateForm')">搜索</el-button>
+          <el-button @click="addDomain">新增关键词</el-button>
+          <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
   </span>
-      </el-dialog>
+    </el-dialog>
 
     <!--router-link :to="{path:'paper/',
            query:{paper_id:item._id.$oid}}"
                  target="_blank" v-html="height_light(item.c_title)"-->
     <el-carousel :interval="4000" type="card" height="300px">
 
-     <el-carousel-item v-for="item in imagesbox" :key="item.id1">
-      <router-link :to="{path:'searchPaperResult'}">
-      <img style="width: auto; height: 100%;" :src="item.idView" class="image">
-      </router-link>
-     </el-carousel-item>
+       
+      <el-carousel-item v-for="item in imagesbox" :key="item.id1">
+        <router-link :to="{path:'searchPaperResult'}">
+            <img style="width: auto; height: 100%;" :src="item.idView" class="image">
+        </router-link>
+         
+      </el-carousel-item>
 
     </el-carousel>
+    <div style="width: 60%;padding: 20px; text-align: left;display: inline-block">
+      <el-card header="最新资源" shadow="hover">
+        <li v-for="item in newest" :key="item.id">
+          <el-link :href="item.url" target="_blank">{{item.title}}</el-link>
+        </li>
+      </el-card>
+    </div>
     <Header>2019 © kunkun.inc</Header>
 
   </div>
@@ -136,14 +153,14 @@
 <script>
   import {setCookie, getCookie} from '../../assets/js/cookie.js'
 
-  export default{
-    created(){
-      if (getCookie('username')!=null) {
+  export default {
+    created() {
+      if (getCookie('username') != null) {
         //this.login_flag = true;
         this.username = getCookie('username');
       }
     },
-    data(){
+    data() {
       return {
         dynamicValidateForm: {
           domains: [{
@@ -151,15 +168,15 @@
           }],
           email: ''
         },
-        username:'',
+        username: '',
         value: '',
         dialogVisible: false,
-        login_flag:false,
-        imagesbox:[{id1:0,idView:require("../../assets/pp1.jpg")},
-          {id1:1,idView:require("../../assets/pp2.jpg")},
-          {id1:2,idView:require("../../assets/pp3.jpg")},
-          {id1:2,idView:require("../../assets/detail1.jpg")}]
-
+        login_flag: false,
+        imagesbox: [{id1: 0, idView: require("../../assets/pp1.jpg")},
+          {id1: 1, idView: require("../../assets/pp2.jpg")},
+          {id1: 2, idView: require("../../assets/pp3.jpg")},
+          {id1: 2, idView: require("../../assets/detail1.jpg")}],
+        newest: []
       }
     },
     methods: {
@@ -221,9 +238,10 @@
           .then(_ => {
             done();
           })
-          .catch(_ => {});
+          .catch(_ => {
+          });
       },
-      handleRender () {
+      handleRender() {
         this.$Modal.confirm({
           render: (h) => {
             return h('Input', {
@@ -244,6 +262,9 @@
       }
     },
     mounted() {
+      this.$axios.get('/api/newest').then((res) => {
+        this.newest = res.data
+      })
     }
   }
 
