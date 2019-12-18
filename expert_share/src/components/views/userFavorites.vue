@@ -48,16 +48,18 @@
   import searchBox from "../general/searchBox";
   import userMainpageSider from "../general/userMainpageSider";
   import paper_result from "../searchPaperResult/paper_result";
+  import {getCookie, setCookie} from "../../assets/js/cookie";
   export default {
     name: "userFavorites",
     inject: ['reload'],
     created(){
-      this.page_change(1)
+      this.page_change(1);
+      this.username = getCookie('username');
     },
     data() {
       return {
         paper_result_flag: true,
-        username: 'cxm',
+        username: '',
         page_id: 1,
         input_keyword:'',
         papers:[

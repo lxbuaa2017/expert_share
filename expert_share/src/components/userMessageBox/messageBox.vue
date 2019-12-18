@@ -60,9 +60,11 @@
 </template>
 
 <script>
+  import {getCookie, setCookie} from "../../assets/js/cookie";
   export default {
     name: "messageBox",
     created() {
+      this.username = getCookie('username');
       this.$nextTick(()=>{
         this.$axios.get('api/get_chat_list?name='+this.username).then((res)=>{
           this.messageList=res.data
@@ -73,7 +75,7 @@
     data() {
       return {
         value: '',
-        username: 'cxm',
+        username: '',
         messageList: [
           {
             name:"abc",

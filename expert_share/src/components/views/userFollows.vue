@@ -47,9 +47,12 @@
   import searchBox from "../general/searchBox";
   import userMainpageSider from "../general/userMainpageSider";
   import showFollows from "../userMainpage/showFollows";
+  import {getCookie, setCookie} from "../../assets/js/cookie";
+
   export default {
     name: "userFollows",
     created(){
+      this.username = getCookie('username');
       this.$nextTick(()=> {
         this.$axios.get('api/get_follows/?name='+this.username).then((res) => {
           console.log(res.data);
@@ -59,8 +62,7 @@
     },
     data() {
       return {
-        page_id: 1,
-        username: 'cxm',
+        username: '',
         experts: [
           {
             "name": "王乾伟3",

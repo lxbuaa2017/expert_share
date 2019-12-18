@@ -37,11 +37,7 @@
 
 <script>
     export default {
-      name: "userMainpageSider",
-      data() {
-        return {
-        }
-      },
+      name: "userMainpageSider"
     }
 </script>
 
