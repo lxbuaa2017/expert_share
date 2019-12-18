@@ -5,9 +5,9 @@
 <script>
   export default {
     name: 'hello',
+    props:['charts'],
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
       }
     },
     mounted(){
@@ -22,26 +22,42 @@
         myChart1.setOption({
           xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            axisLine:{
+              symbol:['none','arrow']
+            },
+            name:'年份',
+            data: this.charts.x1
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLine:{
+              symbol:['none','arrow']
+            },
+            name:'发表论文数'
           },
           series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: this.charts.y1,
             type: 'line'
           }]
         });
         myChart2.setOption({
           xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            axisLine:{
+              symbol:['none','arrow']
+            },
+            name:'年份',
+            data: this.charts.x2
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLine:{
+              symbol:['none','arrow']
+            },
+            name:'被引论文数'
           },
           series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: this.charts.y2,
             type: 'line'
           }]
         });

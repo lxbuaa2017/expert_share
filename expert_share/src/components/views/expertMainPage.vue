@@ -6,6 +6,13 @@
     color: #464c5b;
     background: #d7dde4;
   }
+  .ling{
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: #417DC9;
+    background: white;
+  }
 </style>
 <template>
   <div>
@@ -14,7 +21,7 @@
         <Header :style="{background: '#f5f7f9',paddingTop:'0px'}">
           <el-row style="text-align: left">
             <el-col :span=5><h3>科技专家资源共享平台</h3></el-col>
-            <el-col :span=1><a style="font-size: 17px">首页</a></el-col>
+            <el-col :span=1><router-link :to="{path:'/'}" style="font-size: 17px">首页</router-link></el-col>
             <el-col :span=13>&nbsp;</el-col>
             <el-col :span=5>
               <div v-if="login==true" style="text-align: right">
@@ -46,7 +53,7 @@
                 </Dropdown>
               </div>
               <div v-else style="text-align: right">
-                <Button type="primary">
+                <Button type="primary" :to="{path:'/login'}">
                   登录/注册
                 </Button>
               </div>
@@ -94,7 +101,7 @@
                   </Col>
                   <Col span="12">
                     <div style="padding-top: 32px">
-                      <application-for-expert></application-for-expert>
+                      <application-for-expert :username="username"></application-for-expert>
                     </div>
                   </Col>
                 </Col>
@@ -149,17 +156,18 @@
               </Col>
               <Col span="4"></Col>
             </Row>
+            <br/>
             <Row>
               <Col span="12">
                 <div><h1>个人成果数</h1></div>
                 <div id="myChart1" :style="{paddingTop: '0px',width: '600px', height: '600px'}">
-                  <Echarts></Echarts>
+                  <Echarts :charts="charts"></Echarts>
                 </div>
               </Col>
               <Col span="12">
                 <div><h1>成果引用数</h1></div>
                 <div id="myChart2" :style="{paddingTop: '0px',width: '600px', height: '600px'}">
-                  <Echarts></Echarts>
+                  <Echarts :charts="charts"></Echarts>
                 </div>
               </Col>
             </Row>
@@ -179,12 +187,21 @@
   import exShowFollows from "../expertMainPage/exShowFollows";
   import Echarts from "../expertMainPage/Echarts";
   import applicationForExpert from "./applicationForExpert";
+  import cloud from "./cloud";
+  import {getCookie} from "../../assets/js/cookie";
   export default {
     name: "expertMainPage",
     created() {
+      this.username=getCookie('username');
       this.$nextTick(()=> {
-        this.$axios.get('api/get_user/').then((res) => {
-          this.username=res.data.username;
+        this.$axios.get('api/get_appoint/?name='+this.expertname).then((res) => {
+          this.charts.x1=res.data.x;
+          this.charts.y1=res.data.y;
+          console.log(this.charts.x1);
+        });
+        this.$axios.get('api/get_published/?name='+this.expertname).then((res) => {
+          this.charts.x2=res.data.x;
+          this.charts.y2=res.data.y;
         });
       this.$axios.get('api/get_nowexpert/?user='+this.username).then((res) => {
         this.expertname=res.data.name;
@@ -192,22 +209,16 @@
         this.followed=res.data.isFollowed;
       });
       this.$axios.get('api/get_relation/?name='+this.expertname+'&user='+this.username).then((res) => {
-        console.log(res);
         this.experts=res.data;
-      });
-      this.$axios.get('api/get_field/?name='+this.expertname).then((res) => {
-        this.field=res.data;
-      });
-      this.$axios.get('api/get_published/?name='+this.expertname).then((res) => {
-        this.published=res.data;
       });
       this.$axios.get('api/get_four/?name='+this.expertname).then((res) => {
         this.num1=res.data.num1;
         this.num2=res.data.num2;
         this.num3=res.data.num3;
         this.num4=res.data.num4;
-      })
-      })
+      });
+      });
+      hello.drawLine();
     },
     data () {
       return {
@@ -220,12 +231,12 @@
         num2:2222,
         num3:3333,
         num4:4444,
-        field:[
-
-        ],
-        published:[
-
-        ],
+        charts:{
+          "x1":[1,2,3,4,5],
+          "y1":[4,2,4,5,8],
+          "x2":[1,2,3,4,5],
+          "y2":[1,4,2,5,3]
+        },
         experts: [
           {
             "name": "褚兮铭0",
@@ -265,12 +276,18 @@
         this.login=false;
       },
       gofollow:function () {
+        this.$axios.post('api/go_follow/',this.username,this.expertname).then((res) => {
+
+        });
         this.followed=true;
-      },
+  },
       godisfollow:function () {
+        this.$axios.post('api/go_disfollow/',this.username,this.expertname).then((res) => {
+
+        });
         this.followed=false;
       }
     },
-    components: {paper_result, classification,pageHeader,exShowFollows,Echarts,applicationForExpert}
+    components: {paper_result, classification,pageHeader,exShowFollows,Echarts,applicationForExpert,cloud}
   }
 </script>

@@ -35,7 +35,7 @@
             <FormItem label="请上传您的身份证正反面照片：" label-position="top">
               <Upload
                 multiple
-                action="//jsonplaceholder.typicode.com/posts/">
+                action="/post/commit_imgs/">
                 <Button icon="ios-cloud-upload-outline">Upload files</Button>
               </Upload>
             </FormItem>
@@ -45,8 +45,9 @@
           <Col span="30">
             <FormItem label="请上传您在所属研究机构的有关证件照片：" label-position="top">
               <Upload
+                http
                 multiple
-                action="//jsonplaceholder.typicode.com/posts/">
+                action="/">
                 <Button icon="ios-cloud-upload-outline">Upload files</Button>
               </Upload>
             </FormItem>
@@ -54,14 +55,15 @@
         </Row>
       </Form>
       <div class="demo-drawer-footer">
-        <Button style="margin-right: 8px" @click="value3 = false">Cancel</Button>
-        <Button type="primary" @click="value3 = false">Submit</Button>
+        <Button style="margin-right: 8px" @click="value3 = false,cancel()">Cancel</Button>
+        <Button type="primary" @click="value3 = false,commit()">Submit</Button>
       </div>
     </Drawer>
   </div>
 </template>
 <script>
   export default {
+    props:['username'],
     data () {
       return {
         value3: false,
@@ -72,10 +74,36 @@
           position: 'static'
         },
         formData: {
+          username:'',
           name: '',
           IDnumber: '',
           institution: '',
         },
+      }
+    },
+    methods:{
+      uploadImgs (file) {
+        let param = new FormData()
+        param.append('file', file.file)
+        this.$axios({
+          method: 'post',
+          url: '/api/file/uploadImage',
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          data: param,
+          withCredentials: true
+        }).then(res => {
+          this.newWorkorder.urls.push(res.data)
+        })
+      },
+      commit () {
+        this.formData.username = this.username;
+        this.$axios.post('/api/form/add/', this.formData);
+        this.formData.username='';this.formData.name='';this.formData.IDnumber='',this.formData.institution='';
+      },
+      cancel(){
+        this.formData.username='';this.formData.name='';this.formData.IDnumber='',this.formData.institution='';
       }
     }
   }
