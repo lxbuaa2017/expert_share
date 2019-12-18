@@ -6,6 +6,7 @@ import searchPaperResult from "../components/views/searchPaperResult"
 import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
+import admin from "../components/views/admin";
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,11 @@ export default new Router({
       path: '/highsearch',
       name: 'highsearch',
       component: test
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin
     }
   ]
 })
