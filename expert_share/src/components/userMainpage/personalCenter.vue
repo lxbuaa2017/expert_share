@@ -73,9 +73,17 @@
 </template>
 
 <script>
+  import {getCookie, setCookie} from "../../assets/js/cookie";
   export default {
     name: "personalCenter",
     created(){
+      this.username = getCookie('username');
+      if (getCookie('expert') == 1) {
+        this.userType = 'expert';
+      }
+      else {
+        this.userType = 'user';
+      }
       this.$nextTick(()=> {
         this.$axios.get('api/get_user/?name='+this.username).then((res) => {
           console.log(res.data)
@@ -88,7 +96,7 @@
     data() {
       return {
         login: true,
-        username: 'cxm',
+        username: '',
         userType: 'user',
         phoneNumber: '13522222222',
         money: '0.00',

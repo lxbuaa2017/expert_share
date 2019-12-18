@@ -26,8 +26,8 @@
                   </Col>
                   <Col span=1>&nbsp;</Col>
                   <Col span=19>
-                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                      <showFollows :experts="experts"></showFollows>
+                    <Content :style="{padding: '0px', minHeight: '400px', background: '#fff'}">
+                      <messageBox></messageBox>
                     </Content>
                   </Col>
                 </Row>
@@ -46,45 +46,9 @@
   import pageHeader from "../general/pageHeader";
   import searchBox from "../general/searchBox";
   import userMainpageSider from "../general/userMainpageSider";
-  import showFollows from "../userMainpage/showFollows";
-  import {getCookie, setCookie} from "../../assets/js/cookie";
-
+  import messageBox from "../userMessageBox/messageBox";
   export default {
-    name: "userFollows",
-    created(){
-      this.username = getCookie('username');
-      this.$nextTick(()=> {
-        this.$axios.get('api/get_follows/?name='+this.username).then((res) => {
-          console.log(res.data);
-          this.experts = res.data;
-        })
-      });
-    },
-    data() {
-      return {
-        username: '',
-        experts: [
-          {
-            "name": "王乾伟3",
-            "location": "laji",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "王乾伟4",
-            "location": "laji",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "王乾伟5",
-            "location": "laji",
-            "avatar": "",
-            "isFollowed": true,
-          }
-        ]
-      }
-    },
-    components: {pageHeader, searchBox, userMainpageSider, showFollows}
-    }
+    name: "userMessageBox",
+    components: {pageHeader, searchBox, userMainpageSider, messageBox},
+  }
 </script>

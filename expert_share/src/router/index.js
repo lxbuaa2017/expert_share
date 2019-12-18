@@ -3,15 +3,13 @@ import Router from 'vue-router'
 import index from '@/components/views/index'
 import login from "../components/views/login"
 import searchPaperResult from "../components/views/searchPaperResult"
-import expertMainPage from "../components/views/expertMainPage"
 import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
 import userMainpage from "../components/views/userMainpage";
 import userFavorites from "../components/views/userFavorites";
 import userFollows from "../components/views/userFollows";
-import applicationForExpert from "../components/views/applicationForExpert";
-import Echarts from "../components/expertMainPage/Echarts";
+import userMessageBox from "../components/views/userMessageBox";
 Vue.use(Router)
 
 export default new Router({
@@ -26,11 +24,6 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
-    },
-    {
-      path: '/expertMainPage',
-      name: 'expertMainPage',
-      component: expertMainPage
     },
     {
       path: '/register',
@@ -63,19 +56,9 @@ export default new Router({
       component: userFollows
     },
     {
-      path: '/test',
-      name: 'test',
-      component: test
-    },
-    {
-      path: '/highsearch',
-      name: 'highsearch',
-      component: test
-    },
-    {
-      path: '/Echarts',
-      name: 'Echarts',
-      component:Echarts
+      path: '/userMessageBox',
+      name: 'userMessageBox',
+      component: userMessageBox
     }
   ]
 })

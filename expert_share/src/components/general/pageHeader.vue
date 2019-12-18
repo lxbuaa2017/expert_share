@@ -48,21 +48,31 @@
 </template>
 
 <script>
-    export default {
-      name: "pageHeader",
-      data() {
-        return {
-          login: true,
-          username: 'cxm',
-          userType: 'user'
-        }
-      },
-      methods: {
-        logout: function() {
-          this.login = false;
-        },
+  import {getCookie, setCookie} from "../../assets/js/cookie";
+  export default {
+    name: "pageHeader",
+    data() {
+      return {
+        login: true,
+        username: '',
+        userType: 'user'
       }
+    },
+    created() {
+      this.username = getCookie('username');
+      if (getCookie('expert') == 1) {
+        this.userType = 'expert';
+      }
+      else {
+        this.userType = 'user';
+      }
+    },
+    methods: {
+      logout: function() {
+        this.login = false;
+      },
     }
+  }
 </script>
 
 <style scoped>
