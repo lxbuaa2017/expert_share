@@ -66,7 +66,7 @@
     created() {
       this.username = getCookie('username');
       this.$nextTick(()=>{
-        this.$axios.get('api/get_chat_list?name='+this.username).then((res)=>{
+        this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
           this.messageList=res.data
         })
       });

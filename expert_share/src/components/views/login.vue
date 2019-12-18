@@ -177,7 +177,7 @@
           this.showTishi = true
         } else {
           let data = {'username': this.username, 'password': this.password}
-          this.$axios.post('/api/login', data).then((res) => {
+          this.$axios.post('/api/login/', data).then((res) => {
             console.log(res)
             if (res.data === 0) {
               this.tishi = '用户名或密码错误'
@@ -211,12 +211,15 @@
           this.showTishi = true
         } else {
           this.showTishi = false
-          let data = {'phone': this.phone}
-          this.$axios.post('/api/sendSms', data, {withCredentials: true}).then((res) => {
-            this.btnText = '正在发送...'
-            this.isDisabled = true
-            console.log(res)
-            if (res.data === true) {
+            let data = {'phone': this.phone}
+            let json_str = JSON.stringify(data)
+            this.$axios.post('/api/sendSms/', json_str, {        headers: {
+                    'content-type': 'application/json'
+                },withCredentials: true}).then((res) => {
+                this.btnText = '正在发送...'
+                this.isDisabled = true
+                console.log(res)
+            if (res.data === 0) {
               this.timer()
             } else {
               this.tishi = '获取验证码失败'
@@ -267,7 +270,7 @@
           this.showTishi = true
         } else {
           let verify = {'code': this.authentication}
-          this.$axios.post('/api/verify', verify, {withCredentials: true}).then((res) => {
+          this.$axios.post('/api/verify/', verify, {withCredentials: true}).then((res) => {
             console.log(res)
             if (res.data !== 1000) {
               this.tishi = '验证码错误'
@@ -282,7 +285,7 @@
                 'isMale': this.isMale,
                 'age': this.age
               }
-              this.$axios.post('/api/register', data).then((res) => {
+              this.$axios.post('/api/register/', data).then((res) => {
                 console.log(res)
                 if (res.data === 1000) {
                   this.tishi = '注册成功'

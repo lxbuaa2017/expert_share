@@ -57,7 +57,7 @@
           this.showMessage = true
         } else {
           let data = {'username': this.username, 'password': this.password}
-          this.$axios.post('/api/admin/login', data).then((res) => {
+          this.$axios.post('/api/admin/login/', data).then((res) => {
             if (res.data === -1) {
               this.message = '用户名或密码错误'
               this.showMessage = true
@@ -67,7 +67,7 @@
               setTimeout(function () {
                 this.showLogin = false
                 this.showMain = true
-                this.$axios.get('/api/admin/getData').then((res) => {
+                this.$axios.get('/api/admin/getData/').then((res) => {
                   this.data = res.data
                 })
               }.bind(this), 1000)
@@ -81,7 +81,7 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          this.$axios.post('/api/admin/approve', {'id': id}).then((res) => {
+          this.$axios.post('/api/admin/approve/', {'id': id}).then((res) => {
             if (res.data === 0) {
               this.$message.success('操作成功')
               this.data.splice(index, 1)
@@ -96,7 +96,7 @@
           confirmButtonText: '提交',
           cancelButtonText: '取消'
         }).then(({value}) => {
-          this.$axios.post('/api/admin/reject', {'id': id, 'info': value}).then((res) => {
+          this.$axios.post('/api/admin/reject/', {'id': id, 'info': value}).then((res) => {
             if (res.data === 0) {
               this.$message.success('操作成功')
               this.data.splice(index, 1)

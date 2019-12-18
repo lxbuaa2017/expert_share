@@ -1,8 +1,8 @@
 <style scoped xmlns:vertical-align="http://www.w3.org/1999/xhtml" xmlns:vertical-align="http://www.w3.org/1999/xhtml"
        xmlns:vertical-align="http://www.w3.org/1999/xhtml">
-  .layout{
+  .layout {
     border: 1px solid #d7dde4;
-    background: #fff;
+    background: #f5f7f9;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
@@ -36,7 +36,6 @@
 
 </style>
 <template>
-  <div>
     <div class="layout">
       <Layout>
         <Header :style="{background: '#f5f7f9',paddingTop:'0px'}">
@@ -67,6 +66,7 @@
             </el-col>
           </el-row>
         </Header>
+<!--        <pageHeader></pageHeader>-->
         <Layout :style="{padding: '0 50px'}">
           <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
             <el-row>
@@ -155,13 +155,26 @@
         <Footer class="layout-footer-center">2019 &copy; kunkun.inc</Footer>
       </Layout>
     </div>
-  </div>
 
 </template>
 
 <script>
+    import pageHeader from "../general/pageHeader";
     export default {
         name:'paper',
+        mounted(){
+          this.$nextTick(()=>{
+              // alert(this.$route.query.paper_id)
+              // id = this.$route.query.paper_id
+              let self = this
+              //http://localhost:8000/get_paper_by_id?id=5de340a60031bb949dbd7632
+              this.$axios.get('/api/get_paper_by_id/?id='+self.$route.query.paper_id).then((res)=>{
+                  // alert(res.data)
+                  console.log(res.data)
+                  self.paper = res.data[0]
+              })
+          })
+        },
         data() {
             return{
                 columns1: [

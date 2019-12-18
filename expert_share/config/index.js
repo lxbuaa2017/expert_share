@@ -16,12 +16,6 @@ module.exports = {
         pathRewrite:{
           '^/api':'/'
         }
-      },
-      '/api1/**': {
-        target: 'http://miner.wanfangdata.com.cn/scholarsBootPage/relatedScholarsData.do',
-        pathRewrite:{
-          '^/api1':'/'
-        }
       }
     },
 

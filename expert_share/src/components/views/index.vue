@@ -234,7 +234,7 @@
       }
     },
     mounted() {
-      this.$axios.get('/api/newest').then((res) => {
+      this.$axios.get('/api/newest/').then((res) => {
         this.newest = res.data
       })
     }

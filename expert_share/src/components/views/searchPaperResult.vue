@@ -60,7 +60,11 @@
         </Header>
         <Layout :style="{padding: '0 50px'}">
           <Sider hide-trigger :style="{background: '#fff'}">
-            <classification :papers="papers" :keyword="input_keyword" :paper_result_flag="paper_result_flag"></classification>
+            <classification :papers="papers" :keyword="input_keyword"
+                            :author="author" :year="year" :paper_result_flag="paper_result_flag"
+                            :by_author="by_author" :by_year="by_year" :which_author="which_author" :which_year="which_year"
+                            :paper_cnt="paper_cnt"
+            ></classification>
           </Sider>
           <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
             <div style="padding-left: 22px;padding-top: 0px">
@@ -99,6 +103,8 @@
             let self=this
             this.$axios.get('api/get_papers_info/?keyword='+self.input_keyword).then((res)=>{
                 self.paper_cnt=res.data.total
+                self.author = res.data.authors
+                self.year = res.data.years
             })
         },
         methods:{
@@ -109,10 +115,28 @@
                 // this.input_keyword='基于'
                 let self=this
                 ///api/get_paper_by_page?page='+self.page_id+'&keyword='+self.input_keyword
-                this.$axios.get('api/get_papers/?page='+self.page_id+'&keyword='+self.input_keyword).then((res)=>{
-                    console.log(res.data)
-                    this.papers=res.data
-                })
+                if(self.by_year===false&&self.by_author===false){
+                    this.$axios.get('api/get_papers/?page='+self.page_id+'&keyword='+self.input_keyword).then((res)=>{
+                        // console.log(res.data)
+                        this.papers=res.data
+                    })
+                }
+                // http://localhost:8000/get_papers_by_author?keyword=数据挖掘&page=2&author=原仓周
+                else if(self.by_author===true){
+                    this.$axios.get('api/get_papers_by_author/?page='+self.page_id+'&keyword='+self.input_keyword+
+                        '&author='+self.which_author).then((res)=>{
+                        // console.log(res.data)
+                        this.papers=res.data
+                    })
+                }
+                // get_papers_by_year?keyword=数据挖掘&page=2&year=2019
+                else if(self.by_year===true){
+                    this.$axios.get('api/get_papers_by_year/?page='+self.page_id+'&keyword='+self.input_keyword
+                    +'&year='+self.which_year).then((res)=>{
+                        // console.log(res.data)
+                        this.papers=res.data
+                    })
+                }
                 this.paper_result_flag=true
             })
           },
@@ -126,6 +150,10 @@
         },
         data(){
           return {
+              by_author: false,
+              by_year:false,
+              which_year:2010,
+              which_author:'',
               paper_cnt:0,
               paper_result_flag:true,
               page_id:1,

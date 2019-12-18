@@ -73,7 +73,7 @@
         this.paper_result_flag=false
         this.$nextTick(()=>{
           let self=this
-          this.$axios.get('api/get_favorites?name='+this.username).then((res)=>{
+          this.$axios.get('api/get_favorites/?name='+this.username).then((res)=>{
             console.log(res.data)
             this.papers=res.data
           })
