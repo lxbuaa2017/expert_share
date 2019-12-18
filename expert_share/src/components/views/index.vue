@@ -27,6 +27,7 @@
   }
 </style>
 <template>
+
   <div class="layout">
     <img style="width: 100%; height: 1%;" src="../../assets/background4.png" >
     <Layout>
@@ -105,6 +106,47 @@
      </el-carousel-item>
 
     </el-carousel>
+    <Header>热点文章展示</Header>
+    <!--Row>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+    </Row>
+    <br>
+    <Row>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+    </Row>
+    <br>
+    <Row>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+      <Col span="6">col-6</Col>
+    </Row-->
+    <Card style="width:350px">
+      <p slot="title">
+        <Icon type="ios-film-outline"></Icon>
+        热点文章
+      </p>
+      <a href="#" slot="extra" @click.prevent="changeLimit">
+        <Icon type="ios-loop-strong"></Icon>
+        换一批
+      </a>
+      <ul>
+        <li v-for="item in randomMovieList">
+          <a :href="item.url" target="_blank">{{ item.name }}</a>
+          <span>
+                    <Icon type="ios-star" v-for="n in 4" :key="n"></Icon><Icon type="ios-star" v-if="item.rate >= 9.5"></Icon><Icon type="ios-star-half" v-else></Icon>
+                    {{ item.rate }}
+                </span>
+        </li>
+      </ul>
+    </Card>
+    <Content>Content</Content>
     <Header>2019 © kunkun.inc</Header>
 
   </div>
@@ -143,6 +185,7 @@
     },
     data(){
       return {
+
         dynamicValidateForm: {
           domains: [{
             value: ''
@@ -156,8 +199,60 @@
         imagesbox:[{id1:0,idView:require("../../assets/pp1.jpg")},
           {id1:1,idView:require("../../assets/pp2.jpg")},
           {id1:2,idView:require("../../assets/pp3.jpg")},
-          {id1:2,idView:require("../../assets/detail1.jpg")}]
-
+          {id1:2,idView:require("../../assets/detail1.jpg")}],
+        movieList: [
+          {
+            name: 'The Shawshank Redemption',
+            url: 'https://movie.douban.com/subject/1292052/',
+            rate: 9.6
+          },
+          {
+            name: 'Leon:The Professional',
+            url: 'https://movie.douban.com/subject/1295644/',
+            rate: 9.4
+          },
+          {
+            name: 'Farewell to My Concubine',
+            url: 'https://movie.douban.com/subject/1291546/',
+            rate: 9.5
+          },
+          {
+            name: 'Forrest Gump',
+            url: 'https://movie.douban.com/subject/1292720/',
+            rate: 9.4
+          },
+          {
+            name: 'Life Is Beautiful',
+            url: 'https://movie.douban.com/subject/1292063/',
+            rate: 9.5
+          },
+          {
+            name: 'Spirited Away',
+            url: 'https://movie.douban.com/subject/1291561/',
+            rate: 9.2
+          },
+          {
+            name: 'Schindlers List',
+            url: 'https://movie.douban.com/subject/1295124/',
+        rate: 9.4
+    },
+      {
+        name: 'The Legend of 1900',
+          url: 'https://movie.douban.com/subject/1292001/',
+        rate: 9.2
+      },
+      {
+        name: 'WALL·E',
+          url: 'https://movie.douban.com/subject/2131459/',
+        rate: 9.3
+      },
+      {
+        name: 'Inception',
+          url: 'https://movie.douban.com/subject/3541415/',
+        rate: 9.2
+      }
+    ],
+      randomMovieList: []
       }
     },
     methods: {
@@ -241,7 +336,28 @@
         })
       }
     },
+    changeLimit () {
+      function getArrayItems(arr, num) {
+        const temp_array = [];
+        for (let index in arr) {
+          temp_array.push(arr[index]);
+        }
+        const return_array = [];
+        for (let i = 0; i<num; i++) {
+          if (temp_array.length>0) {
+            const arrIndex = Math.floor(Math.random()*temp_array.length);
+            return_array[i] = temp_array[arrIndex];
+            temp_array.splice(arrIndex, 1);
+          } else {
+            break;
+          }
+        }
+        return return_array;
+      }
+      this.randomMovieList = getArrayItems(this.movieList, 5);
+    },
     mounted() {
+      this.changeLimit();
     }
   }
 
