@@ -103,15 +103,13 @@
       test: function () {
       },
       sendMessage: function () {
-        console.log(this.value);
         if (this.message.reciever == null) {
           this.$Notice.open({
             title: '请选择一个私信联系人'
           });
           this.value = null;
         }
-        else if (this.value == null) {
-          console.log("nmsl")
+        else if (this.value.length <= 1) {
           this.$Notice.open({
             title: '发送消息不能为空'
           });
@@ -119,7 +117,6 @@
         }
         else {
           this.message.content = this.value;
-          console.log(this.message);
           this.$nextTick(()=>{
             this.$axios.post('api/post_message', this.message).then((res)=>{
               console.log(res.data)
