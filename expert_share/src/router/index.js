@@ -6,6 +6,7 @@ import searchPaperResult from "../components/views/searchPaperResult"
 import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
+import admin from "../components/views/admin";
 import userMainpage from "../components/views/userMainpage";
 import userFavorites from "../components/views/userFavorites";
 import userFollows from "../components/views/userFollows";
@@ -65,6 +66,16 @@ export default new Router({
       path: '/expertMainPage',
       name: 'expertMainPage',
       component: expertMainPage
+    },
+    {
+      path: '/highsearch',
+      name: 'highsearch',
+      component: test
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin
     }
   ]
 })
