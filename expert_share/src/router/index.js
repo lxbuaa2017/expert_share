@@ -6,6 +6,11 @@ import searchPaperResult from "../components/views/searchPaperResult"
 import register from "../components/views/register";
 import test from "../components/views/test";
 import paper from "../components/views/paper";
+import userMainpage from "../components/views/userMainpage";
+import userFavorites from "../components/views/userFavorites";
+import userFollows from "../components/views/userFollows";
+import userMessageBox from "../components/views/userMessageBox";
+import expertMainPage from "../components/views/expertMainPage";
 Vue.use(Router)
 
 export default new Router({
@@ -34,12 +39,32 @@ export default new Router({
     {
       path: '/paper',
       name: 'paper',
-      component: paper,
+      component: paper
     },
     {
-      path: '/test',
-      name: 'test',
-      component: test
+      path: '/userMainpage',
+      name: 'userMainpage',
+      component: userMainpage
+    },
+    {
+      path: '/userFavorites',
+      name: 'userFavorites',
+      component: userFavorites
+    },
+    {
+      path: '/userFollows',
+      name: 'userFollows',
+      component: userFollows
+    },
+    {
+      path: '/userMessageBox',
+      name: 'userMessageBox',
+      component: userMessageBox
+    },
+    {
+      path: '/expertMainPage',
+      name: 'expertMainPage',
+      component: expertMainPage
     }
   ]
 })
