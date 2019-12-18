@@ -10,6 +10,7 @@ import userMainpage from "../components/views/userMainpage";
 import userFavorites from "../components/views/userFavorites";
 import userFollows from "../components/views/userFollows";
 import userMessageBox from "../components/views/userMessageBox";
+import expertMainPage from "../components/views/expertMainPage";
 Vue.use(Router)
 
 export default new Router({
@@ -59,6 +60,11 @@ export default new Router({
       path: '/userMessageBox',
       name: 'userMessageBox',
       component: userMessageBox
+    },
+    {
+      path: '/expertMainPage',
+      name: 'expertMainPage',
+      component: expertMainPage
     }
   ]
 })

@@ -158,18 +158,7 @@
             </Row>
             <br/>
             <Row>
-              <Col span="12">
-                <div><h1>个人成果数</h1></div>
-                <div id="myChart1" :style="{paddingTop: '0px',width: '600px', height: '600px'}">
-                  <Echarts :charts="charts"></Echarts>
-                </div>
-              </Col>
-              <Col span="12">
-                <div><h1>成果引用数</h1></div>
-                <div id="myChart2" :style="{paddingTop: '0px',width: '600px', height: '600px'}">
-                  <Echarts :charts="charts"></Echarts>
-                </div>
-              </Col>
+              <Echarts></Echarts>
             </Row>
 
           </Content>
@@ -194,15 +183,6 @@
     created() {
       this.username=getCookie('username');
       this.$nextTick(()=> {
-        this.$axios.get('api/get_appoint/?name='+this.expertname).then((res) => {
-          this.charts.x1=res.data.x;
-          this.charts.y1=res.data.y;
-          console.log(this.charts.x1);
-        });
-        this.$axios.get('api/get_published/?name='+this.expertname).then((res) => {
-          this.charts.x2=res.data.x;
-          this.charts.y2=res.data.y;
-        });
       this.$axios.get('api/get_nowexpert/?user='+this.username).then((res) => {
         this.expertname=res.data.name;
         this.expertadd=res.data.location;
@@ -218,7 +198,6 @@
         this.num4=res.data.num4;
       });
       });
-      hello.drawLine();
     },
     data () {
       return {
@@ -231,12 +210,6 @@
         num2:2222,
         num3:3333,
         num4:4444,
-        charts:{
-          "x1":[1,2,3,4,5],
-          "y1":[4,2,4,5,8],
-          "x2":[1,2,3,4,5],
-          "y2":[1,4,2,5,3]
-        },
         experts: [
           {
             "name": "褚兮铭0",
