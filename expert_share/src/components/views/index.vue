@@ -73,6 +73,9 @@
           >
             <el-input v-model="dynamicValidateForm.email"></el-input>
           </el-form-item>
+
+
+
           <el-form-item
             v-for="(domain, index) in dynamicValidateForm.domains"
             :label="'关键词' + index"
@@ -196,10 +199,10 @@
         value: '',
         dialogVisible: false,
         login_flag:false,
-        imagesbox:[{id1:0,idView:require("../../assets/pp1.jpg")},
+        imagesbox:[{id1:0,idView:require("../../assets/pp5.jpg")},
           {id1:1,idView:require("../../assets/pp2.jpg")},
           {id1:2,idView:require("../../assets/pp3.jpg")},
-          {id1:2,idView:require("../../assets/detail1.jpg")}],
+          {id1:2,idView:require("../../assets/pp4.jpg")}],
         movieList: [
           {
             name: 'The Shawshank Redemption',
