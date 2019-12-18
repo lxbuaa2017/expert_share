@@ -89,7 +89,7 @@
               </Menu>
             </Sider>
             <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-              Content
+
             </Content>
           </Layout>
         </Content>
@@ -97,15 +97,25 @@
       <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
     </Layout>
   </div>
-  </div>
 </template>
 <script>
     export default {
       name:'test',
-      methods:{
-          test(){
-              alert('success!')
+        data(){
+          return{
+              test:''
           }
+        },
+        created(){
+            let data = {
+                'unitName': '海南软件职业技术学院',
+                'scholarName': '唐民丽'
+            }
+            this.$axios.post('api1/',data).then(res=>{
+                console.log(res.data)
+            })
+        },
+      methods:{
       }
     }
 </script>

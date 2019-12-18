@@ -60,7 +60,7 @@
         </Header>
         <Layout :style="{padding: '0 50px'}">
           <Sider hide-trigger :style="{background: '#fff'}">
-            <classification></classification>
+            <classification :papers="papers" :keyword="input_keyword" :paper_result_flag="paper_result_flag"></classification>
           </Sider>
           <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
             <div style="padding-left: 22px;padding-top: 0px">
@@ -69,7 +69,7 @@
               <br/>
             </div>
             <paper_result v-if="paper_result_flag==true" ref="paper_result" :page="page_id" :keyword="input_keyword" :papers="papers"></paper_result>
-            <Page :total="100" :page-size="10" :current="page_id" show-elevator show-total @on-change="page_change"/>
+            <Page :total="paper_cnt" :page-size="10" :current="page_id" show-elevator show-total @on-change="page_change"/>
           </Content>
         </Layout>
         <Footer class="layout-footer-center">2019 &copy; kunkun.inc</Footer>
@@ -95,6 +95,11 @@
             // get_papers
             window.localStorage.removeItem("input_keyword")
             this.page_change(1)
+            //get_papers_info
+            let self=this
+            this.$axios.get('api/get_papers_info/?keyword='+self.input_keyword).then((res)=>{
+                self.paper_cnt=res.data.total
+            })
         },
         methods:{
           page_change($event){
@@ -121,6 +126,7 @@
         },
         data(){
           return {
+              paper_cnt:0,
               paper_result_flag:true,
               page_id:1,
               login:true,
