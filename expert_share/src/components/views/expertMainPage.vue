@@ -18,49 +18,35 @@
   <div>
     <div class="layout">
       <Layout>
-        <Header :style="{background: '#f5f7f9',paddingTop:'0px'}">
+        <Header :style="{background:'white',paddingTop: '0px'}">
           <el-row style="text-align: left">
             <el-col :span=5><h3>科技专家资源共享平台</h3></el-col>
-            <el-col :span=1><router-link :to="{path:'/'}" style="font-size: 17px">首页</router-link></el-col>
+            <el-col :span=1><a style="font-size: 17px">首页</a></el-col>
             <el-col :span=13>&nbsp;</el-col>
             <el-col :span=5>
-              <div v-if="login==true" style="text-align: right">
+              <div style="text-align: right">
                 <Dropdown style="text-align: center">
                   <Button type="primary">
                     {{username}}
                     <Icon type="ios-arrow-down"></Icon>
                   </Button>
-                  <DropdownMenu slot="list">
-                    <DropdownItem>
-                      <router-link :to="{path: '/userMainpage'}">
-                        个人信息
-                      </router-link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <router-link :to="{path: '/userFavorites'}">
-                        收藏
-                      </router-link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <router-link :to="{path: '/userFollows'}">
-                        关注
-                      </router-link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <div @click="logout()">退出账户</div>
-                    </DropdownItem>
+                  <DropdownMenu v-if="login===true" slot="list">
+                    <DropdownItem>个人信息</DropdownItem>
+                    <DropdownItem>收藏</DropdownItem>
+                    <DropdownItem>关注</DropdownItem>
+                    <DropdownItem>粉丝</DropdownItem>
+                    <DropdownItem>退出账户</DropdownItem>
+                  </DropdownMenu>
+                  <DropdownMenu v-else slot="list">
+                    <DropdownItem>登录</DropdownItem>
+                    <DropdownItem>注册</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-              </div>
-              <div v-else style="text-align: right">
-                <Button type="primary" :to="{path:'/login'}">
-                  登录/注册
-                </Button>
               </div>
             </el-col>
           </el-row>
         </Header>
-        <Content :style="{padding: '24px',background: '#f5f7f9'}">
+        <Content :style="{padding: '24px',background: 'white'}">
           <div style="padding-left: 22px;padding-right: 22px;padding-top: 0px">
             <Input search enter-button="Search"  type="text" placeholder="Enter something..."
                    @on-search="handleQuery($event)" size="large"/>
@@ -84,10 +70,10 @@
                 </Col>
                 <Col span="15" >
                   <Row>
-                    <div style="padding-top: 20px"><h1 align="left" >{{expertname}}</h1></div>
+                    <div style="padding-top: 20px"><p align="left" style="font-size: xx-large">{{expertname}}</p></div>
                   </Row>
                   <Row>
-                    <div style="padding-top: 5px"><h4 align="left" >{{expertadd}}</h4></div>
+                    <div style="padding-top: 5px"><p align="left" style="font-size: medium;">{{expertadd}}</p></div>
                   </Row>
                 </Col>
                 <Col span="6">
@@ -111,44 +97,44 @@
               <Col span=20  :style="{background:'#f5f7f9', minHeight:'100px'}">
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-book-outline" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>总文献量</h2>
-                        <h3>{{num1}}</h3>
+                        <p style="font-size: x-large">总文献量</p>
+                        <p style="font-size: large">{{num1}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmark-outline" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>核心发文量</h2>
-                        <h3 >{{num2}}</h3>
+                        <p style="font-size: x-large">核心发文量</p>
+                        <p style="font-size: large" >{{num2}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmarks-outline" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>总被引量</h2>
-                        <h3 >{{num3}}</h3>
+                        <p style="font-size: x-large">总被引量</p>
+                        <p style="font-size: large" >{{num3}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-browsers-outline" size="35"/></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>篇均被引量</h2>
-                        <h3 >{{num4}}</h3>
+                        <p style="font-size: x-large">篇均被引量</p>
+                        <p style="font-size: large" >{{num4}}</p>
                       </div>
                     </Col>
                   </Row>
@@ -158,7 +144,7 @@
             </Row>
             <br/>
             <Row>
-              <Echarts></Echarts>
+              <Echarts :expertname="expertname" :add="add"></Echarts>
             </Row>
 
           </Content>
@@ -201,6 +187,7 @@
     },
     data () {
       return {
+        add:'saddd',
         followed:true,
         login:true,
         username: '',

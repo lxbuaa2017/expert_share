@@ -5,8 +5,8 @@
         <Col span="1"><div style="padding-top: 5px"><Avatar icon="ios-person" size=30 /></div></Col>
       </Col>
       <Col span="18">
-        <h3 align="left" style="color: #a71d5d">{{expert.name}}</h3>
-        <p align="left">{{expert.location}}</p>
+        <p align="left" style="color: #a71d5d;font-size: large">{{expert.name}}</p>
+        <p align="left" style="color: #0086b3">{{expert.location}}</p>
         <Col span="1">
           <div v-if="expert.isFollowed==true">
             <Button icon="md-heart"  @click="disFollow(expert)" size="small">已关注&nbsp;&nbsp;&nbsp;&nbsp;</Button>
