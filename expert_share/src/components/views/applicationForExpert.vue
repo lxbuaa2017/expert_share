@@ -32,22 +32,11 @@
         </Row>
         <Row>
           <Col span="30">
-            <FormItem label="请上传您的身份证正反面照片：" label-position="top">
-              <Upload
-                multiple
-                action="/post/commit_imgs/">
-                <Button icon="ios-cloud-upload-outline">Upload files</Button>
-              </Upload>
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="30">
-            <FormItem label="请上传您在所属研究机构的有关证件照片：" label-position="top">
+            <FormItem label="请上传您在所属研究机构的有关证件照片，不超过1M：" label-position="top">
               <Upload
                 http
                 multiple
-                action="/">
+                action="/post/commit_imgs/">
                 <Button icon="ios-cloud-upload-outline">Upload files</Button>
               </Upload>
             </FormItem>
