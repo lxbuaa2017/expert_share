@@ -177,7 +177,10 @@
           this.showTishi = true
         } else {
           let data = {'username': this.username, 'password': this.password}
-          this.$axios.post('/api/login/', data).then((res) => {
+          let data_str = JSON.stringify(data)
+          this.$axios.post('/api/login/', data_str,{        headers: {
+                  'content-type': 'application/json'
+              },withCredentials: true}).then((res) => {
             console.log(res)
             if (res.data === 0) {
               this.tishi = '用户名或密码错误'
@@ -284,10 +287,10 @@
                 'username': this.newUsername,
                 'password': this.newPassword,
                 'phone': this.phone,
-                'code': this.authentication,
-                'email': this.email,
-                'isMale': this.isMale,
-                'age': this.age
+                // 'code': this.authentication,
+                // 'email': this.email,
+                // 'isMale': this.isMale,
+                // 'age': this.age
               }
               let data_str = JSON.stringify(data)
               console.log(data_str)

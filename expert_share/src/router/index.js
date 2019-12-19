@@ -4,7 +4,7 @@ import index from '@/components/views/index'
 import login from "../components/views/login"
 import searchPaperResult from "../components/views/searchPaperResult"
 import register from "../components/views/register";
-import test from "../components/views/test";
+import highsearch from "../components/views/highsearch";
 import paper from "../components/views/paper";
 import admin from "../components/views/admin";
 import userMainpage from "../components/views/userMainpage";
@@ -13,6 +13,7 @@ import userFollows from "../components/views/userFollows";
 import userMessageBox from "../components/views/userMessageBox";
 import expertMainPage from "../components/views/expertMainPage";
 import WordCloud from "../components/expertMainPage/WordCloud";
+import superSearch from "../components/views/superSearch";
 Vue.use(Router)
 
 export default new Router({
@@ -71,7 +72,7 @@ export default new Router({
     {
       path: '/highsearch',
       name: 'highsearch',
-      component: test
+      component: highsearch
     },
     {
       path: '/admin',
@@ -82,6 +83,11 @@ export default new Router({
       path: '/wordCloud',
       name: 'wordCloud',
       component: WordCloud
+    },
+    {
+      path: '/superSearch',
+      name: 'superSearch',
+      component: superSearch
     }
   ]
 })

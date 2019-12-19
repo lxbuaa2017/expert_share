@@ -46,14 +46,23 @@
             </el-col>
           </el-row>
         </Header>
-        <Content :style="{padding: '24px',background: 'white'}">
-          <div style="padding-left: 22px;padding-right: 22px;padding-top: 0px">
-            <Input search enter-button="Search"  type="text" placeholder="Enter something..."
-                   @on-search="handleQuery($event)" size="large"/>
-          </div>
-        </Content>
         <Layout>
           <Sider hide-trigger :style="{paddingTop: '130px',background: '#fff'}">
+            <el-row class="demo-autocomplete">
+              <el-col :span="6">
+                <div class="title">学者</div>
+              </el-col>
+              <el-col :span="18">
+                <el-autocomplete
+                  class="inline-input"
+                  v-model="state2"
+                  :fetch-suggestions="querySearch"
+                  placeholder="请输入内容"
+                  :trigger-on-focus="false"
+                  @select="handleSelect"
+                ></el-autocomplete>
+              </el-col>
+            </el-row>
             <Row>
               <div class="title" style="padding-left: 10px;" align="left">相关学者</div>
               <ex-show-follows :experts="experts"></ex-show-follows>
@@ -97,44 +106,44 @@
               <Col span=20  :style="{background:'#f5f7f9', minHeight:'100px'}">
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-book-outline" size="35" /></div></Col>
+                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <p style="font-size: x-large">总文献量</p>
-                        <p style="font-size: large">{{num1}}</p>
+                        <h2>总文献量</h2>
+                        <h3>{{num1}}</h3>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmark-outline" size="35" /></div></Col>
+                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <p style="font-size: x-large">核心发文量</p>
-                        <p style="font-size: large" >{{num2}}</p>
+                        <h2>核心发文量</h2>
+                        <h3 >{{num2}}</h3>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmarks-outline" size="35" /></div></Col>
+                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <p style="font-size: x-large">总被引量</p>
-                        <p style="font-size: large" >{{num3}}</p>
+                        <h2>总被引量</h2>
+                        <h3 >{{num3}}</h3>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-browsers-outline" size="35"/></div></Col>
+                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <p style="font-size: x-large">篇均被引量</p>
-                        <p style="font-size: large" >{{num4}}</p>
+                        <h2>篇均被引量</h2>
+                        <h3 >{{num4}}</h3>
                       </div>
                     </Col>
                   </Row>
@@ -144,7 +153,7 @@
             </Row>
             <br/>
             <Row>
-              <Echarts :expertname="expertname" :add="add"></Echarts>
+              <Echarts></Echarts>
             </Row>
 
           </Content>

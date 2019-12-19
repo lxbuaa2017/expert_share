@@ -85,7 +85,7 @@
 <script>
     import classification from "../searchPaperResult/classification";
     import paper_result from "../searchPaperResult/paper_result";
-    import test from "./test";
+    import test from "./highsearch";
     export default {
       name:'searchPaperResult',
         inject:['reload'],
