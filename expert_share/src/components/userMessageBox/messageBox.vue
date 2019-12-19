@@ -41,7 +41,7 @@
         <Scroll v-if="showFlag == true" :on-reach-top="test" height=400 style="padding: 30px 30px 10px 30px">
           <div v-for="(mes, index) in nowBox" :key="index" class="all">
             <div style="clear: both">
-              {{mes.date}}
+              {{mes.date.replace(/T/, " ").replace(/Z/, "")}}
             </div>
             <div v-if="mes.receiver===username" class="others">
               {{mes.content}}
