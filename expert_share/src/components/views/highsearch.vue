@@ -100,7 +100,7 @@
 </template>
 <script>
     export default {
-      name:'test',
+      name:'highsearch',
         data(){
           return{
               test:''

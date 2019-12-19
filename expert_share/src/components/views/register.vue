@@ -209,47 +209,47 @@
           this.showTishi = true
         } else if (this.age < 0 || this.age > 150) {
           this.tishi = '年龄无效'
-          this.showTishi = true
+            this.showTishi = true
         } else {
-          let verify = {'code': this.authentication}
-          let json_str = JSON.stringify(verify)
-          let self = this
-          this.$axios.post('/api/verify/', json_str, {        headers: {
-                  'content-type': 'application/json'
-              },withCredentials: true}).then((res) => {
-            console.log(res)
-            if (res.data !== 1000) {
-              this.tishi = '验证码错误'
-              this.showTishi = true
-            } else {
-              let data = {
-                'username': this.newUsername,
-                'password': this.newPassword,
-                'phone': this.phone,
-                'code': this.authentication,
-                'email': this.email,
-                'isMale': this.isMale,
-                'age': this.age
-              }
-              let data_str = JSON.stringify(data)
-              console.log(data_str)
-              this.$axios.post('/api/register/', data_str,{        headers: {
-                      'content-type': 'application/json'
-                  },withCredentials: true}).then((res) => {
+            let verify = {'phone':this.phone,'code': this.authentication}
+            let json_str = JSON.stringify(verify)
+            let self = this
+            this.$axios.post('/api/verify/', json_str,{        headers: {
+                    'content-type': 'application/json'
+                },withCredentials: true}).then((res) => {
                 console.log(res)
-                if (res.data === 1000) {
-                  this.tishi = '注册成功'
-                  this.showTishi = true
-                  this.username = ''
-                  this.password = ''
-                  setTimeout(function () {
-                    this.showRegister = false
-                    this.showLogin = true
-                    this.showTishi = false
-                  }.bind(this), 1000)
-                } else if (res.data === 1028) {
-                  this.tishi = '用户名已存在'
-                  this.showTishi = true
+                if (res.data !== 0) {
+                    this.tishi = '验证码错误'
+                    this.showTishi = true
+                } else {
+                    let data = {
+                        'username': this.newUsername,
+                        'password': this.newPassword,
+                        'phone': this.phone,
+                        // 'code': this.authentication,
+                        // 'email': this.email,
+                        // 'isMale': this.isMale,
+                        // 'age': this.age
+                    }
+                    let data_str = JSON.stringify(data)
+                    console.log(data_str)
+                    this.$axios.post('/api/register/', data_str,{        headers: {
+                            'content-type': 'application/json'
+                        },withCredentials: true}).then((res) => {
+                        console.log(res)
+                        if (res.data === 0) {
+                            this.tishi = '注册成功'
+                            this.showTishi = true
+                            this.username = ''
+                            this.password = ''
+                            setTimeout(function () {
+                                this.showRegister = false
+                                this.showLogin = true
+                                this.showTishi = false
+                            }.bind(this), 1000)
+                        } else if (res.data === -1) {
+                            this.tishi = '用户名已存在'
+                            this.showTishi = true
                 }
               })
             }

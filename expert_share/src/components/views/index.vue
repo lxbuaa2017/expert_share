@@ -156,7 +156,7 @@
   export default {
     created() {
       if (getCookie('username') != null) {
-        //this.login_flag = true;
+        this.login_flag = true;
         this.username = getCookie('username');
       }
     },
