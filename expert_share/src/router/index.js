@@ -12,6 +12,7 @@ import userFavorites from "../components/views/userFavorites";
 import userFollows from "../components/views/userFollows";
 import userMessageBox from "../components/views/userMessageBox";
 import expertMainPage from "../components/views/expertMainPage";
+import WordCloud from "../components/expertMainPage/WordCloud";
 Vue.use(Router)
 
 export default new Router({
@@ -76,6 +77,11 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: admin
+    },
+    {
+      path: '/wordCloud',
+      name: 'wordCloud',
+      component: WordCloud
     }
   ]
 })
