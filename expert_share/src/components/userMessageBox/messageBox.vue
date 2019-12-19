@@ -38,12 +38,12 @@
     </Col>
     <Col span=19>
       <Row>
-        <Scroll :on-reach-top="test" height=400 style="padding: 30px 30px 10px 30px">
+        <Scroll v-if="showFlag == true" :on-reach-top="test" height=400 style="padding: 30px 30px 10px 30px">
           <div v-for="(mes, index) in nowBox" :key="index" class="all">
             <div style="clear: both">
               {{mes.date}}
             </div>
-            <div v-if="mes.reciever===username" class="others">
+            <div v-if="mes.receiver===username" class="others">
               {{mes.content}}
             </div>
             <div v-else class="mime">
@@ -75,6 +75,7 @@
     data() {
       return {
         value: '',
+        showFlag: true,
         username: '',
         messageList: [
           {
@@ -83,7 +84,7 @@
               {
                 date:"2019-12-17",
                 sender:"abc",
-                reciever:"cxm",
+                receiver:"cxm",
                 content:"Hello World!"
               }
             ]
@@ -92,7 +93,7 @@
         nowBox: {},
         message: {
           sender: null,
-          reciever: null,
+          receiver: null,
           content: ''
         }
       }
@@ -100,12 +101,12 @@
     methods: {
       change: function (mes) {
         this.nowBox = mes.record;
-        this.message.reciever = mes.name;
+        this.message.receiver = mes.name;
       },
       test: function () {
       },
       sendMessage: function () {
-        if (this.message.reciever == null) {
+        if (this.message.receiver == null) {
           this.$Notice.open({
             title: '请选择一个私信联系人'
           });
@@ -127,6 +128,13 @@
                 this.$Notice.open({
                   title: '发送成功'
                 });
+                this.showFlag = false;
+                this.$nextTick(()=>{
+                  this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
+                    this.messageList=res.data
+                  })
+                });
+                this.showFlag = true;
               }
               else {
                 this.$Notice.open({
