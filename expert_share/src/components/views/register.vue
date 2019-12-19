@@ -212,7 +212,11 @@
           this.showTishi = true
         } else {
           let verify = {'code': this.authentication}
-          this.$axios.post('/api/verify/', verify, {withCredentials: true}).then((res) => {
+          let json_str = JSON.stringify(verify)
+          let self = this
+          this.$axios.post('/api/verify/', json_str, {        headers: {
+                  'content-type': 'application/json'
+              },withCredentials: true}).then((res) => {
             console.log(res)
             if (res.data !== 1000) {
               this.tishi = '验证码错误'
@@ -227,7 +231,11 @@
                 'isMale': this.isMale,
                 'age': this.age
               }
-              this.$axios.post('/api/register/', data).then((res) => {
+              let data_str = JSON.stringify(data)
+              console.log(data_str)
+              this.$axios.post('/api/register/', data_str,{        headers: {
+                      'content-type': 'application/json'
+                  },withCredentials: true}).then((res) => {
                 console.log(res)
                 if (res.data === 1000) {
                   this.tishi = '注册成功'
