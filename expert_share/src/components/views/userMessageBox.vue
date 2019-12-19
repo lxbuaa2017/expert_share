@@ -16,9 +16,6 @@
           <Col :span=4>&nbsp;</Col>
           <Col :span=16>
             <Row>
-              <searchBox></searchBox>
-            </Row>
-            <Row>
               <Layout>
                 <Row>
                   <Col span=4>
