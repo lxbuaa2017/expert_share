@@ -16,9 +16,6 @@
           <Col :span=4>&nbsp;</Col>
           <Col :span=16>
             <Row>
-              <searchBox></searchBox>
-            </Row>
-            <Row>
               <Layout>
                 <Row>
                   <Col span=4>
@@ -27,7 +24,7 @@
                   <Col span=1>&nbsp;</Col>
                   <Col span=19>
                     <Content :style="{padding: '0px', minHeight: '400px', background: '#fff'}">
-                      <messageBox></messageBox>
+                      <messageBox @refresh="refresh" v-if="showFlag == true" :messageList="messageList" :username="username" :nowName="nowName"></messageBox>
                     </Content>
                   </Col>
                 </Row>
@@ -47,8 +44,37 @@
   import searchBox from "../general/searchBox";
   import userMainpageSider from "../general/userMainpageSider";
   import messageBox from "../userMessageBox/messageBox";
+  import {getCookie} from "../../assets/js/cookie";
   export default {
     name: "userMessageBox",
+    created() {
+      this.username = getCookie('username');
+      this.$nextTick(()=>{
+        this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
+          this.messageList=res.data
+        })
+      });
+    },
+    data() {
+      return {
+        username: null,
+        messageList: null,
+        showFlag: true,
+        nowName: null,
+      }
+    },
+    methods: {
+      refresh(recName) {
+        this.showFlag = false;
+        this.nowName = recName;
+        this.$nextTick(()=>{
+          this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
+            this.messageList=res.data
+            this.showFlag = true;
+          })
+        });
+      },
+    },
     components: {pageHeader, searchBox, userMainpageSider, messageBox},
   }
 </script>

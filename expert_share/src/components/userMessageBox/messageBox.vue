@@ -27,7 +27,7 @@
   <Row>
     <Col span=5>
       <Menu theme="light" width="auto">
-        <MenuGroup title="联系人">
+        <MenuGroup title="新联系人">
           <MenuItem v-for="(mes, index) in messageList" :name=mes.name :key="index">
             <div @click="change(mes)">
               {{mes.name}}
@@ -41,9 +41,9 @@
         <Scroll :on-reach-top="test" height=400 style="padding: 30px 30px 10px 30px">
           <div v-for="(mes, index) in nowBox" :key="index" class="all">
             <div style="clear: both">
-              {{mes.date}}
+              {{mes.date.replace(/T/, " ").replace(/Z/, "")}}
             </div>
-            <div v-if="mes.reciever===username" class="others">
+            <div v-if="mes.receiver===username" class="others">
               {{mes.content}}
             </div>
             <div v-else class="mime">
@@ -60,52 +60,39 @@
 </template>
 
 <script>
-  import {getCookie, setCookie} from "../../assets/js/cookie";
   export default {
     name: "messageBox",
     created() {
-      this.username = getCookie('username');
-      this.$nextTick(()=>{
-        this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
-          this.messageList=res.data
-        })
-      });
       this.message.sender = this.username;
+      if (this.nowName != null)
+        for (let mes of this.messageList) {
+          if (this.nowName === mes.name) {
+            this.change(mes);
+            break;
+          }
+        }
     },
     data() {
       return {
         value: '',
-        username: '',
-        messageList: [
-          {
-            name:"abc",
-            record:[
-              {
-                date:"2019-12-17",
-                sender:"abc",
-                reciever:"cxm",
-                content:"Hello World!"
-              }
-            ]
-          }
-        ],
         nowBox: {},
         message: {
           sender: null,
-          reciever: null,
+          receiver: null,
           content: ''
         }
       }
     },
+    props: ['messageList', 'username', 'nowName'],
     methods: {
       change: function (mes) {
         this.nowBox = mes.record;
-        this.message.reciever = mes.name;
+        this.message.receiver = mes.name;
       },
       test: function () {
       },
       sendMessage: function () {
-        if (this.message.reciever == null) {
+        if (this.message.receiver == null) {
           this.$Notice.open({
             title: '请选择一个私信联系人'
           });
@@ -121,19 +108,19 @@
           this.message.content = this.value;
           this.$nextTick(()=>{
             this.$axios.post('api/post_message/', this.message).then((res)=>{
-              console.log(res.data)
               if(res.data.success === true) {
                 this.value = null;
                 this.$Notice.open({
                   title: '发送成功'
                 });
+                this.$emit('refresh', this.message.receiver);
               }
               else {
                 this.$Notice.open({
                   title: '发送失败'
                 });
               }
-            })
+            });
           });
         }
       }
