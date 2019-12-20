@@ -171,8 +171,8 @@
         this.$refs.paper_result.reload()
       },
       logout() {
-        delCookie(username)
-        this.$router.push('/')
+        delCookie('username')
+        location.reload()
       },
       userFavorites() {
         this.$router.push('/userFavorites')
