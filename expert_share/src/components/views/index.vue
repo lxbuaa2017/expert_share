@@ -137,7 +137,7 @@
 
        
       <el-carousel-item v-for="item in imagesbox" :key="item.id1">
-        <router-link :to="{path:'searchPaperResult'}">
+        <router-link :to="{path: item.path}">
             <img style="width: auto; height: 100%;" :src="item.idView" class="image">
         </router-link>
          
@@ -202,10 +202,11 @@
         value: '',
         dialogVisible: false,
         login_flag: false,
-        imagesbox: [{id1: 0, idView: require("../../assets/pp5.jpg")},
-          {id1: 1, idView: require("../../assets/pp2.jpg")},
-          {id1: 2, idView: require("../../assets/pp3.jpg")},
-          {id1: 2, idView: require("../../assets/pp4.jpg")}],
+        imagesbox: [
+          {id1: 0, idView: require("../../assets/pp5.jpg"), path:'/paper/?paper_id=5de35575c4dc52961533d8be'},
+          {id1: 1, idView: require("../../assets/pp2.jpg"), path:'/paper/?paper_id=5de341470031bb949dbd7bb5'},
+          {id1: 2, idView: require("../../assets/pp3.jpg"), path:'/paper/?paper_id=5de349fc04d70c3a3aa882af'},
+          {id1: 2, idView: require("../../assets/pp4.jpg"), path:'/paper/?paper_id=5de34bf20031bb949dbddea2'}],
         newest: []
       }
     },
