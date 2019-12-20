@@ -106,44 +106,44 @@
               <Col span=20  :style="{background:'#f5f7f9', minHeight:'100px'}">
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-book-outline" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>总文献量</h2>
-                        <h3>{{num1}}</h3>
+                        <p style="font-size: x-large">总文献量</p>
+                        <p style="font-size: large">{{num1}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmark-outline" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>核心发文量</h2>
-                        <h3 >{{num2}}</h3>
+                        <p style="font-size: x-large">核心发文量</p>
+                        <p style="font-size: large" >{{num2}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmarks-outline" size="35" /></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>总被引量</h2>
-                        <h3 >{{num3}}</h3>
+                        <p style="font-size: x-large">总被引量</p>
+                        <p style="font-size: large" >{{num3}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-browsers-outline" size="35"/></div></Col>
                     <Col span="12">
                       <div style="padding-top: 0px" >
-                        <h2>篇均被引量</h2>
-                        <h3 >{{num4}}</h3>
+                        <p style="font-size: x-large">篇均被引量</p>
+                        <p style="font-size: large" >{{num4}}</p>
                       </div>
                     </Col>
                   </Row>
@@ -250,16 +250,16 @@
         this.login=false;
       },
       gofollow:function () {
+        this.followed='1';
         this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/',json_str,{headers:{'content-type':'application/json'},user_id:this.user_id,author:this.expertname,unit:this.add,withCredentials:true}).then((res) => {
 
         });
-        this.followed=true;
   },
       godisfollow:function () {
+        this.followed='0';
         this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/',json_str,{headers:{'content-type':'application/json'},user_id:this.user_id,author:this.expertname,unit:this.add,withCredentials:true}).then((res) => {
 
         });
-        this.followed=false;
       }
     },
     components: {paper_result, classification,pageHeader,exShowFollows,Echarts,applicationForExpert,cloud}
