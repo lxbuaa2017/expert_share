@@ -161,7 +161,7 @@
             </Row>
             <br/>
             <Row>
-              <Echarts></Echarts>
+              <Echarts :add="add" :expertname="expertname"></Echarts>
             </Row>
 
           </Content>
@@ -194,11 +194,13 @@
         this.username = '游客'
       }
       this.$nextTick(() => {
-        this.$axios.get('api/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+        this.$axios.get('/api/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+            console.log(res.data)
           this.num1 = res.data.literature_num;
           this.num2 = res.data.core_num;
           this.num3 = res.data.quoted_num;
           this.num4 = res.data.avg_quoted;
+          console.log(this.num1)
           this.experts = res.data.cooperation_scholar;
           let au, un, len;
           len = this.experts.length;
@@ -273,7 +275,7 @@
         this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/', json_str, {
           headers: {'content-type': 'application/json'},
           withCredentials: true
-        });
+        })
       },
       godisfollow: function () {
         this.followed='0';

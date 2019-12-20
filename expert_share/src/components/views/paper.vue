@@ -126,6 +126,9 @@
                     </template>
                     <br/><br/>
                     <span style="font-family: 微软雅黑;font-size: 14px;color:RGB(137,137,137);font-weight: 700">作者:</span>
+                    <template v-for="author in split_keywords(paper.c_keywords)">
+                      <Tag>{{keyword}}</Tag>
+                    </template>
                     {{paper.c_author}}
                     <br/><br/>
                     <span style="font-family: 微软雅黑;font-size: 14px;color:RGB(137,137,137);font-weight: 700">刊名:</span>

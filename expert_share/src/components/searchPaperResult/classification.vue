@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  import searchPaperResult from "../views/searchPaperResult";
     export default {
         name: "classification",
         props:['papers','keyword','paper_result_flag','year','author','by_author','by_year','which_year','which_author','paper_cnt'],
@@ -47,20 +48,21 @@
                 })
                 this.by_year = true
                 this.by_author = false
-                this.$parent.page_change(1)
+                searchPaperResult.methods.page_change(1)
                 // alert('按年展示 '+i)
             },
             show_by_author(i){
-                // alert('按作者展示 '+i)
+
                 this.which_author=i
                 //http://localhost:8000/get_paper_total_by_year?keyword=数据挖掘&year=2019
                 let self = this
                 this.$axios.get('api/get_paper_total_by_author/?keyword='+self.keyword+'&author='+i).then((res)=>{
                     self.paper_cnt = res.data
+                    alert(this.which_author)
                 })
-                this.by_year = false
-                this.by_author = true
-                this.$parent.page_change(1)
+                self.by_year = false
+                self.by_author = true
+                searchPaperResult.methods.page_change(1)
             }
         }
     }

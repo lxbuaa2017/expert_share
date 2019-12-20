@@ -12,9 +12,10 @@
       mounted() {
         // this.$nextTick(()=> {
             let self = this
-          this.$axios.get('/api/get_experts_by_author_and_unit/?author='+'俞毓锋'+'&unit='+'北京大学').then((res) => {
+          this.$axios.get('/api/get_experts_by_author_and_unit/?author='+this.expertname+'&unit='+this.add).then((res) => {
             //this.names=res.data.research_interest.names;
             //this.nums=res.data.research_interest.nums;
+            //   console.log(res.data)
             self.result=res.data.research_interest
               let dict = [{}]
               //let result = {"names":a,"nums":b}

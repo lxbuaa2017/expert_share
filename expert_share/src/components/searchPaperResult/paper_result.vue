@@ -24,7 +24,7 @@
         <el-col :span=2><p>&nbsp;&nbsp;</p></el-col>
         <el-col :span=22>
           <p style="text-align: left">{{item.c_author}} &nbsp;&nbsp;-&nbsp;&nbsp;《{{item.c_periodical}}》&nbsp;&nbsp;&nbsp;-
-            {{item.indexid.substring(0,4)}}年{{month_regex(item.indexid)}}期</p>
+            {{item.indexID.substring(0,4)}}年{{month_regex(item.indexID)}}期</p>
         </el-col>
       </el-row>
       <el-row><p style="line-height: 10px">&nbsp;</p></el-row>
