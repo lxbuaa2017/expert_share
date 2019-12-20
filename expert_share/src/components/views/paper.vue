@@ -235,8 +235,8 @@
             key: 'unit'
           }
         ],
-        login: true,
-        username: 'lx',
+        login_flag: false,
+        username: '游客',
         paper:
           {
             "id": "5de33f210031bb949dbd6831",

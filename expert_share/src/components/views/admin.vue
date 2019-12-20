@@ -12,15 +12,20 @@
       <ul style="list-style: none">
         <li v-for="(item, index) in data" v-bind:key="item.id">
           <el-card shadow="hover" style="height: 180px;margin: 5px">
-            <div style="padding: 5px">
-              <p style="font-size: 16px;text-align: left">申请人：{{item.real_name}}</p>
-              <p style="text-align: left">申请人身份证号：{{item.ID_number}}</p>
-              <p style="text-align: left">申请人学校：{{item.institution}}</p>
-              <p style="text-align: left">申请人单位：{{item.expert_unit}}</p>
+            <div>
+              <img :src="item.credentials_url" style="padding: 15px;width: 150px;height: 150px"/>
             </div>
-            <div style="display: inline-block;float: right">
-              <el-button type="success" style="margin: 5px" @click="approve(item.id, item.index)">通过</el-button>
-              <el-button type="danger" style="margin: 5px" @click="fail(item.id, item.index)">拒绝</el-button>
+            <div>
+              <div style="padding: 5px">
+                <p style="font-size: 16px;text-align: left">申请人：{{item.real_name}}</p>
+                <p style="text-align: left">申请人身份证号：{{item.ID_number}}</p>
+                <p style="text-align: left">申请人学校：{{item.institution}}</p>
+                <p style="text-align: left">申请人单位：{{item.expert_unit}}</p>
+              </div>
+              <div style="display: inline-block;float: right">
+                <el-button type="success" style="margin: 5px" @click="approve(item.id, item.index)">通过</el-button>
+                <el-button type="danger" style="margin: 5px" @click="fail(item.id, item.index)">拒绝</el-button>
+              </div>
             </div>
           </el-card>
         </li>
