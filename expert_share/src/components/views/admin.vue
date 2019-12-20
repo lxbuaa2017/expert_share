@@ -77,7 +77,7 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          this.$axios.post('/api/handle_the_application/', {'application_id': id, 'opt': 1})
+          this.$axios.post('/api/handle_the_application/', {'application_id': id, 'opt': '1'})
           this.$message.success('操作成功')
           this.data.splice(index, 1)
         })
@@ -88,7 +88,7 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          this.$axios.post('/api/handle_the_application/', {'application_id': id, 'opt': 0})
+          this.$axios.post('/api/handle_the_application/', {'application_id': id, 'opt': '0'})
           this.$message.success('操作成功')
           this.data.splice(index, 1)
         })
