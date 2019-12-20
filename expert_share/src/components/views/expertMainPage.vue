@@ -207,12 +207,12 @@
           for (let i = 0; i < len; i++) {
             au = this.experts[i].autherName;
             un = this.experts[i].unitName;
-            this.$axios.get('api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '$unit' + un).then((res) => {
+            this.$axios.get('api/get_iffollowed/?user_id=' + this.user_id + '&author=' + au + '$unit' + un).then((res) => {
               this.experts[i].autherID = res.data.iffollowed;
             });
           }
         });
-        this.$axios.get('api/get_iffollowed/?user_id' + this.user_id + '&author=' + this.expertname + '$unit' + this.add).then((res) => {
+        this.$axios.get('api/get_iffollowed/?user_id=' + this.user_id + '&author=' + this.expertname + '$unit' + this.add).then((res) => {
           this.followed = res.data.iffollowed;
         });
       });

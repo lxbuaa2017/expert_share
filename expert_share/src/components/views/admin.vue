@@ -13,7 +13,7 @@
         <li v-for="(item, index) in data" v-bind:key="item.id">
           <el-card shadow="hover" style="height: 180px;margin: 5px">
             <div>
-              <img :src="item.credentials_url" style="padding: 15px;width: 150px;height: 150px"/>
+              <img :src="item.credentials_url" style="padding: 15px;width: 150px;height: 120px;float: left;margin-right: 50px"/>
             </div>
             <div>
               <div style="padding: 5px">
