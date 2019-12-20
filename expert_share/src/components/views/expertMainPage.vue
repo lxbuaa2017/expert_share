@@ -65,13 +65,7 @@
                 <div class="title">学者</div>
               </el-col>
               <el-col :span="18">
-                <el-autocomplete
-                  class="inline-input"
-                  v-model="state2"
-                  :fetch-suggestions="querySearch"
-                  placeholder="请输入内容"
-                  :trigger-on-focus="false"
-                  @select="handleSelect"/>
+                <Input v-model="searchExpertName" placeholder="请输入专家名" style="width: auto" @on-enter="searchExpert"/>
               </el-col>
             </el-row>
             <Row>
@@ -207,6 +201,8 @@
   export default {
     name: "expertMainPage",
     created() {
+      this.expertname = this.$route.query.name;
+      this.add = this.$route.query.add;
       if (getCookie('username') !== '') {
         this.login_flag = true;
         this.username = getCookie('username');
@@ -279,7 +275,8 @@
             "avatar": "",
             "isFollowed": true,
           },
-        ]
+        ],
+        searchExpertName: '',
       }
     },
     methods: {
@@ -328,7 +325,11 @@
       },
       login() {
         this.$router.push('/login')
-      }
+      },
+      searchExpert(){
+        console.log(this.expertName);
+        this.$router.push({path: '/searchExpert', query: {name: this.searchExpertName}});
+      },
     },
     components: {paper_result, classification, pageHeader, exShowFollows, Echarts, applicationForExpert, cloud}
   }
