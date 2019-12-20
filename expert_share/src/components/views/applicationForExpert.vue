@@ -11,8 +11,15 @@
       <Form :model="formData">
         <Row>
           <Col span="12">
+<!--            username:'',-->
+<!--            real_name: '',-->
+<!--            ID_number: '',-->
+<!--            institution: '',-->
+<!--            credentials_url:'',-->
+<!--            author:'',-->
+<!--            unit:''-->
             <FormItem label="请输入您的真实姓名：" label-position="top">
-              <Input v-model="formData.name" placeholder="please enter your name" />
+              <Input v-model="formData.real_name" placeholder="please enter your name" />
             </FormItem>
           </Col>
         </Row>
@@ -33,12 +40,18 @@
         <Row>
           <Col span="30">
             <FormItem label="请上传您在所属研究机构的有关证件照片，不超过1M：" label-position="top">
-              <Upload
-                http
-                multiple
-                action="/post/commit_imgs/">
-                <Button icon="ios-cloud-upload-outline">Upload files</Button>
-              </Upload>
+
+              <el-upload
+                style="text-align: left"
+                list-type="picture-card"
+                :http-request="uploadImgs"
+                action="10.251.252.10:8081/api/file/uploadImage"
+                :file="file"
+                :file-list="fileList"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove">
+                <i class="el-icon-plus"></i>
+              </el-upload>
             </FormItem>
           </Col>
         </Row>
@@ -51,8 +64,10 @@
   </div>
 </template>
 <script>
+  import {getCookie} from "../../assets/js/cookie";
+
   export default {
-    props:['username'],
+    props:['username','author','unit'],
     data () {
       return {
         value3: false,
@@ -63,32 +78,47 @@
           position: 'static'
         },
         formData: {
-          username:'',
-          name: '',
-          IDnumber: '',
+          user_id:'',
+          real_name: '',
+          ID_number: '',
           institution: '',
+          credentials_url:'',
+          author:'',
+          unit:''
         },
       }
     },
     methods:{
       uploadImgs (file) {
+          console.log('上传成功')
         let param = new FormData()
         param.append('file', file.file)
         this.$axios({
           method: 'post',
-          url: '/api/file/uploadImage',
+          url: '10.251.252.10:8081/api/file/uploadImage',
           headers: {
             'Content-Type': 'multipart/form-data'
           },
           data: param,
           withCredentials: true
         }).then(res => {
-          this.newWorkorder.urls.push(res.data)
+          this.formData.credentials_url=res.data
         })
       },
       commit () {
-        this.formData.username = this.username;
-        this.$axios.post('/api/form/add/', this.formData);
+          let name = getCookie("username")
+          this.$axios.get('/api/get_id_by_name/?username='+name).then((res)=>{
+              this.formData.user_id=res.data
+          })
+          this.formData.author =this.author
+          this.formData.unit =this.unit
+          let json_str = JSON.stringify(this.formData)
+          console.log(json_str)
+          this.$axios.post('/api/application_for_expert/', json_str,{
+              headers: {
+                  'content-type': 'application/json'
+              }, withCredentials: true
+          })
         this.formData.username='';this.formData.name='';this.formData.IDnumber='',this.formData.institution='';
       },
       cancel(){
