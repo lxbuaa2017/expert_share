@@ -126,10 +126,11 @@
                     </template>
                     <br/><br/>
                     <span style="font-family: 微软雅黑;font-size: 14px;color:RGB(137,137,137);font-weight: 700">作者:</span>
-                    <template v-for="author in split_keywords(paper.c_keywords)">
-                      <Tag>{{keyword}}</Tag>
+                    <template v-for="author in split_keywords(paper.c_author)">
+                      <Tag>
+                        <el-link :underline="false" v-on:click="getAuthor(author)">{{author}}</el-link>
+                      </Tag>
                     </template>
-                    {{paper.c_author}}
                     <br/><br/>
                     <span style="font-family: 微软雅黑;font-size: 14px;color:RGB(137,137,137);font-weight: 700">刊名:</span>
                     {{paper.c_periodical}}
@@ -211,10 +212,12 @@
           console.log(res.data)
           self.paper = res.data[0]
         })
+        this.paper_id=self.$route.query.paper_id
       })
     },
     data() {
       return {
+        paper_id: '',
         columns1: [
           {
             title: '题目',
@@ -327,6 +330,20 @@
       },
       login() {
         this.$router.push('/login')
+      },
+      getAuthor(author) {
+        console.log('click is here')
+        this.$axios.get('/api/get_experts_by_author_and_id/', {
+          'id': this.paper_id,
+          'author': author
+        }).then((res) => {
+          console.log(res.data)
+          if (res.data.unit === '') {
+            alert('该专家未录入！')
+          } else {
+            this.$router.push('/expertMainPage/?name=' + author + '&add=' + res.data.unit)
+          }
+        })
       }
     }
   }
