@@ -11,6 +11,7 @@
            query:{paper_id:item.id}}"
              target="_blank" v-html="height_light(item.c_title)">
             </router-link>
+
           </h3>
         </el-col>
         <el-col :span=1>

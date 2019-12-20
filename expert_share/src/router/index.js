@@ -14,6 +14,7 @@ import userMessageBox from "../components/views/userMessageBox";
 import expertMainPage from "../components/views/expertMainPage";
 import WordCloud from "../components/expertMainPage/WordCloud";
 import superSearch from "../components/views/superSearch";
+import searchExpert from "../components/views/searchExpert";
 Vue.use(Router)
 
 export default new Router({
@@ -88,6 +89,12 @@ export default new Router({
       path: '/superSearch',
       name: 'superSearch',
       component: superSearch
+    }
+    ,
+    {
+      path: '/searchExpert',
+      name: 'searchExpert',
+      component: searchExpert
     }
   ]
 })

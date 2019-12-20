@@ -40,14 +40,13 @@
           <el-col :span=4>&nbsp;</el-col>
           <el-col :span=12>
             <el-row style="text-align: center">
-              <el-col :span="3"><a>
+              <el-col :span="4"><a>
                 <router-link :to="{path:'/'}">首页</router-link>
               </a></el-col>
-              <el-col :span="3"><a>
+              <el-col :span="4"><a>
                 <router-link :to="{path:'searchPaperResult'}">搜索文章</router-link>
               </a></el-col>
-              <el-col :span="3"><a>搜索专家</a></el-col>
-              <el-col :span="3"><a>个人主页</a></el-col>
+              <el-col :span="4"><a>搜索专家</a></el-col>
               <!--el-col :span="2"><el-link type="primary">登录/注册</el-link></el-col-->
             </el-row>
           </el-col>
@@ -92,7 +91,7 @@
              @on-search="handleQuery($event)" size="large" style="width: 70%; float: left"/-->
       <Input search enter-button="搜索" type="text" placeholder="请输入搜索内容"
              @on-search="handleQuery($event)" size="large" style="width: 30%"/>
-      <el-link type="primary" :underline="false" @click="dialogVisible = true">高级搜索</el-link>
+      <!--el-link type="primary" :underline="false" @click="dialogVisible = true">高级搜索</el-link-->
     </div>
     <el-dialog
       title="高级检索"
@@ -145,10 +144,13 @@
       </el-carousel-item>
 
     </el-carousel>
-    <div style="width: 60%;padding: 20px; text-align: left;display: inline-block">
+    <div style="width: 50%;padding: 20px; text-align: left;display: inline-block">
       <el-card header="最新资源" shadow="hover">
         <li v-for="item in newest" :key="item.id">
-          <el-link :href="item.url" target="_blank">{{item.title}}</el-link>
+          <router-link :to="{path:'paper/',
+           query:{paper_id:item.id}}"
+                       target="_blank">{{item.title}}
+          </router-link>
         </li>
       </el-card>
     </div>
