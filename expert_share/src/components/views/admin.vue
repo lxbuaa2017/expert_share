@@ -12,19 +12,15 @@
       <ul style="list-style: none">
         <li v-for="(item, index) in data" v-bind:key="item.id">
           <el-card shadow="hover" style="height: 160px;margin: 5px">
-            <div style="display: inline-block;padding-right: 15px;float: left">
-              <img :src=item.image1 style="height: 120px;width: 120px;padding-right: 5px">
-              <img :src=item.image2 style="height: 120px;width: 120px">
+            <div style="padding: 5px">
+              <p style="font-size: 16px;text-align: left">申请人：{{item.real_name}}</p>
+              <p style="text-align: left">申请人身份证号：{{item.ID_number}}</p>
+              <p style="text-align: left">申请人学校：{{item.institution}}</p>
+              <p style="text-align: left">申请人单位：{{item.expert_unit}}</p>
             </div>
-            <div>
-              <div style="padding: 5px">
-                <p style="font-size: 16px;text-align: left">申请人：{{item.applicant}}</p>
-                <p style="text-align: left">申请理由：{{item.description}}</p>
-              </div>
-              <div style="display: inline-block">
-                <el-button type="success" style="margin: 5px" @click="approve(item.id, item.index)">通过</el-button>
-                <el-button type="danger" style="margin: 5px" @click="fail(item.id, item.index)">拒绝</el-button>
-              </div>
+            <div style="display: inline-block">
+              <el-button type="success" style="margin: 5px" @click="approve(item.id, item.index)">通过</el-button>
+              <el-button type="danger" style="margin: 5px" @click="fail(item.id, item.index)">拒绝</el-button>
             </div>
           </el-card>
         </li>
@@ -61,7 +57,7 @@
             if (res.data === -1) {
               this.message = '用户名或密码错误'
               this.showMessage = true
-            } else {
+            } else if (res.data === 0) {
               this.message = '登录成功'
               this.showMessage = true
               setTimeout(function () {
@@ -81,7 +77,7 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          this.$axios.post('/api/admin/approve/', {'id': id}).then((res) => {
+          this.$axios.post('/api/admin/handle_the_application/', {'application_id': id, 'opt': 1}).then((res) => {
             if (res.data === 0) {
               this.$message.success('操作成功')
               this.data.splice(index, 1)
@@ -92,11 +88,12 @@
         })
       },
       fail(id, index) {
-        this.$prompt('输入拒绝理由', '提示', {
-          confirmButtonText: '提交',
-          cancelButtonText: '取消'
-        }).then(({value}) => {
-          this.$axios.post('/api/admin/reject/', {'id': id, 'info': value}).then((res) => {
+        this.$confirm('确认拒绝申请？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          this.$axios.post('/api/admin/handle_the_application/', {'application_id': id, 'opt': 0}).then((res) => {
             if (res.data === 0) {
               this.$message.success('操作成功')
               this.data.splice(index, 1)
