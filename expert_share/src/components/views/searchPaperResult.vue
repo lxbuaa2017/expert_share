@@ -36,7 +36,7 @@
         <Header :style="{background: '#f5f7f9',paddingTop:'0px'}">
           <el-row style="text-align: left">
             <el-col :span=5><h3>科技专家资源共享平台</h3></el-col>
-            <el-col :span=1><a style="font-size: 17px">首页</a></el-col>
+            <el-col :span=1><a style="font-size: 17px" href="/">首页</a></el-col>
             <el-col :span=13>&nbsp;</el-col>
             <el-col :span=5>
               <div style="text-align: right">

@@ -22,7 +22,7 @@
         <Header :style="{background:'white',paddingTop: '0px'}">
           <el-row style="text-align: left">
             <el-col :span=5><h3>科技专家资源共享平台</h3></el-col>
-            <el-col :span=1><a style="font-size: 17px">首页</a></el-col>
+            <el-col :span=1><a style="font-size: 17px" href="/">首页</a></el-col>
             <el-col :span=13>&nbsp;</el-col>
             <el-col :span=5>
               <div style="text-align: right">
@@ -287,26 +287,26 @@
         this.login = false;
       },
       gofollow: function () {
-        this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/', json_str, {
-          headers: {'content-type': 'application/json'},
+        let json_str = {
           user_id: this.user_id,
           author: this.expertname,
-          unit: this.add,
+          unit: this.add
+        }
+        this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/', json_str, {
+          headers: {'content-type': 'application/json'},
           withCredentials: true
-        }).then((res) => {
-
         });
         this.followed = true;
       },
       godisfollow: function () {
-        this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
-          headers: {'content-type': 'application/json'},
+        let json_str = {
           user_id: this.user_id,
           author: this.expertname,
-          unit: this.add,
+          unit: this.add
+        }
+        this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
+          headers: {'content-type': 'application/json'},
           withCredentials: true
-        }).then((res) => {
-
         });
         this.followed = false;
       },

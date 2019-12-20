@@ -147,7 +147,10 @@
     <div style="width: 50%;padding: 20px; text-align: left;display: inline-block">
       <el-card header="最新资源" shadow="hover">
         <li v-for="item in newest" :key="item.id">
-          <el-link :href="item.url" target="_blank">{{item.title}}</el-link>
+          <router-link :to="{path:'paper/',
+           query:{paper_id:item.id}}"
+                       target="_blank">{{item.title}}
+          </router-link>
         </li>
       </el-card>
     </div>
