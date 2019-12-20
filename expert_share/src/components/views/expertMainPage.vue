@@ -82,12 +82,12 @@
                     <div style="padding-top: 20px"><p align="left" style="font-size: xx-large">{{expertname}}</p></div>
                   </Row>
                   <Row>
-                    <div style="padding-top: 5px"><h4 align="left" >{{expertadd}}</h4></div>
+                    <div style="padding-top: 5px"><p align="left" style="font-size: medium;">{{add}}</p></div>
                   </Row>
                 </Col>
                 <Col span="6">
                   <Col span="12">
-                    <div v-if="followed==false" style="padding-top: 32px">
+                    <div v-if="followed=='0'" style="padding-top: 32px">
                       <Button  size="large" @click="gofollow()">关注</Button>
                     </div>
                     <div v-else style="padding-top: 32px">
@@ -178,29 +178,35 @@
     created() {
       this.username=getCookie('username');
       this.$nextTick(()=> {
-      this.$axios.get('api/get_nowexpert/?user='+this.username).then((res) => {
-        this.expertname=res.data.name;
-        this.expertadd=res.data.location;
-        this.followed=res.data.isFollowed;
+      this.$axios.get('api/get_experts_by_author_and_unit/?author='+this.expertname+'&unit='+this.add).then((res) => {
+        this.num1=res.data.literature_num;
+        this.num2=res.data.core_num;
+        this.num3=res.data.quoted_num;
+        this.num4=res.data.avg_quoted;
+        this.experts=res.data.cooperation_scholar;
+        let au,un,len;
+        len=this.experts.length;
+        for(let i=0;i<len;i++){
+          au=this.experts[i].autherName;
+          un=this.experts[i].unitName;
+          this.$axios.get('api/get_iffollowed/?user_id'+this.user_id+'&author='+au+'$unit'+un).then((res) => {
+            this.experts[i].autherID=res.data.iffollowed;
+          });
+        }
       });
-      this.$axios.get('api/get_relation/?name='+this.expertname+'&user='+this.username).then((res) => {
-        this.experts=res.data;
-      });
-      this.$axios.get('api/get_four/?name='+this.expertname).then((res) => {
-        this.num1=res.data.num1;
-        this.num2=res.data.num2;
-        this.num3=res.data.num3;
-        this.num4=res.data.num4;
-      });
+        this.$axios.get('api/get_iffollowed/?user_id'+this.user_id+'&author='+this.expertname+'$unit'+this.add).then((res) => {
+          this.followed=res.data.iffollowed;
+        });
       });
     },
     data () {
       return {
-        followed:true,
+        user_id:'',
+        followed:'1',
         login:true,
         username: '',
-        expertname:'',
-        expertadd:'',
+        expertname:'ssss',
+        add:'saddd',
         num1:1111,
         num2:2222,
         num3:3333,
@@ -244,13 +250,13 @@
         this.login=false;
       },
       gofollow:function () {
-        this.$axios.post('api/go_follow/',this.username,this.expertname).then((res) => {
+        this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/',json_str,{headers:{'content-type':'application/json'},user_id:this.user_id,author:this.expertname,unit:this.add,withCredentials:true}).then((res) => {
 
         });
         this.followed=true;
   },
       godisfollow:function () {
-        this.$axios.post('api/go_disfollow/',this.username,this.expertname).then((res) => {
+        this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/',json_str,{headers:{'content-type':'application/json'},user_id:this.user_id,author:this.expertname,unit:this.add,withCredentials:true}).then((res) => {
 
         });
         this.followed=false;
