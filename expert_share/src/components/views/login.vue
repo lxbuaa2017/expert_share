@@ -39,13 +39,9 @@
         <el-col :span=4>&nbsp;</el-col>
         <el-col :span=12>
           <el-row style="text-align: center">
-            <el-col :span="4"><a>
+            <el-col :span="12"><a>
               <router-link :to="{path:'/'}">首页</router-link>
             </a></el-col>
-            <el-col :span="4"><a>
-              <router-link :to="{path:'searchPaperResult'}">搜索文章</router-link>
-            </a></el-col>
-            <el-col :span="4"><a>搜索专家</a></el-col>
             <!--el-col :span="2"><el-link type="primary">登录/注册</el-link></el-col-->
           </el-row>
         </el-col>
