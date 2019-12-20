@@ -88,8 +88,11 @@
     <div style="padding: 22px;display: inline-block;width: 100%; text-align: -webkit-center">
       <!--Input search enter-button="搜索"  type="text" placeholder="请输入搜索内容"
              @on-search="handleQuery($event)" size="large" style="width: 70%; float: left"/-->
-      <Input search enter-button="搜索" type="text" placeholder="请输入搜索内容"
-             @on-search="handleQuery($event)" size="large" style="width: 30%"/>
+      <el-row>
+        <el-input placeholder="请输入搜索内容" v-model="inputText" style="width: 30%;padding-right: 15px"/>
+        <el-button type="primary" v-on:click="search">搜索论文</el-button>
+        <el-button type="primary" v-on:click="searchExpert">搜索专家</el-button>
+      </el-row>
       <!--el-link type="primary" :underline="false" @click="dialogVisible = true">高级搜索</el-link-->
     </div>
     <el-dialog
@@ -191,6 +194,7 @@
     },
     data() {
       return {
+        inputText: '',
         dynamicValidateForm: {
           domains: [{
             value: ''
@@ -202,10 +206,10 @@
         dialogVisible: false,
         login_flag: false,
         imagesbox: [
-          {id1: 0, idView: require("../../assets/pp5.jpg"), path:'/paper/?paper_id=5de35575c4dc52961533d8be'},
-          {id1: 1, idView: require("../../assets/pp2.jpg"), path:'/paper/?paper_id=5de341470031bb949dbd7bb5'},
-          {id1: 2, idView: require("../../assets/pp3.jpg"), path:'/paper/?paper_id=5de349fc04d70c3a3aa882af'},
-          {id1: 2, idView: require("../../assets/pp4.jpg"), path:'/paper/?paper_id=5de34bf20031bb949dbddea2'}],
+          {id1: 0, idView: require("../../assets/pp5.jpg"), path: '/paper/?paper_id=5de35575c4dc52961533d8be'},
+          {id1: 1, idView: require("../../assets/pp2.jpg"), path: '/paper/?paper_id=5de341470031bb949dbd7bb5'},
+          {id1: 2, idView: require("../../assets/pp3.jpg"), path: '/paper/?paper_id=5de349fc04d70c3a3aa882af'},
+          {id1: 2, idView: require("../../assets/pp4.jpg"), path: '/paper/?paper_id=5de34bf20031bb949dbddea2'}],
         newest: []
       }
     },
@@ -262,11 +266,8 @@
 
         })
       },
-      handleQuery($event) {
-        self.input_keyword = $event
-        window.localStorage.setItem("input_keyword", self.input_keyword)
-        //this.aixos...得到后端返回的论文，存到localStorage中，然后刷新（在index的刷新机制中也是这样，把input_keyword和papers存到localStorage，然后路由跳过来）
-        // location.reload()
+      search() {
+        window.localStorage.setItem("input_keyword", this.inputText)
         this.$router.push('/searchPaperResult')
       },
       logout() {
@@ -287,6 +288,9 @@
       },
       login() {
         this.$router.push('/login')
+      },
+      searchExpert() {
+        this.$router.push('/searchExpert?name=' + this.inputText)
       }
     },
     mounted() {
