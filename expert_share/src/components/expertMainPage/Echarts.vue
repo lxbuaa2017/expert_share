@@ -2,11 +2,11 @@
   <div>
     <Col span="12">
       <div><p style="font-size: xx-large">兴趣领域</p></div>
-      <WordCloud :add="add"></WordCloud>
+      <WordCloud :add="add" :expertname="expertname"></WordCloud>
     </Col>
     <Col span="12">
       <div><p style="font-size: xx-large">个人成果数</p></div>
-      <div id="myChart1" :style="{paddingTop: '0px',width: '600px', height: '600px'}"></div>
+      <div id="myChart1" :style="{paddingTop: '0px',width: '420px', height: '420px'}"></div>
     </Col>
   </div>
 </template>
@@ -27,9 +27,9 @@
     },
     created() {
       this.$nextTick(()=> {
-        this.$axios.get('api/get_appoint/?name='+this.expertname).then((res) => {
-          this.charts.x1=res.data.x;
-          this.charts.y1=res.data.y;
+        this.$axios.get('/api/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+          this.charts.x1=res.data.line_data.jsonFacetYear;
+          this.charts.y1=res.data.line_data.jsonFacetAll;
           console.log(this.charts.x1);
           this.drawLine();
         });
@@ -37,12 +37,12 @@
     },
     mounted(){
       this.$nextTick(()=> {
-        this.$axios.get('api/get_appoint/?name='+this.expertname).then((res) => {
-          this.charts.x1=res.data.x;
-          this.charts.y1=res.data.y;
-          console.log(this.charts.x1);
-          this.drawLine();
-        });
+          this.$axios.get('/api/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+              this.charts.x1=res.data.line_data.jsonFacetYear;
+              this.charts.y1=res.data.line_data.jsonFacetAll;
+              console.log(this.charts.x1);
+              this.drawLine();
+          });
       });
     },
     methods: {
@@ -76,6 +76,5 @@
     }
   }
 </script>
-
 <style scoped>
 </style>

@@ -22,7 +22,7 @@
     },
     created() {
       this.$nextTick(()=> {
-        this.$axios.get('api/get_experts_by_author?author='+this.$route.query.name).then((res) => {
+        this.$axios.get('api/get_experts_by_author/?author='+this.$route.query.name).then((res) => {
           this.expertList = res.data;
           this.showFlag = true;
         })
