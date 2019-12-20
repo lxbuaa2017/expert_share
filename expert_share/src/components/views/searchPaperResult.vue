@@ -116,8 +116,8 @@
                 let self=this
                 ///api/get_paper_by_page?page='+self.page_id+'&keyword='+self.input_keyword
                 if(self.by_year===false&&self.by_author===false){
-                    this.$axios.get('api/get_papers/?page='+self.page_id+'&keyword='+self.input_keyword).then((res)=>{
-                        // console.log(res.data)
+                    this.$axios.get('api/test/?page='+self.page_id+'&keyword='+self.input_keyword).then((res)=>{
+                        console.log(res.data)
                         this.papers=res.data
                     })
                 }
