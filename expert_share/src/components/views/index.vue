@@ -40,31 +40,58 @@
           <el-col :span=4>&nbsp;</el-col>
           <el-col :span=12>
             <el-row style="text-align: center">
-              <el-col :span="3"><a>
+              <el-col :span="4"><a>
                 <router-link :to="{path:'/'}">首页</router-link>
               </a></el-col>
-              <el-col :span="3"><a>
+              <el-col :span="4"><a>
                 <router-link :to="{path:'searchPaperResult'}">搜索文章</router-link>
               </a></el-col>
-              <el-col :span="3"><a>搜索专家</a></el-col>
-              <el-col :span="3"><a>个人主页</a></el-col>
+              <el-col :span="4"><a>搜索专家</a></el-col>
               <!--el-col :span="2"><el-link type="primary">登录/注册</el-link></el-col-->
             </el-row>
           </el-col>
           <el-col :span="3">
-            <router-link v-if="login_flag==false" :to="{path:'login'}">登录/注册</router-link>
-            <span v-else>{{username}}</span>
+            <div style="text-align: right">
+              <Dropdown style="text-align: center">
+                <Button type="primary">
+                  {{username}}
+                  <Icon type="ios-arrow-down"></Icon>
+                </Button>
+                <DropdownMenu v-if="login_flag" slot="list">
+                  <DropdownItem>
+                    <el-link :underline="false" v-on:click="userMainpage">个人信息</el-link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <el-link :underline="false" v-on:click="userFavorites">收藏</el-link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <el-link :underline="false" v-on:click="userFollows">关注</el-link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <el-link :underline="false" v-on:click="userMessageBox">消息</el-link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <el-link :underline="false" v-on:click="logout">退出账户</el-link>
+                  </DropdownItem>
+                </DropdownMenu>
+                <DropdownMenu v-else slot="list">
+                  <DropdownItem>
+                    <el-link :underline="false" v-on:click="login">登录/注册</el-link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
           </el-col>
         </el-row>
       </Header>
 
     </Layout>
-    <div style="padding: 22px;display: inline-block;width: 100%">
+    <div style="padding: 22px;display: inline-block;width: 100%; text-align: -webkit-center">
       <!--Input search enter-button="搜索"  type="text" placeholder="请输入搜索内容"
              @on-search="handleQuery($event)" size="large" style="width: 70%; float: left"/-->
-      <el-input type="text" placeholder="请输入搜索内容" style="width: 30%;padding-right: 20px"/>
-      <el-button type="primary" @click="handleQuery">搜索</el-button>
-      <el-button type="primary" @click="dialogVisible = true">高级搜索</el-button>
+      <Input search enter-button="搜索" type="text" placeholder="请输入搜索内容"
+             @on-search="handleQuery($event)" size="large" style="width: 30%"/>
+      <!--el-link type="primary" :underline="false" @click="dialogVisible = true">高级搜索</el-link-->
     </div>
     <el-dialog
       title="高级检索"
@@ -117,7 +144,7 @@
       </el-carousel-item>
 
     </el-carousel>
-    <div style="width: 60%;padding: 20px; text-align: left;display: inline-block">
+    <div style="width: 50%;padding: 20px; text-align: left;display: inline-block">
       <el-card header="最新资源" shadow="hover">
         <li v-for="item in newest" :key="item.id">
           <el-link :href="item.url" target="_blank">{{item.title}}</el-link>
@@ -151,11 +178,11 @@
 </style>
 
 <script>
-  import {setCookie, getCookie} from '../../assets/js/cookie.js'
+  import {setCookie, getCookie, delCookie} from '../../assets/js/cookie.js'
 
   export default {
     created() {
-      if (getCookie('username') != null) {
+      if (getCookie('username') !== '') {
         this.login_flag = true;
         this.username = getCookie('username');
       }
@@ -168,7 +195,7 @@
           }],
           email: ''
         },
-        username: '',
+        username: '游客',
         value: '',
         dialogVisible: false,
         login_flag: false,
@@ -231,6 +258,32 @@
           },
 
         })
+      },
+      handleQuery($event) {
+        self.input_keyword = $event
+        window.localStorage.setItem("input_keyword", self.input_keyword)
+        //this.aixos...得到后端返回的论文，存到localStorage中，然后刷新（在index的刷新机制中也是这样，把input_keyword和papers存到localStorage，然后路由跳过来）
+        // location.reload()
+        this.$router.push('/searchPaperResult')
+      },
+      logout() {
+        delCookie('username')
+        location.reload()
+      },
+      userFavorites() {
+        this.$router.push('/userFavorites')
+      },
+      userFollows() {
+        this.$router.push('/userFollows')
+      },
+      userMainpage() {
+        this.$router.push('/userMainpage')
+      },
+      userMessageBox() {
+        this.$router.push('/userMessageBox')
+      },
+      login() {
+        this.$router.push('/login')
       }
     },
     mounted() {

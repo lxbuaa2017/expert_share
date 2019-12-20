@@ -1,13 +1,14 @@
 <style scoped xmlns:vertical-align="http://www.w3.org/1999/xhtml" xmlns:vertical-align="http://www.w3.org/1999/xhtml"
        xmlns:vertical-align="http://www.w3.org/1999/xhtml">
-  .layout{
+  .layout {
     border: 1px solid #d7dde4;
     background: #fff;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
   }
-  .layout-logo{
+
+  .layout-logo {
     width: 100px;
     height: 30px;
     background: #fff;
@@ -17,33 +18,37 @@
     top: 15px;
     left: 20px;
   }
-  .layout-nav{
+
+  .layout-nav {
     width: 420px;
     margin: 0 auto;
     margin-right: 20px;
   }
-  .layout-footer-center{
+
+  .layout-footer-center {
     text-align: center;
   }
 </style>
 <template>
   <div id="main">
 
-    <img style="width: 100%; height: 1%;" src="../../assets/background1.png" >
+    <img style="width: 100%; height: 1%;" src="../../assets/background1.png">
     <Header :style="{background: '#f5f7f9',paddingTop:'0px'}">
       <el-row style="text-align: left">
         <el-col :span=5><h3>科技专家资源共享平台</h3></el-col>
         <el-col :span=4>&nbsp;</el-col>
         <el-col :span=12>
           <el-row style="text-align: center">
-            <el-col :span="3"><a ><router-link :to="{path:'/'}">首页</router-link></a></el-col>
-            <el-col :span="3"><a ><router-link :to="{path:'searchPaperResult'}">搜索文章</router-link></a></el-col>
-            <el-col :span="3"><a >搜索专家</a></el-col>
-            <el-col :span="3"><a >个人主页</a></el-col>
+            <el-col :span="4"><a>
+              <router-link :to="{path:'/'}">首页</router-link>
+            </a></el-col>
+            <el-col :span="4"><a>
+              <router-link :to="{path:'searchPaperResult'}">搜索文章</router-link>
+            </a></el-col>
+            <el-col :span="4"><a>搜索专家</a></el-col>
             <!--el-col :span="2"><el-link type="primary">登录/注册</el-link></el-col-->
           </el-row>
         </el-col>
-        <el-col :span="3"><a ><router-link :to="{path:'login'}">登录/注册</router-link></a></el-col>
       </el-row>
     </Header>
     <div class="login-wrap" v-show="showLogin">
@@ -140,9 +145,9 @@
   import {setCookie, getCookie} from '../../assets/js/cookie.js'
 
   export default {
-    data () {
+    data() {
       return {
-        login_flag:false,
+        login_flag: false,
         username: '',
         password: '',
         newUsername: '',
@@ -168,7 +173,7 @@
       }
     },*/
     methods: {
-      login () {
+      login() {
         if (this.username === '') {
           this.tishi = '请输入用户名'
           this.showTishi = true
@@ -178,9 +183,11 @@
         } else {
           let data = {'username': this.username, 'password': this.password}
           let data_str = JSON.stringify(data)
-          this.$axios.post('/api/login/', data_str,{        headers: {
-                  'content-type': 'application/json'
-              },withCredentials: true}).then((res) => {
+          this.$axios.post('/api/login/', data_str, {
+            headers: {
+              'content-type': 'application/json'
+            }, withCredentials: true
+          }).then((res) => {
             console.log(res)
             if (res.data === 0) {
               this.tishi = '用户名或密码错误'
@@ -197,31 +204,33 @@
           })
         }
       },
-      ToRegister () {
+      ToRegister() {
         this.showTishi = false
         this.showRegister = true
         this.showLogin = false
       },
-      ToLogin () {
+      ToLogin() {
         this.showTishi = false
         this.showRegister = false
         this.showLogin = true
       },
-      sendCode () {
+      sendCode() {
         var rePhone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
         if (!rePhone.test(this.phone)) {
           this.tishi = '手机号无效'
           this.showTishi = true
         } else {
           this.showTishi = false
-            let data = {'phone': this.phone}
-            let json_str = JSON.stringify(data)
-            this.$axios.post('/api/sendSms/', json_str, {        headers: {
-                    'content-type': 'application/json'
-                },withCredentials: true}).then((res) => {
-                this.btnText = '正在发送...'
-                this.isDisabled = true
-                console.log(res)
+          let data = {'phone': this.phone}
+          let json_str = JSON.stringify(data)
+          this.$axios.post('/api/sendSms/', json_str, {
+            headers: {
+              'content-type': 'application/json'
+            }, withCredentials: true
+          }).then((res) => {
+            this.btnText = '正在发送...'
+            this.isDisabled = true
+            console.log(res)
             if (res.data === 0) {
               this.timer()
             } else {
@@ -233,7 +242,7 @@
           })
         }
       },
-      timer () {
+      timer() {
         if (this.wait === 0) {
           this.btnText = '获取验证码'
           this.isDisabled = false
@@ -247,7 +256,7 @@
           }.bind(this), 1000)
         }
       },
-      register () {
+      register() {
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         var rePhone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
         if (this.newUsername === '') {
@@ -272,12 +281,14 @@
           this.tishi = '年龄无效'
           this.showTishi = true
         } else {
-          let verify = {'phone':this.phone,'code': this.authentication}
+          let verify = {'phone': this.phone, 'code': this.authentication}
           let json_str = JSON.stringify(verify)
           let self = this
-          this.$axios.post('/api/verify/', json_str,{        headers: {
-                  'content-type': 'application/json'
-              },withCredentials: true}).then((res) => {
+          this.$axios.post('/api/verify/', json_str, {
+            headers: {
+              'content-type': 'application/json'
+            }, withCredentials: true
+          }).then((res) => {
             console.log(res)
             if (res.data !== 0) {
               this.tishi = '验证码错误'
@@ -294,9 +305,11 @@
               }
               let data_str = JSON.stringify(data)
               console.log(data_str)
-              this.$axios.post('/api/register/', data_str,{        headers: {
-                      'content-type': 'application/json'
-                  },withCredentials: true}).then((res) => {
+              this.$axios.post('/api/register/', data_str, {
+                headers: {
+                  'content-type': 'application/json'
+                }, withCredentials: true
+              }).then((res) => {
                 console.log(res)
                 if (res.data === 0) {
                   this.tishi = '注册成功'
@@ -316,6 +329,11 @@
             }
           })
         }
+      }
+    },
+    mounted() {
+      if (getCookie('username') !== '') {
+        this.$router.push('/')
       }
     }
   }
