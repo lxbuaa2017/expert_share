@@ -91,7 +91,7 @@
              @on-search="handleQuery($event)" size="large" style="width: 70%; float: left"/-->
       <Input search enter-button="搜索" type="text" placeholder="请输入搜索内容"
              @on-search="handleQuery($event)" size="large" style="width: 30%"/>
-      <el-link type="primary" :underline="false" @click="dialogVisible = true">高级搜索</el-link>
+      <!--el-link type="primary" :underline="false" @click="dialogVisible = true">高级搜索</el-link-->
     </div>
     <el-dialog
       title="高级检索"
