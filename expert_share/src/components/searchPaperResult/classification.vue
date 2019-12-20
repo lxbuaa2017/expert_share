@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  import searchPaperResult from "../views/searchPaperResult";
     export default {
         name: "classification",
         props:['papers','keyword','paper_result_flag','year','author','by_author','by_year','which_year','which_author','paper_cnt'],
@@ -44,11 +45,10 @@
                 let self = this
                 this.$axios.get('api/get_paper_total_by_year/?keyword='+self.keyword+'&year='+i).then((res)=>{
                     self.paper_cnt = res.data
-
                 })
                 this.by_year = true
                 this.by_author = false
-                this.$parent.page_change(1)
+                searchPaperResult.methods.page_change(1)
                 // alert('按年展示 '+i)
             },
             show_by_author(i){
@@ -62,7 +62,7 @@
                 })
                 self.by_year = false
                 self.by_author = true
-                self.$parent.page_change(1)
+                searchPaperResult.methods.page_change(1)
             }
         }
     }
