@@ -1,12 +1,13 @@
 <style>
-  .title{
+  .title {
     font-family: "PingFang CS";
     font-size: 16px;
     font-weight: bold;
     color: #464c5b;
     background: #d7dde4;
   }
-  .ling{
+
+  .ling {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-size: 60px;
     font-weight: bold;
@@ -30,16 +31,27 @@
                     {{username}}
                     <Icon type="ios-arrow-down"></Icon>
                   </Button>
-                  <DropdownMenu v-if="login===true" slot="list">
-                    <DropdownItem>个人信息</DropdownItem>
-                    <DropdownItem>收藏</DropdownItem>
-                    <DropdownItem>关注</DropdownItem>
-                    <DropdownItem>粉丝</DropdownItem>
-                    <DropdownItem>退出账户</DropdownItem>
+                  <DropdownMenu v-if="login_flag" slot="list">
+                    <DropdownItem>
+                      <el-link :underline="false" v-on:click="userMainpage">个人信息</el-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <el-link :underline="false" v-on:click="userFavorites">收藏</el-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <el-link :underline="false" v-on:click="userFollows">关注</el-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <el-link :underline="false" v-on:click="userMessageBox">消息</el-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <el-link :underline="false" v-on:click="logout">退出账户</el-link>
+                    </DropdownItem>
                   </DropdownMenu>
                   <DropdownMenu v-else slot="list">
-                    <DropdownItem>登录</DropdownItem>
-                    <DropdownItem>注册</DropdownItem>
+                    <DropdownItem>
+                      <el-link :underline="false" v-on:click="login">登录/注册</el-link>
+                    </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
@@ -59,25 +71,24 @@
                   :fetch-suggestions="querySearch"
                   placeholder="请输入内容"
                   :trigger-on-focus="false"
-                  @select="handleSelect"
-                ></el-autocomplete>
+                  @select="handleSelect"/>
               </el-col>
             </el-row>
             <Row>
               <div class="title" style="padding-left: 10px;" align="left">相关学者</div>
               <ex-show-follows :experts="experts"></ex-show-follows>
-              <Divider type="horizontal" />
+              <Divider type="horizontal"/>
             </Row>
           </Sider>
           <Content :style="{background: '#fff'}">
             <Row>
               <Col span="20">
                 <Col span="3">
-                  <div class="demo-avatar" >
-                    <Avatar icon="ios-person" size=100  />
+                  <div class="demo-avatar">
+                    <Avatar icon="ios-person" size="100"/>
                   </div>
                 </Col>
-                <Col span="15" >
+                <Col span="15">
                   <Row>
                     <div style="padding-top: 20px"><p align="left" style="font-size: xx-large">{{expertname}}</p></div>
                   </Row>
@@ -88,10 +99,10 @@
                 <Col span="6">
                   <Col span="12">
                     <div v-if="followed=='0'" style="padding-top: 32px">
-                      <Button  size="large" @click="gofollow()">关注</Button>
+                      <Button size="large" @click="gofollow()">关注</Button>
                     </div>
                     <div v-else style="padding-top: 32px">
-                      <Button  size="large" @click="godisfollow()">取消关注</Button>
+                      <Button size="large" @click="godisfollow()">取消关注</Button>
                     </div>
                   </Col>
                   <Col span="12">
@@ -103,47 +114,66 @@
               </Col>
             </Row>
             <Row style="padding-top: 30px">
-              <Col span=20  :style="{background:'#f5f7f9', minHeight:'100px'}">
-                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
+              <Col span=20 :style="{background:'#f5f7f9', minHeight:'100px'}">
+                <Col span=6
+                     :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="4" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="md-book" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <h2>总文献量</h2>
                         <h3>{{num1}}</h3>
                       </div>
                     </Col>
                   </Row>
                 </Col>
-                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
+                <Col span=6
+                     :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="6" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="md-book" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <h2>核心发文量</h2>
-                        <h3 >{{num2}}</h3>
+                        <h3>{{num2}}</h3>
                       </div>
                     </Col>
                   </Row>
                 </Col>
-                <Col span=6 :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
+                <Col span=6
+                     :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="4" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="md-book" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <h2>总被引量</h2>
-                        <h3 >{{num3}}</h3>
+                        <h3>{{num3}}</h3>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="md-book" size="35" /></div></Col>
+                    <Col span="6" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="md-book" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <h2>篇均被引量</h2>
-                        <h3 >{{num4}}</h3>
+                        <h3>{{num4}}</h3>
                       </div>
                     </Col>
                   </Row>
@@ -172,45 +202,52 @@
   import Echarts from "../expertMainPage/Echarts";
   import applicationForExpert from "./applicationForExpert";
   import cloud from "./cloud";
-  import {getCookie} from "../../assets/js/cookie";
+  import {delCookie, getCookie} from "../../assets/js/cookie";
+
   export default {
     name: "expertMainPage",
     created() {
-      this.username=getCookie('username');
-      this.$nextTick(()=> {
-      this.$axios.get('api/get_experts_by_author_and_unit/?author='+this.expertname+'&unit='+this.add).then((res) => {
-        this.num1=res.data.literature_num;
-        this.num2=res.data.core_num;
-        this.num3=res.data.quoted_num;
-        this.num4=res.data.avg_quoted;
-        this.experts=res.data.cooperation_scholar;
-        let au,un,len;
-        len=this.experts.length;
-        for(let i=0;i<len;i++){
-          au=this.experts[i].autherName;
-          un=this.experts[i].unitName;
-          this.$axios.get('api/get_iffollowed/?user_id'+this.user_id+'&author='+au+'$unit'+un).then((res) => {
-            this.experts[i].autherID=res.data.iffollowed;
-          });
-        }
-      });
-        this.$axios.get('api/get_iffollowed/?user_id'+this.user_id+'&author='+this.expertname+'$unit'+this.add).then((res) => {
-          this.followed=res.data.iffollowed;
+      if (getCookie('username') !== '') {
+        this.login_flag = true;
+        this.username = getCookie('username');
+      } else {
+        this.username = '游客'
+      }
+      this.$nextTick(() => {
+        this.$axios.get('api/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+          this.num1 = res.data.literature_num;
+          this.num2 = res.data.core_num;
+          this.num3 = res.data.quoted_num;
+          this.num4 = res.data.avg_quoted;
+          this.experts = res.data.cooperation_scholar;
+          let au, un, len;
+          len = this.experts.length;
+          for (let i = 0; i < len; i++) {
+            au = this.experts[i].autherName;
+            un = this.experts[i].unitName;
+            this.$axios.get('api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '$unit' + un).then((res) => {
+              this.experts[i].autherID = res.data.iffollowed;
+            });
+          }
+        });
+        this.$axios.get('api/get_iffollowed/?user_id' + this.user_id + '&author=' + this.expertname + '$unit' + this.add).then((res) => {
+          this.followed = res.data.iffollowed;
         });
       });
     },
-    data () {
+    data() {
       return {
-        user_id:'',
-        followed:'1',
-        login:true,
+        user_id: '',
+        login_flag: false,
+        followed: '1',
+        login: true,
         username: '',
-        expertname:'ssss',
-        add:'saddd',
-        num1:1111,
-        num2:2222,
-        num3:3333,
-        num4:4444,
+        expertname: 'ssss',
+        add: 'saddd',
+        num1: 1111,
+        num2: 2222,
+        num3: 3333,
+        num4: 4444,
         experts: [
           {
             "name": "褚兮铭0",
@@ -245,23 +282,54 @@
         ]
       }
     },
-    methods:{
-      logout:function () {
-        this.login=false;
+    methods: {
+      logout: function () {
+        this.login = false;
       },
-      gofollow:function () {
-        this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/',json_str,{headers:{'content-type':'application/json'},user_id:this.user_id,author:this.expertname,unit:this.add,withCredentials:true}).then((res) => {
+      gofollow: function () {
+        this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/', json_str, {
+          headers: {'content-type': 'application/json'},
+          user_id: this.user_id,
+          author: this.expertname,
+          unit: this.add,
+          withCredentials: true
+        }).then((res) => {
 
         });
-        this.followed=true;
-  },
-      godisfollow:function () {
-        this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/',json_str,{headers:{'content-type':'application/json'},user_id:this.user_id,author:this.expertname,unit:this.add,withCredentials:true}).then((res) => {
+        this.followed = true;
+      },
+      godisfollow: function () {
+        this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
+          headers: {'content-type': 'application/json'},
+          user_id: this.user_id,
+          author: this.expertname,
+          unit: this.add,
+          withCredentials: true
+        }).then((res) => {
 
         });
-        this.followed=false;
+        this.followed = false;
+      },
+      logout() {
+        delCookie('username')
+        location.reload()
+      },
+      userFavorites() {
+        this.$router.push('/userFavorites')
+      },
+      userFollows() {
+        this.$router.push('/userFollows')
+      },
+      userMainpage() {
+        this.$router.push('/userMainpage')
+      },
+      userMessageBox() {
+        this.$router.push('/userMessageBox')
+      },
+      login() {
+        this.$router.push('/login')
       }
     },
-    components: {paper_result, classification,pageHeader,exShowFollows,Echarts,applicationForExpert,cloud}
+    components: {paper_result, classification, pageHeader, exShowFollows, Echarts, applicationForExpert, cloud}
   }
 </script>
