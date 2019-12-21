@@ -27,7 +27,15 @@
   <Row>
     <Col span=5>
       <Menu theme="light" width="auto">
-        <MenuGroup title="新联系人">
+        <MenuGroup title="联系人列表">
+          <MenuItem>
+            <div @click="newReceiver" v-if="showNewReceiver == false">
+              新联系人
+            </div>
+            <div v-else>
+              <Input @on-enter="sendNewMessage" v-model="newReceiverName" placeholder="回车输入新联系人名" />
+            </div>
+          </MenuItem>
           <MenuItem v-for="(mes, index) in messageList" :name=mes.name :key="index">
             <div @click="change(mes)">
               {{mes.name}}
@@ -53,7 +61,7 @@
         </Scroll>
       </Row>
       <Row>
-        <Input :rows=4 @on-enter="sendMessage" v-model="value" type="textarea" placeholder="按下Enter键发送" style="padding: 10px 30px 30px 30px" />
+        <Input ref="messageBox" :rows=4 @on-enter="sendMessage" v-model="value" type="textarea" placeholder="按下Enter键发送" style="padding: 10px 30px 30px 30px" />
       </Row>
     </Col>
   </Row>
@@ -74,18 +82,21 @@
     },
     data() {
       return {
+        newReceiverName: '',
         value: '',
         nowBox: {},
         message: {
           sender: null,
           receiver: null,
           content: ''
-        }
+        },
+        showNewReceiver: false,
       }
     },
     props: ['messageList', 'username', 'nowName'],
     methods: {
       change: function (mes) {
+        this.showNewReceiver = false;
         this.nowBox = mes.record;
         this.message.receiver = mes.name;
       },
@@ -123,6 +134,26 @@
             });
           });
         }
+      },
+      newReceiver() {
+        this.showNewReceiver = true;
+        this.nowBox = {};
+      },
+      sendNewMessage() {
+        this.$nextTick(()=>{
+          this.$axios.post('api/if_user_exist/', {"username": this.message}).then((res)=>{
+            if(res.data.exist === "1") {
+              console.log(1);
+              this.message.receiver = this.newReceiverName;
+              this.$refs.messageBox.focus();
+            }
+            else {
+              this.$Notice.open({
+                title: '联系人不存在'
+              });
+            }
+          });
+        });
       }
     }
   }
