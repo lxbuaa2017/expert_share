@@ -28,7 +28,7 @@
           其他
         </template>
         <MenuItem name="3-1">
-          联系我们
+          <div  v-on:click="contact">联系我们</div>
         </MenuItem>
       </Submenu>
     </Menu>
@@ -37,7 +37,12 @@
 
 <script>
     export default {
-      name: "userMainpageSider"
+      name: "userMainpageSider",
+      methods: {
+        contact() {
+          alert('邮箱：webmaster@expertplatform.com')
+        }
+      }
     }
 </script>
 

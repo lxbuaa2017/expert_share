@@ -106,6 +106,7 @@
       }
     },
     mounted () {
+      document.title='注册'
       if (getCookie('username')) {
         this.$router.push('/home')
       }

@@ -27,7 +27,7 @@
                   <router-link :to="{path: '/userMainpage'}">个人信息</router-link>
                 </DropdownItem>
                 <DropdownItem>
-                  <router-link :to="{path: '/userFavorites'}">收藏</router-link>>
+                  <router-link :to="{path: '/userFavorites'}">收藏</router-link>
                 </DropdownItem>
                 <DropdownItem>
                   <router-link :to="{path: '/userFollows'}">关注</router-link>

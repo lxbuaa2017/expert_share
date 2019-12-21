@@ -46,6 +46,9 @@
   import personalCenter from "../userMainpage/personalCenter";
   export default {
     name: "userMainPage",
-    components: {pageHeader, searchBox, userMainpageSider, personalCenter}
+    components: {pageHeader, searchBox, userMainpageSider, personalCenter},
+    created() {
+      document.title='个人中心'
+    }
   }
 </script>

@@ -328,6 +328,7 @@
       }
     },
     mounted() {
+      document.title='登录'
       if (getCookie('username') !== '') {
         this.$router.push('/')
       }

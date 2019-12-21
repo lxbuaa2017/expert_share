@@ -13,7 +13,7 @@
 <template>
   <Content>
     <Row>
-      <div class="rowTitle" align="left">账户设置</div>
+      <div class="rowTitle" align="left">账户信息</div>
     </Row>
     <br>
     <Row>
@@ -32,7 +32,7 @@
           </Row>
         </Content>
       </Col>
-      <Col span=8>
+      <!--Col span=8>
         <Content align="left" style="border-right-style: dashed; border-right-width: 1px; border-right-color: #D3D3D3">
           <Row class="row">
             <h2 align="center">账户余额</h2>
@@ -67,7 +67,7 @@
             <Button>点此充值</Button>
           </div>
         </Content>
-      </Col>
+      </Col-->
     </Row>
   </Content>
 </template>

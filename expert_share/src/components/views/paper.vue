@@ -196,6 +196,7 @@
   export default {
     name: 'paper',
     created() {
+      document.title='查看论文'
       if (getCookie('username') !== '') {
         this.login_flag = true;
         this.username = getCookie('username');

@@ -51,6 +51,7 @@
       this.username = getCookie('username');
       this.$nextTick(()=>{
         this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
+          console.log(res.data)
           this.messageList=res.data
         })
       });
@@ -69,6 +70,7 @@
         this.nowName = recName;
         this.$nextTick(()=>{
           this.$axios.get('api/get_chat_list/?name='+this.username).then((res)=>{
+            console.log(res.data+'4567890')
             this.messageList=res.data
             this.showFlag = true;
           })
