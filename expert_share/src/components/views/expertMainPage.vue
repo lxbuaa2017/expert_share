@@ -194,7 +194,7 @@
         this.username = '游客'
       }
       this.$nextTick(() => {
-        this.$axios.get('/api/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+        this.$axios.get('/lx/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
             console.log(res.data)
           this.num1 = res.data.literature_num;
           this.num2 = res.data.core_num;
