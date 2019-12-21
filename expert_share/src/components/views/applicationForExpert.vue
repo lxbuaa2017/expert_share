@@ -11,29 +11,29 @@
       <Form :model="formData">
         <Row>
           <Col span="12">
-<!--            username:'',-->
-<!--            real_name: '',-->
-<!--            ID_number: '',-->
-<!--            institution: '',-->
-<!--            credentials_url:'',-->
-<!--            author:'',-->
-<!--            unit:''-->
+            <!--            username:'',-->
+            <!--            real_name: '',-->
+            <!--            ID_number: '',-->
+            <!--            institution: '',-->
+            <!--            credentials_url:'',-->
+            <!--            author:'',-->
+            <!--            unit:''-->
             <FormItem label="请输入您的真实姓名：" label-position="top">
-              <Input v-model="formData.real_name" placeholder="please enter your name" />
+              <Input v-model="formData.real_name" placeholder="please enter your name"/>
             </FormItem>
           </Col>
         </Row>
         <Row>
           <Col span="12">
             <FormItem label="请输入您的身份证号:" label-position="top">
-              <Input v-model="formData.ID_number" placeholder="please enter your IDnumber" />
+              <Input v-model="formData.ID_number" placeholder="please enter your IDnumber"/>
             </FormItem>
           </Col>
         </Row>
         <Row>
           <Col span="12">
             <FormItem label="请输入您所在的研究机构:" label-position="top">
-              <Input v-model="formData.institution" placeholder="please enter your institution" />
+              <Input v-model="formData.institution" placeholder="please enter your institution"/>
             </FormItem>
           </Col>
         </Row>
@@ -67,8 +67,8 @@
   import {getCookie} from "../../assets/js/cookie";
 
   export default {
-    props:['username','author','unit'],
-    data () {
+    props: ['username', 'author', 'unit'],
+    data() {
       return {
         value3: false,
         styles: {
@@ -78,19 +78,19 @@
           position: 'static'
         },
         formData: {
-          user_id:'',
+          user_id: '',
           real_name: '',
           ID_number: '',
           institution: '',
-          credentials_url:'',
-          author:'',
-          unit:''
+          credentials_url: '',
+          author: '',
+          unit: ''
         },
       }
     },
-    methods:{
-      uploadImgs (file) {
-          console.log('上传成功')
+    methods: {
+      uploadImgs(file) {
+        console.log('上传成功')
         let param = new FormData()
         param.append('file', file.file)
         this.$axios({
@@ -102,44 +102,50 @@
           data: param,
           withCredentials: true
         }).then(res => {
-            console.log(res.data)
-          this.formData.credentials_url=res.data
+          console.log(res.data)
+          this.formData.credentials_url = res.data
         })
       },
-      commit () {
-          let name = getCookie("username")
-          let data = {username:name}
-          let data_str = JSON.stringify(data)
-          console.log(data_str)
-          this.$nextTick(()=>{
-              this.$axios.post('/api/get_id_by_name/',data_str).then((res)=>{
-                  this.formData.user_id=res.data.id
-                  console.log(this.formData.user_id)
-                  console.log(res.data.id)
-                  this.formData.author =this.author
-                  this.formData.unit =this.unit
-                  let json_str = JSON.stringify(this.formData)
-                  console.log(json_str)
-                  this.$axios.post('/api/application_for_expert/', json_str,{
-                      headers: {
-                          'content-type': 'application/json'
-                      }, withCredentials: true
-                  }).then((res)=>{
-                      alert("申请成功，请等待审核")
-                  })
+      commit() {
+        let name = getCookie("username")
+        if (name === '') {
+          alert('请登录！')
+          return
+        }
+        let data = {username: name}
+        let data_str = JSON.stringify(data)
+        console.log(data_str)
+        this.$nextTick(() => {
+            this.$axios.post('/api/get_id_by_name/', data_str).then((res) => {
+              this.formData.user_id = res.data.id
+              console.log(this.formData.user_id)
+              console.log(res.data.id)
+              this.formData.author = this.author
+              this.formData.unit = this.unit
+              let json_str = JSON.stringify(this.formData)
+              console.log(json_str)
+              this.$axios.post('/api/application_for_expert/', json_str, {
+                headers: {
+                  'content-type': 'application/json'
+                }, withCredentials: true
+              }).then((res) => {
+                alert("申请成功，请等待审核")
               })
-              }
-          )
+            })
+          }
+        )
         // this.formData.user_id='';this.formData.name='';this.formData.ID_number='',this.formData.institution='';
       },
-      cancel(){
-        this.formData.user_id='';this.formData.name='';this.formData.ID_number='',this.formData.institution='';
+      cancel() {
+        this.formData.user_id = '';
+        this.formData.name = '';
+        this.formData.ID_number = '', this.formData.institution = '';
       }
     }
   }
 </script>
 <style>
-  .demo-drawer-footer{
+  .demo-drawer-footer {
     width: 100%;
     position: absolute;
     bottom: 0;

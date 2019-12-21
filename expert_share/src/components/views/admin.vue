@@ -98,6 +98,9 @@
           this.data.splice(index, 1)
         })
       }
+    },
+    created() {
+      document.title='后台管理'
     }
   }
 </script>

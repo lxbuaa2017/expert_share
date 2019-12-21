@@ -92,16 +92,17 @@
                 </Col>
                 <Col span="6">
                   <Col span="12">
-                    <div v-if="followed=='0'" style="padding-top: 32px">
-                      <Button size="large" @click="gofollow()">关注</Button>
+                    <div v-if="followed" style="padding-top: 32px">
+                      <Button size="large" @click="godisfollow()">取消关注</Button>
                     </div>
                     <div v-else style="padding-top: 32px">
-                      <Button size="large" @click="godisfollow()">取消关注</Button>
+                      <Button size="large" @click="gofollow()">　关注　</Button>
                     </div>
                   </Col>
                   <Col span="12">
                     <div style="padding-top: 32px">
-                      <application-for-expert :username="username" :author="expertname" :unit="add"></application-for-expert>
+                      <application-for-expert :username="username" :author="expertname"
+                                              :unit="add"></application-for-expert>
                     </div>
                   </Col>
                 </Col>
@@ -112,9 +113,13 @@
                 <Col span=6
                      :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-book-outline" size="35" /></div></Col>
+                    <Col span="4" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="ios-book-outline" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <p style="font-size: x-large">总文献量</p>
                         <p style="font-size: large">{{num1}}</p>
                       </div>
@@ -124,11 +129,15 @@
                 <Col span=6
                      :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmark-outline" size="35" /></div></Col>
+                    <Col span="6" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="ios-bookmark-outline" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <p style="font-size: x-large">核心发文量</p>
-                        <p style="font-size: large" >{{num2}}</p>
+                        <p style="font-size: large">{{num2}}</p>
                       </div>
                     </Col>
                   </Row>
@@ -136,22 +145,30 @@
                 <Col span=6
                      :style="{borderRightColor:'#17233d', borderRightWidth:'1px',borderRightStyle:'solid',minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="4" offset="3"><div style="padding-top: 5px"><Icon type="ios-bookmarks-outline" size="35" /></div></Col>
+                    <Col span="4" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="ios-bookmarks-outline" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <p style="font-size: x-large">总被引量</p>
-                        <p style="font-size: large" >{{num3}}</p>
+                        <p style="font-size: large">{{num3}}</p>
                       </div>
                     </Col>
                   </Row>
                 </Col>
                 <Col span=6 :style="{minHeight:'100px'}">
                   <Row style="padding-top: 32px">
-                    <Col span="6" offset="3"><div style="padding-top: 5px"><Icon type="ios-browsers-outline" size="35"/></div></Col>
+                    <Col span="6" offset="3">
+                      <div style="padding-top: 5px">
+                        <Icon type="ios-browsers-outline" size="35"/>
+                      </div>
+                    </Col>
                     <Col span="12">
-                      <div style="padding-top: 0px" >
+                      <div style="padding-top: 0px">
                         <p style="font-size: x-large">篇均被引量</p>
-                        <p style="font-size: large" >{{num4}}</p>
+                        <p style="font-size: large">{{num4}}</p>
                       </div>
                     </Col>
                   </Row>
@@ -185,6 +202,7 @@
   export default {
     name: "expertMainPage",
     created() {
+      document.title = '查看专家'
       this.expertname = this.$route.query.name;
       this.add = this.$route.query.add;
       if (getCookie('username') !== '') {
@@ -195,7 +213,7 @@
       }
       this.$nextTick(() => {
         this.$axios.get('/lx/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
-            console.log(res.data)
+          console.log(res.data)
           this.num1 = res.data.literature_num;
           this.num2 = res.data.core_num;
           this.num3 = res.data.quoted_num;
@@ -207,12 +225,12 @@
           for (let i = 0; i < len; i++) {
             au = this.experts[i].autherName;
             un = this.experts[i].unitName;
-            this.$axios.get('api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '&unit' + un).then((res) => {
+            this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '&unit' + un).then((res) => {
               this.experts[i].autherID = res.data.iffollowed;
             });
           }
         });
-        this.$axios.get('api/get_iffollowed/?user_id' + this.user_id + '&author=' + this.expertname + '&unit' + this.add).then((res) => {
+        this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + this.expertname + '&unit' + this.add).then((res) => {
           this.followed = res.data.iffollowed;
         });
       });
@@ -221,14 +239,14 @@
       return {
         user_id: '',
         login_flag: false,
-        followed: '1',
+        followed: false,
         username: '',
-        expertname: 'ssss',
-        add: 'saddd',
-        num1: 1111,
-        num2: 2222,
-        num3: 3333,
-        num4: 4444,
+        expertname: '加载中...',
+        add: '加载中...',
+        num1: 0,
+        num2: 0,
+        num3: 0,
+        num4: 0,
         experts: [
           {
             "name": "褚兮铭0",
@@ -265,32 +283,32 @@
       }
     },
     methods: {
-      gofollow: function () {
-        this.followed='1';
+      gofollow() {
+        this.followed = true;
         let json_str = {
           user_id: this.user_id,
           author: this.expertname,
           unit: this.add
         }
-        this.$axios.post('api/go_follow_by_user_id_and_author_and_unit/', json_str, {
+        this.$axios.post('/api/go_follow_by_user_id_and_author_and_unit/', json_str, {
           headers: {'content-type': 'application/json'},
           withCredentials: true
         })
       },
-      godisfollow: function () {
-        this.followed='0';
+      godisfollow() {
+        this.followed = false;
         let json_str = {
           user_id: this.user_id,
           author: this.expertname,
           unit: this.add
         }
-        this.$axios.post('api/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
+        this.$axios.post('/api/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
           headers: {'content-type': 'application/json'},
           withCredentials: true
         });
       },
       logout() {
-        this.login_flag=false;
+        this.login_flag = false;
         delCookie('username')
         location.reload()
       },
@@ -309,7 +327,7 @@
       login() {
         this.$router.push('/login')
       },
-      searchExpert(){
+      searchExpert() {
         console.log(this.expertName);
         this.$router.push({path: '/searchExpert', query: {name: this.searchExpertName}});
       },

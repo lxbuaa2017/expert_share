@@ -37,6 +37,7 @@
       }
     },
     created() {
+      document.title='专家搜索'
       this.$nextTick(()=> {
         this.$axios.get('api/get_experts_by_author/?author='+this.$route.query.name).then((res) => {
           this.expertList = res.data;

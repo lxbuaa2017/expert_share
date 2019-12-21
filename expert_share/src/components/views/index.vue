@@ -294,6 +294,7 @@
       }
     },
     mounted() {
+      document.title='科技专家资源共享平台'
       this.$axios.get('/api/newest/').then((res) => {
         this.newest = res.data
       })
