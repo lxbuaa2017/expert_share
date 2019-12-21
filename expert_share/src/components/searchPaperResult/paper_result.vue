@@ -11,12 +11,11 @@
            query:{paper_id:item.id}}"
              target="_blank" v-html="height_light(item.c_title)">
             </router-link>
-
           </h3>
         </el-col>
         <el-col :span=1>
-          <el-button v-if="star===true" icon="el-icon-star-on" circle></el-button>
-          <el-button v-else icon="el-icon-star-off" circle></el-button>
+          <el-button v-if="star===true" icon="el-icon-star-on" @click="remove_favorite(item.id)" circle></el-button>
+          <el-button v-else icon="el-icon-star-off" @click="add_favorite(item.id)" circle></el-button>
         </el-col>
       </el-row>
       <el-row><p style="line-height: 5px">&nbsp;</p></el-row>
@@ -59,11 +58,21 @@
   }
 </style>
 <script>
+    import {getCookie} from "../../assets/js/cookie";
+
     export default {
         name:'paper_result',
         inject:['reload'],
         props:['keyword','papers','page'],
         methods:{
+            add_favorite(id){
+                name=getCookie("username")
+                this.$axios.get('lx/add_favorites/?name='+name+'&id='+id)
+            },
+            remove_favorite(id){
+                name=getCookie("username")
+                this.$axios.get('lx/remove_favorites/?name='+name+'&id='+id)
+            },
             reload(){
                 location.reload()
             },
