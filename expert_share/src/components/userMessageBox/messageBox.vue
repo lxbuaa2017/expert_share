@@ -27,7 +27,15 @@
   <Row>
     <Col span=5>
       <Menu theme="light" width="auto">
-        <MenuGroup title="新联系人">
+        <MenuGroup title="联系人列表">
+          <MenuItem>
+            <div @click="newReceiver" v-if="showNewReceiver == false">
+              新联系人
+            </div>
+            <div v-else>
+              <Input @on-change="sendNewMessage" v-model="newReceiverName" placeholder="请输入新联系人名" />
+            </div>
+          </MenuItem>
           <MenuItem v-for="(mes, index) in messageList" :name=mes.name :key="index">
             <div @click="change(mes)">
               {{mes.name}}
@@ -74,18 +82,21 @@
     },
     data() {
       return {
+        newReceiverName: '',
         value: '',
         nowBox: {},
         message: {
           sender: null,
           receiver: null,
           content: ''
-        }
+        },
+        showNewReceiver: false,
       }
     },
     props: ['messageList', 'username', 'nowName'],
     methods: {
       change: function (mes) {
+        this.showNewReceiver = false;
         this.nowBox = mes.record;
         this.message.receiver = mes.name;
       },
@@ -123,6 +134,14 @@
             });
           });
         }
+      },
+      newReceiver() {
+        this.showNewReceiver = true;
+        this.nowBox = {};
+      },
+      sendNewMessage() {
+        //check receiver's name is valid
+        this.message.receiver = this.newReceiverName;
       }
     }
   }

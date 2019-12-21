@@ -86,7 +86,6 @@
       }
       this.$nextTick(()=> {
         this.$axios.get('api/get_user/?name='+this.username).then((res) => {
-          console.log(res.data)
           this.userType = res.data.userType;
           this.phoneNumber = res.data.phoneNumber;
           this.money = res.data.money;
