@@ -331,13 +331,16 @@
       login() {
         this.$router.push('/login')
       },
+    //     const err = new Error(data.description)
+    //     err.data = data
+    //     err.response = response
+    //     throw err
+    // }, (err) => { // 这里是返回状态码不为200时候的错误处理
+    //   if (err && err.response) {
+    //       switch (err.response.status) {
       getAuthor(author) {
-        console.log('click is here')
-        this.$axios.get('/api/get_experts_by_author_and_id/', {
-          'id': this.paper_id,
-          'author': author
-        }).then((res) => {
-          console.log(res.data)
+        console.log('/api/get_experts_by_author_and_id/?id='+this.paper_id+'&author='+author)
+        this.$axios.get('/lx/get_experts_by_author_and_id/?id='+this.paper_id+'&author='+author).then((res) => {
           if (res.data.unit === '') {
             alert('该专家未录入！')
           } else {

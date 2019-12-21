@@ -26,7 +26,7 @@
         <Row>
           <Col span="12">
             <FormItem label="请输入您的身份证号:" label-position="top">
-              <Input v-model="formData.IDnumber" placeholder="please enter your IDnumber" />
+              <Input v-model="formData.ID_number" placeholder="please enter your IDnumber" />
             </FormItem>
           </Col>
         </Row>
@@ -95,34 +95,45 @@
         param.append('file', file.file)
         this.$axios({
           method: 'post',
-          url: '10.251.252.10:8081/api/file/uploadImage',
+          url: '/spring/file/uploadImage/',
           headers: {
             'Content-Type': 'multipart/form-data'
           },
           data: param,
           withCredentials: true
         }).then(res => {
+            console.log(res.data)
           this.formData.credentials_url=res.data
         })
       },
       commit () {
           let name = getCookie("username")
-          this.$axios.get('/api/get_id_by_name/?username='+name).then((res)=>{
-              this.formData.user_id=res.data
-          })
-          this.formData.author =this.author
-          this.formData.unit =this.unit
-          let json_str = JSON.stringify(this.formData)
-          console.log(json_str)
-          this.$axios.post('/api/application_for_expert/', json_str,{
-              headers: {
-                  'content-type': 'application/json'
-              }, withCredentials: true
-          })
-        this.formData.username='';this.formData.name='';this.formData.IDnumber='',this.formData.institution='';
+          let data = {username:name}
+          let data_str = JSON.stringify(data)
+          console.log(data_str)
+          this.$nextTick(()=>{
+              this.$axios.post('/api/get_id_by_name/',data_str).then((res)=>{
+                  this.formData.user_id=res.data.id
+                  console.log(this.formData.user_id)
+                  console.log(res.data.id)
+                  this.formData.author =this.author
+                  this.formData.unit =this.unit
+                  let json_str = JSON.stringify(this.formData)
+                  console.log(json_str)
+                  this.$axios.post('/api/application_for_expert/', json_str,{
+                      headers: {
+                          'content-type': 'application/json'
+                      }, withCredentials: true
+                  }).then((res)=>{
+                      alert("申请成功，请等待审核")
+                  })
+              })
+              }
+          )
+        // this.formData.user_id='';this.formData.name='';this.formData.ID_number='',this.formData.institution='';
       },
       cancel(){
-        this.formData.username='';this.formData.name='';this.formData.IDnumber='',this.formData.institution='';
+        this.formData.user_id='';this.formData.name='';this.formData.ID_number='',this.formData.institution='';
       }
     }
   }

@@ -23,6 +23,12 @@ module.exports = {
           '^/lx':'/'
         }
       },
+      '/spring/**': {
+        target: 'http://10.251.252.10:8081',
+          pathRewrite:{
+          '^/spring':'/api'
+        }
+      },
     },
 
     // Various Dev Server settings
