@@ -33,7 +33,7 @@
               新联系人
             </div>
             <div v-else>
-              <Input @on-change="sendNewMessage" v-model="newReceiverName" placeholder="请输入新联系人名" />
+              <Input @on-enter="sendNewMessage" v-model="newReceiverName" placeholder="回车输入新联系人名" />
             </div>
           </MenuItem>
           <MenuItem v-for="(mes, index) in messageList" :name=mes.name :key="index">
@@ -61,7 +61,7 @@
         </Scroll>
       </Row>
       <Row>
-        <Input :rows=4 @on-enter="sendMessage" v-model="value" type="textarea" placeholder="按下Enter键发送" style="padding: 10px 30px 30px 30px" />
+        <Input ref="messageBox" :rows=4 @on-enter="sendMessage" v-model="value" type="textarea" placeholder="按下Enter键发送" style="padding: 10px 30px 30px 30px" />
       </Row>
     </Col>
   </Row>
@@ -140,8 +140,20 @@
         this.nowBox = {};
       },
       sendNewMessage() {
-        //check receiver's name is valid
-        this.message.receiver = this.newReceiverName;
+        this.$nextTick(()=>{
+          this.$axios.post('api/if_user_exist/', {"username": this.message}).then((res)=>{
+            if(res.data.exist === "1") {
+              console.log(1);
+              this.message.receiver = this.newReceiverName;
+              this.$refs.messageBox.focus();
+            }
+            else {
+              this.$Notice.open({
+                title: '联系人不存在'
+              });
+            }
+          });
+        });
       }
     }
   }
