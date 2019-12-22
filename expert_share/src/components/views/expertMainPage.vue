@@ -213,26 +213,31 @@
       }
       this.$nextTick(() => {
         this.$axios.get('/lx/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
-          console.log(res.data)
-          this.num1 = res.data.literature_num;
-          this.num2 = res.data.core_num;
-          this.num3 = res.data.quoted_num;
-          this.num4 = res.data.avg_quoted;
-          console.log(this.num1)
-          this.experts = res.data.cooperation_scholar;
-          let au, un, len;
-          len = this.experts.length;
-          for (let i = 0; i < len; i++) {
-            au = this.experts[i].autherName;
-            un = this.experts[i].unitName;
-            this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '&unit' + un).then((res) => {
-              this.experts[i].autherID = res.data.iffollowed;
+        //console.log(res.data)
+        this.num1 = res.data.literature_num;
+        this.num2 = res.data.core_num;
+        this.num3 = res.data.quoted_num;
+        this.num4 = res.data.avg_quoted;
+        //console.log(this.num1)
+        this.experts = res.data.cooperation_scholar;
+        let au, un, len;
+        len = this.experts.length;
+        for (let i = 0; i < len; i++) {
+          au = this.experts[i].autherName;
+          un = this.experts[i].unitName;
+          //this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '&unit' + un).then((res) => {
+           // this.experts[i].autherID = res.data.iffollowed;
+          //});
+        }
+        });
+        if(this.login_flag == true) {
+          this.$axios.post('/api/get_id_by_name/', {username: this.username}).then((res) => {
+            this.user_id = res.data.id;
+            this.$axios.get('/lx/get_iffollowed/?user_id=' + this.user_id + '&author=' + this.expertname + '&unit=' + this.add).then((res) => {
+              this.followed = res.data.iffollowed;
             });
-          }
-        });
-        this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + this.expertname + '&unit' + this.add).then((res) => {
-          this.followed = res.data.iffollowed;
-        });
+          });
+        }
       });
     },
     data() {
@@ -297,7 +302,7 @@
         this.$router.push('/login')
       },
       searchExpert() {
-        console.log(this.expertName);
+        //console.log(this.expertName);
         this.$router.push({path: '/searchExpert', query: {name: this.searchExpertName}});
       },
     },
