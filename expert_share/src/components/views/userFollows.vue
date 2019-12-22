@@ -51,7 +51,7 @@
     created(){
       this.username = getCookie('username');
       this.$nextTick(()=> {
-        this.$axios.get('api/get_follows/?name='+this.username).then((res) => {
+        this.$axios.get('lx/get_follows/?name='+this.username).then((res) => {
           console.log(res.data);
           this.experts = res.data;
         })

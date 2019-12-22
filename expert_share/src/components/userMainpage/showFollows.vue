@@ -20,16 +20,16 @@
 </template>
 
 <script>
-  export default {
-    name: "showFollows",
-    props:['experts'],
-    methods: {
-      disFollow: function (i) {
-        i.isFollowed = false;
-      },
-      follow: function (i) {
-        i.isFollowed = true;
-      }
+    export default {
+        name: "showFollows",
+        props:['experts'],
+        methods: {
+            disFollow: function (i) {
+                i.isFollowed = false;
+            },
+            follow: function (i) {
+                i.isFollowed = true;
+            }
+        }
     }
-  }
 </script>

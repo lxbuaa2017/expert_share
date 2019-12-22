@@ -92,7 +92,7 @@
                 </Col>
                 <Col span="6">
                   <Col span="12">
-                    <div v-if="followed" style="padding-top: 32px">
+                    <div v-if="followed === '1'" style="padding-top: 32px">
                       <Button size="large" @click="godisfollow()">取消关注</Button>
                     </div>
                     <div v-else style="padding-top: 32px">
@@ -190,122 +190,122 @@
 </template>
 
 <script>
-  import classification from "../searchPaperResult/classification";
-  import paper_result from "../searchPaperResult/paper_result";
-  import pageHeader from "../general/pageHeader";
-  import exShowFollows from "../expertMainPage/exShowFollows";
-  import Echarts from "../expertMainPage/Echarts";
-  import applicationForExpert from "./applicationForExpert";
-  import cloud from "./cloud";
-  import {delCookie, getCookie} from "../../assets/js/cookie";
+    import classification from "../searchPaperResult/classification";
+    import paper_result from "../searchPaperResult/paper_result";
+    import pageHeader from "../general/pageHeader";
+    import exShowFollows from "../expertMainPage/exShowFollows";
+    import Echarts from "../expertMainPage/Echarts";
+    import applicationForExpert from "./applicationForExpert";
+    import cloud from "./cloud";
+    import {delCookie, getCookie} from "../../assets/js/cookie";
 
-  export default {
-    name: "expertMainPage",
-    created() {
-      document.title = '查看专家'
-      this.expertname = this.$route.query.name;
-      this.add = this.$route.query.add;
-      if (getCookie('username') !== '') {
-        this.login_flag = true;
-        this.username = getCookie('username');
-      } else {
-        this.username = '游客'
-      }
-      this.$nextTick(() => {
-        this.$axios.get('/lx/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
-        //console.log(res.data)
-        this.num1 = res.data.literature_num;
-        this.num2 = res.data.core_num;
-        this.num3 = res.data.quoted_num;
-        this.num4 = res.data.avg_quoted;
-        //console.log(this.num1)
-        this.experts = res.data.cooperation_scholar;
-        let au, un, len;
-        len = this.experts.length;
-        for (let i = 0; i < len; i++) {
-          au = this.experts[i].autherName;
-          un = this.experts[i].unitName;
-          //this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '&unit' + un).then((res) => {
-           // this.experts[i].autherID = res.data.iffollowed;
-          //});
-        }
-        });
-        if(this.login_flag == true) {
-          this.$axios.post('/api/get_id_by_name/', {username: this.username}).then((res) => {
-            this.user_id = res.data.id;
-            this.$axios.get('/lx/get_iffollowed/?user_id=' + this.user_id + '&author=' + this.expertname + '&unit=' + this.add).then((res) => {
-              this.followed = res.data.iffollowed;
+    export default {
+        name: "expertMainPage",
+        created() {
+            document.title = '查看专家'
+            this.expertname = this.$route.query.name;
+            this.add = this.$route.query.add;
+            if (getCookie('username') !== '') {
+                this.login_flag = true;
+                this.username = getCookie('username');
+            } else {
+                this.username = '游客'
+            }
+            this.$nextTick(() => {
+                this.$axios.get('/lx/get_experts_by_author_and_unit/?author=' + this.expertname + '&unit=' + this.add).then((res) => {
+                    //console.log(res.data)
+                    this.num1 = res.data.literature_num;
+                    this.num2 = res.data.core_num;
+                    this.num3 = res.data.quoted_num;
+                    this.num4 = res.data.avg_quoted;
+                    //console.log(this.num1)
+                    this.experts = res.data.cooperation_scholar;
+                    let au, un, len;
+                    len = this.experts.length;
+                    for (let i = 0; i < len; i++) {
+                        au = this.experts[i].autherName;
+                        un = this.experts[i].unitName;
+                        //this.$axios.get('/api/get_iffollowed/?user_id' + this.user_id + '&author=' + au + '&unit' + un).then((res) => {
+                        // this.experts[i].autherID = res.data.iffollowed;
+                        //});
+                    }
+                });
+                if(this.login_flag == true) {
+                    this.$axios.post('/api/get_id_by_name/', {username: this.username}).then((res) => {
+                        this.user_id = res.data.id;
+                        this.$axios.get('/lx/get_iffollowed/?user_id=' + this.user_id + '&author=' + this.expertname + '&unit=' + this.add).then((res) => {
+                            this.followed = res.data.iffollowed;
+                        });
+                    });
+                }
             });
-          });
-        }
-      });
-    },
-    data() {
-      return {
-        user_id: '',
-        login_flag: false,
-        followed: false,
-        username: '',
-        expertname: '加载中...',
-        add: '加载中...',
-        num1: 0,
-        num2: 0,
-        num3: 0,
-        num4: 0,
-        experts: [],
-        searchExpertName: '',
-      }
-    },
-    methods: {
-      gofollow() {
-        this.followed = true;
-        let json_str = {
-          user_id: this.user_id,
-          author: this.expertname,
-          unit: this.add
-        }
-        this.$axios.post('/api/go_follow_by_user_id_and_author_and_unit/', json_str, {
-          headers: {'content-type': 'application/json'},
-          withCredentials: true
-        })
-      },
-      godisfollow() {
-        this.followed = false;
-        let json_str = {
-          user_id: this.user_id,
-          author: this.expertname,
-          unit: this.add
-        }
-        this.$axios.post('/api/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
-          headers: {'content-type': 'application/json'},
-          withCredentials: true
-        });
-      },
-      logout() {
-        this.login_flag = false;
-        delCookie('username')
-        location.reload()
-      },
-      userFavorites() {
-        this.$router.push('/userFavorites')
-      },
-      userFollows() {
-        this.$router.push('/userFollows')
-      },
-      userMainpage() {
-        this.$router.push('/userMainpage')
-      },
-      userMessageBox() {
-        this.$router.push('/userMessageBox')
-      },
-      login() {
-        this.$router.push('/login')
-      },
-      searchExpert() {
-        //console.log(this.expertName);
-        this.$router.push({path: '/searchExpert', query: {name: this.searchExpertName}});
-      },
-    },
-    components: {paper_result, classification, pageHeader, exShowFollows, Echarts, applicationForExpert, cloud}
-  }
+        },
+        data() {
+            return {
+                user_id: '',
+                login_flag: false,
+                followed: false,
+                username: '',
+                expertname: '加载中...',
+                add: '加载中...',
+                num1: 0,
+                num2: 0,
+                num3: 0,
+                num4: 0,
+                experts: [],
+                searchExpertName: '',
+            }
+        },
+        methods: {
+            gofollow() {
+                this.followed = '1';
+                let json_str = {
+                    user_id: this.user_id,
+                    author: this.expertname,
+                    unit: this.add
+                }
+                this.$axios.post('/lx/go_follow_by_user_id_and_author_and_unit/', json_str, {
+                    headers: {'content-type': 'application/json'},
+                    withCredentials: true
+                })
+            },
+            godisfollow() {
+                this.followed = '0';
+                let json_str = {
+                    user_id: this.user_id,
+                    author: this.expertname,
+                    unit: this.add
+                }
+                this.$axios.post('/lx/go_disfollow_by_user_id_and_author_and_unit/', json_str, {
+                    headers: {'content-type': 'application/json'},
+                    withCredentials: true
+                });
+            },
+            logout() {
+                this.login_flag = false;
+                delCookie('username')
+                location.reload()
+            },
+            userFavorites() {
+                this.$router.push('/userFavorites')
+            },
+            userFollows() {
+                this.$router.push('/userFollows')
+            },
+            userMainpage() {
+                this.$router.push('/userMainpage')
+            },
+            userMessageBox() {
+                this.$router.push('/userMessageBox')
+            },
+            login() {
+                this.$router.push('/login')
+            },
+            searchExpert() {
+                //console.log(this.expertName);
+                this.$router.push({path: '/searchExpert', query: {name: this.searchExpertName}});
+            },
+        },
+        components: {paper_result, classification, pageHeader, exShowFollows, Echarts, applicationForExpert, cloud}
+    }
 </script>

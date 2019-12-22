@@ -17,6 +17,7 @@ module.exports = {
           '^/api':'/'
         }
       },
+      // http://127.0.0.1:8000/    http://10.128.26.22:8000
       '/lx/**': {
         target: 'http://10.128.26.22:8000',
         pathRewrite:{

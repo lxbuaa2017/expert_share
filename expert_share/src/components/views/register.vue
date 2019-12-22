@@ -121,7 +121,7 @@
           this.showTishi = true
         } else {
           let data = {'username': this.username, 'password': this.password}
-          this.$axios.post('/api/login/', data).then((res) => {
+          this.$axios.post('/lx/login/', data).then((res) => {
             console.log(res)
             if (res.data === 0) {
               this.tishi = '用户名或密码错误'
@@ -156,7 +156,7 @@
           this.showTishi = false
           let data = {'phone': this.phone}
           let json_str = JSON.stringify(data)
-          this.$axios.post('/api/sendSms/', json_str, {        headers: {
+          this.$axios.post('/lx/sendSms/', json_str, {        headers: {
                   'content-type': 'application/json'
               },withCredentials: true}).then((res) => {
             this.btnText = '正在发送...'
@@ -215,7 +215,7 @@
             let verify = {'phone':this.phone,'code': this.authentication}
             let json_str = JSON.stringify(verify)
             let self = this
-            this.$axios.post('/api/verify/', json_str,{        headers: {
+            this.$axios.post('/lx/verify/', json_str,{        headers: {
                     'content-type': 'application/json'
                 },withCredentials: true}).then((res) => {
                 console.log(res)
@@ -234,7 +234,7 @@
                     }
                     let data_str = JSON.stringify(data)
                     console.log(data_str)
-                    this.$axios.post('/api/register/', data_str,{        headers: {
+                    this.$axios.post('/lx/register/', data_str,{        headers: {
                             'content-type': 'application/json'
                         },withCredentials: true}).then((res) => {
                         console.log(res)

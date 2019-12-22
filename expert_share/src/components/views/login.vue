@@ -179,7 +179,7 @@
         } else {
           let data = {'username': this.username, 'password': this.password}
           let data_str = JSON.stringify(data)
-          this.$axios.post('/api/login/', data_str, {
+          this.$axios.post('/lx/login/', data_str, {
             headers: {
               'content-type': 'application/json'
             }, withCredentials: true
@@ -219,7 +219,7 @@
           this.showTishi = false
           let data = {'phone': this.phone}
           let json_str = JSON.stringify(data)
-          this.$axios.post('/api/sendSms/', json_str, {
+          this.$axios.post('/lx/sendSms/', json_str, {
             headers: {
               'content-type': 'application/json'
             }, withCredentials: true
@@ -280,7 +280,7 @@
           let verify = {'phone': this.phone, 'code': this.authentication}
           let json_str = JSON.stringify(verify)
           let self = this
-          this.$axios.post('/api/verify/', json_str, {
+          this.$axios.post('/lx/verify/', json_str, {
             headers: {
               'content-type': 'application/json'
             }, withCredentials: true
@@ -301,7 +301,7 @@
               }
               let data_str = JSON.stringify(data)
               console.log(data_str)
-              this.$axios.post('/api/register/', data_str, {
+              this.$axios.post('/lx/register/', data_str, {
                 headers: {
                   'content-type': 'application/json'
                 }, withCredentials: true
