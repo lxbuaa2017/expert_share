@@ -24,7 +24,7 @@
                   <Col span=1>&nbsp;</Col>
                   <Col span=19>
                     <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                      <paper_result ref="paper_result" :page="page_id" :keyword="input_keyword" :papers="papers"></paper_result>
+                      <paper_result ref="paper_result" :page="page_id" :keyword="keyword" :papers="papers"></paper_result>
                     </Content>
                   </Col>
                 </Row>
@@ -53,12 +53,32 @@
       this.$nextTick(()=>{
         this.$axios.get('api/get_favorites/?name='+this.username).then((res)=>{
           console.log(res.data)
-          this.papers=res.data
+          let t = res.data
+            this.papers=res.data
+          for(let each in t){
+              let o = {}
+              o['id']=t[each]['id']
+              o['c_author']=t[each]['c_author']
+              o['c_keywords']=t[each]['c_keywords']
+              o['c_periodical']=t[each]['c_periodical']
+              o['c_title']=t[each]['c_title']
+              o['e_periodical']=t[each]['e_periodical']
+              o['e_title']=t[each]['e_title']
+              o['fund']=t[each]['fund']
+              // o['_id'].$oid=t[each]['id']
+              o['indexID']=t[each]['indexID']
+              o['time']=t[each]['time']
+              o['units']=t[each]['units']
+              o['url']=t[each]['url']
+              console.log(o)
+              this.papers.push(o)
+          }
         })
       })
     },
     data() {
       return {
+        keyword:'',
         username: '',
         page_id: 1,
         papers:[
