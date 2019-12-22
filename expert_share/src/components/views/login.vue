@@ -138,200 +138,206 @@
 </style>
 
 <script>
-  import {setCookie, getCookie} from '../../assets/js/cookie.js'
+    import {setCookie, getCookie} from '../../assets/js/cookie.js'
 
-  export default {
-    data() {
-      return {
-        login_flag: false,
-        username: '',
-        password: '',
-        newUsername: '',
-        newPassword: '',
-        confirmPassword: '',
-        phone: '',
-        authentication: '',
-        btnText: '获取验证码',
-        isDisabled: false,
-        wait: 60,
-        email: '',
-        isMale: 'true',
-        age: '',
-        tishi: '',
-        showTishi: false,
-        showLogin: true,
-        showRegister: false
-      }
-    },
-    /*mounted () {
-      if (getCookie('username')) {
-        this.$router.push('/')
-      }
-    },*/
-    methods: {
-      login() {
-        if (this.username === '') {
-          this.tishi = '请输入用户名'
-          this.showTishi = true
-        } else if (this.password === '') {
-          this.tishi = '请输入密码'
-          this.showTishi = true
-        } else {
-          let data = {'username': this.username, 'password': this.password}
-          let data_str = JSON.stringify(data)
-          this.$axios.post('/lx/login/', data_str, {
-            headers: {
-              'content-type': 'application/json'
-            }, withCredentials: true
-          }).then((res) => {
-            console.log(res)
-            if (res.data === 0) {
-              this.tishi = '用户名或密码错误'
-              this.showTishi = true
-            } else {
-              this.tishi = '登录成功'
-              this.showTishi = true
-              this.login_flag = true
-              setCookie('username', this.username, 1000 * 60)
-              setTimeout(function () {
-                this.$router.push('/')
-              }.bind(this), 1000)
+    export default {
+        data() {
+            return {
+                login_flag: false,
+                username: '',
+                password: '',
+                newUsername: '',
+                newPassword: '',
+                confirmPassword: '',
+                phone: '',
+                authentication: '',
+                btnText: '获取验证码',
+                isDisabled: false,
+                wait: 60,
+                email: '',
+                isMale: 'true',
+                age: '',
+                tishi: '',
+                showTishi: false,
+                showLogin: true,
+                showRegister: false
             }
-          })
-        }
-      },
-      ToRegister() {
-        this.showTishi = false
-        this.showRegister = true
-        this.showLogin = false
-      },
-      ToLogin() {
-        this.showTishi = false
-        this.showRegister = false
-        this.showLogin = true
-      },
-      sendCode() {
-        var rePhone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
-        if (!rePhone.test(this.phone)) {
-          this.tishi = '手机号无效'
-          this.showTishi = true
-        } else {
-          this.showTishi = false
-          let data = {'phone': this.phone}
-          let json_str = JSON.stringify(data)
-          this.$axios.post('/lx/sendSms/', json_str, {
-            headers: {
-              'content-type': 'application/json'
-            }, withCredentials: true
-          }).then((res) => {
-            this.btnText = '正在发送...'
-            this.isDisabled = true
-            console.log(res)
-            if (res.data === 0) {
-              this.timer()
-            } else {
-              this.tishi = '获取验证码失败'
-              this.showTishi = true
-              this.btnText = '获取验证码'
-              this.isDisabled = false
-            }
-          })
-        }
-      },
-      timer() {
-        if (this.wait === 0) {
-          this.btnText = '获取验证码'
-          this.isDisabled = false
-          this.wait = 60
-        } else {
-          this.isDisabled = true
-          this.btnText = this.wait + '秒后重发'
-          this.wait--
-          setTimeout(function () {
-            this.timer()
-          }.bind(this), 1000)
-        }
-      },
-      register() {
-        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        var rePhone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
-        if (this.newUsername === '') {
-          this.tishi = '请输入用户名'
-          this.showTishi = true
-        } else if (this.newPassword === '') {
-          this.tishi = '请输入密码'
-          this.showTishi = true
-        } else if (this.newPassword.length < 6) {
-          this.tishi = '密码长度必须为6位或以上'
-          this.showTishi = true
-        } else if (this.newPassword !== this.confirmPassword) {
-          this.tishi = '两次输入的密码不一致'
-          this.showTishi = true
-        } else if (!rePhone.test(this.phone)) {
-          this.tishi = '手机号无效'
-          this.showTishi = true
-        } else if (!re.test(this.email)) {
-          this.tishi = '邮箱无效'
-          this.showTishi = true
-        } else if (this.age < 0 || this.age > 150) {
-          this.tishi = '年龄无效'
-          this.showTishi = true
-        } else {
-          let verify = {'phone': this.phone, 'code': this.authentication}
-          let json_str = JSON.stringify(verify)
-          let self = this
-          this.$axios.post('/lx/verify/', json_str, {
-            headers: {
-              'content-type': 'application/json'
-            }, withCredentials: true
-          }).then((res) => {
-            console.log(res)
-            if (res.data !== 0) {
-              this.tishi = '验证码错误'
-              this.showTishi = true
-            } else {
-              let data = {
-                'username': this.newUsername,
-                'password': this.newPassword,
-                'phone': this.phone,
-                // 'code': this.authentication,
-                // 'email': this.email,
-                // 'isMale': this.isMale,
-                // 'age': this.age
-              }
-              let data_str = JSON.stringify(data)
-              console.log(data_str)
-              this.$axios.post('/lx/register/', data_str, {
-                headers: {
-                  'content-type': 'application/json'
-                }, withCredentials: true
-              }).then((res) => {
-                console.log(res)
-                if (res.data === 0) {
-                  this.tishi = '注册成功'
-                  this.showTishi = true
-                  this.username = ''
-                  this.password = ''
-                  setTimeout(function () {
-                    this.showRegister = false
-                    this.showLogin = true
-                    this.showTishi = false
-                  }.bind(this), 1000)
-                } else if (res.data === -1) {
-                  this.tishi = '用户名已存在'
-                  this.showTishi = true
+        },
+        /*mounted () {
+          if (getCookie('username')) {
+            this.$router.push('/')
+          }
+        },*/
+        methods: {
+            login() {
+                if (this.username === '') {
+                    this.tishi = '请输入用户名'
+                    this.showTishi = true
+                } else if (this.password === '') {
+                    this.tishi = '请输入密码'
+                    this.showTishi = true
+                } else {
+                    let data = {'username': this.username, 'password': this.password}
+                    let data_str = JSON.stringify(data)
+                    this.$axios.post('/api/login/', data_str, {
+                        headers: {
+                            'content-type': 'application/json'
+                        }, withCredentials: true
+                    }).then((res) => {
+                        console.log(res);
+                        let a = res.data.code;
+                        if (a === '-1') {
+                            this.tishi = '密码错误'
+                            this.showTishi = true
+                        }
+                        else if (a == '-2') {
+                            this.tishi = '用户名不存在'
+                            this.showTishi = true
+                        }
+                        else {
+                            this.tishi = '登录成功'
+                            this.showTishi = true
+                            this.login_flag = true
+                            setCookie('username', this.username, 1000 * 60)
+                            setTimeout(function () {
+                                this.$router.push('/')
+                            }.bind(this), 1000)
+                        }
+                    })
                 }
-              })
+            },
+            ToRegister() {
+                this.showTishi = false
+                this.showRegister = true
+                this.showLogin = false
+            },
+            ToLogin() {
+                this.showTishi = false
+                this.showRegister = false
+                this.showLogin = true
+            },
+            sendCode() {
+                var rePhone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                if (!rePhone.test(this.phone)) {
+                    this.tishi = '手机号无效'
+                    this.showTishi = true
+                } else {
+                    this.showTishi = false
+                    let data = {'phone': this.phone}
+                    let json_str = JSON.stringify(data)
+                    this.$axios.post('/api/sendSms/', json_str, {
+                        headers: {
+                            'content-type': 'application/json'
+                        }, withCredentials: true
+                    }).then((res) => {
+                        this.btnText = '正在发送...'
+                        this.isDisabled = true
+                        console.log(res)
+                        if (res.data === 0) {
+                            this.timer()
+                        } else {
+                            this.tishi = '获取验证码失败'
+                            this.showTishi = true
+                            this.btnText = '获取验证码'
+                            this.isDisabled = false
+                        }
+                    })
+                }
+            },
+            timer() {
+                if (this.wait === 0) {
+                    this.btnText = '获取验证码'
+                    this.isDisabled = false
+                    this.wait = 60
+                } else {
+                    this.isDisabled = true
+                    this.btnText = this.wait + '秒后重发'
+                    this.wait--
+                    setTimeout(function () {
+                        this.timer()
+                    }.bind(this), 1000)
+                }
+            },
+            register() {
+                var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                var rePhone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                if (this.newUsername === '') {
+                    this.tishi = '请输入用户名'
+                    this.showTishi = true
+                } else if (this.newPassword === '') {
+                    this.tishi = '请输入密码'
+                    this.showTishi = true
+                } else if (this.newPassword.length < 6) {
+                    this.tishi = '密码长度必须为6位或以上'
+                    this.showTishi = true
+                } else if (this.newPassword !== this.confirmPassword) {
+                    this.tishi = '两次输入的密码不一致'
+                    this.showTishi = true
+                } else if (!rePhone.test(this.phone)) {
+                    this.tishi = '手机号无效'
+                    this.showTishi = true
+                } else if (!re.test(this.email)) {
+                    this.tishi = '邮箱无效'
+                    this.showTishi = true
+                } else if (this.age < 0 || this.age > 150) {
+                    this.tishi = '年龄无效'
+                    this.showTishi = true
+                } else {
+                    let verify = {'phone': this.phone, 'code': this.authentication}
+                    let json_str = JSON.stringify(verify)
+                    let self = this
+                    this.$axios.post('/api/verify/', json_str, {
+                        headers: {
+                            'content-type': 'application/json'
+                        }, withCredentials: true
+                    }).then((res) => {
+                        console.log(res)
+                        if (res.data !== 0) {
+                            this.tishi = '验证码错误'
+                            this.showTishi = true
+                        } else {
+                            let data = {
+                                'username': this.newUsername,
+                                'password': this.newPassword,
+                                'phone': this.phone,
+                                // 'code': this.authentication,
+                                // 'email': this.email,
+                                // 'isMale': this.isMale,
+                                // 'age': this.age
+                            }
+                            let data_str = JSON.stringify(data)
+                            console.log(data_str)
+                            this.$axios.post('/api/register/', data_str, {
+                                headers: {
+                                    'content-type': 'application/json'
+                                }, withCredentials: true
+                            }).then((res) => {
+                                console.log(res)
+                                if (res.data === 0) {
+                                    this.tishi = '注册成功'
+                                    this.showTishi = true
+                                    this.username = ''
+                                    this.password = ''
+                                    setTimeout(function () {
+                                        this.showRegister = false
+                                        this.showLogin = true
+                                        this.showTishi = false
+                                    }.bind(this), 1000)
+                                } else if (res.data === -1) {
+                                    this.tishi = '用户名已存在'
+                                    this.showTishi = true
+                                }
+                            })
+                        }
+                    })
+                }
             }
-          })
+        },
+        mounted() {
+            document.title='登录'
+            if (getCookie('username') !== '') {
+                this.$router.push('/')
+            }
         }
-      }
-    },
-    mounted() {
-      document.title='登录'
-      if (getCookie('username') !== '') {
-        this.$router.push('/')
-      }
     }
-  }
 </script>
