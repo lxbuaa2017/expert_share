@@ -52,25 +52,26 @@
       this.username = getCookie('username');
       this.$nextTick(()=>{
         this.$axios.get('api/get_favorites/?name='+this.username).then((res)=>{
-          console.log(res.data)
-          let t = res.data
-            this.papers=res.data
+          //console.log(res.data)
+          let t = res.data;
+          //this.papers=res.data
           for(let each in t){
-              let o = {}
-              o['id']=t[each]['id']
-              o['c_author']=t[each]['c_author']
-              o['c_keywords']=t[each]['c_keywords']
-              o['c_periodical']=t[each]['c_periodical']
-              o['c_title']=t[each]['c_title']
-              o['e_periodical']=t[each]['e_periodical']
-              o['e_title']=t[each]['e_title']
-              o['fund']=t[each]['fund']
-              // o['_id'].$oid=t[each]['id']
-              o['indexID']=t[each]['indexID']
-              o['time']=t[each]['time']
-              o['units']=t[each]['units']
-              o['url']=t[each]['url']
-              console.log(o)
+              let o = {};
+              o['id']=t[each]['id'];
+              o['c_author']=t[each]['c_author'];
+              o['c_keywords']=t[each]['c_keywords'];
+              o['c_periodical']=t[each]['c_periodical'];
+              o['c_title']=t[each]['c_title'];
+              o['e_periodical']=t[each]['e_periodical'];
+              o['e_title']=t[each]['e_title'];
+              o['fund']=t[each]['fund'];
+              o['id']=t[each]['id'];
+              o['indexID']=t[each]['indexid'];
+              o['time']=t[each]['time'];
+              o['units']=t[each]['units'];
+              o['url']=t[each]['url'];
+              o['c_abstract']=t[each]['c_abstract'];
+              //console.log(o)
               this.papers.push(o)
           }
         })
