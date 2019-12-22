@@ -296,11 +296,10 @@
     },
     methods: {
       add_favorite(){
-        this.$axios.get('lx/add_favorites/?name='+this.username+'&id='+this.paper_id)
+        this.$axios.get('/lx/add_favorites/?name='+this.username+'&id='+this.paper_id)
       },
       remove_favorite(){
-        name=getCookie("username")
-        this.$axios.get('lx/remove_favorites/?name='+this.username+'&id='+this.paper_id)
+        this.$axios.get('/lx/remove_favorites/?name='+this.username+'&id='+this.paper_id)
       },
       split_keywords(str) {
         return str.split(',')
