@@ -97,8 +97,8 @@
         login: true,
         username: '',
         userType: 'user',
-        phoneNumber: '13522222222',
-        money: '0.00',
+        phoneNumber: '',
+        money: '',
       }
     }
   }

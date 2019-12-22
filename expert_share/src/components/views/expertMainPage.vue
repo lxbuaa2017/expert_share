@@ -247,38 +247,7 @@
         num2: 0,
         num3: 0,
         num4: 0,
-        experts: [
-          {
-            "name": "褚兮铭0",
-            "location": "北京航空航天大学",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "褚兮铭1",
-            "location": "广东省广州市天河区教育局",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "褚兮铭2",
-            "location": "北京航空航天大学",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "褚兮铭3",
-            "location": "北京航空航天大学",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "褚兮铭4",
-            "location": "北京航空航天大学",
-            "avatar": "",
-            "isFollowed": true,
-          },
-        ],
+        experts: [],
         searchExpertName: '',
       }
     },

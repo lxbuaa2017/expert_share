@@ -141,11 +141,8 @@
       },
       sendNewMessage() {
         this.$nextTick(()=>{
-          let json_str={"username": this.message}
-          this.$axios.post('api/if_user_exist/', JSON.stringify(json_str)).then((res)=>{
-            console.log(res.data)
+          this.$axios.post('api/if_user_exist/', {"username": this.newReceiverName}).then((res)=>{
             if(res.data.exist === "1") {
-              console.log(1);
               this.message.receiver = this.newReceiverName;
               this.$refs.messageBox.focus();
             }

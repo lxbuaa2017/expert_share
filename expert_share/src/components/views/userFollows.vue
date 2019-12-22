@@ -60,26 +60,7 @@
     data() {
       return {
         username: '',
-        experts: [
-          {
-            "name": "王乾伟3",
-            "location": "laji",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "王乾伟4",
-            "location": "laji",
-            "avatar": "",
-            "isFollowed": true,
-          },
-          {
-            "name": "王乾伟5",
-            "location": "laji",
-            "avatar": "",
-            "isFollowed": true,
-          }
-        ]
+        experts: []
       }
     },
     components: {pageHeader, searchBox, userMainpageSider, showFollows}
