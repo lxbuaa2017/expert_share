@@ -7,3 +7,6 @@
 
 在项目目录（expert/expert/），点击webstorm下面的terminal，执行npm install安装依赖
 安装之后npm run dev即可运行
+
+components里存放各个vue组件，其中views中存放的是主页面的组件，与之对应的文件夹里的是子组件
+
